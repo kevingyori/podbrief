@@ -1,5 +1,5 @@
 Install the packages and run the development server:
 
 ```bash
-pnpm i && pnpm dev
+npm i && npm run dev
 ```
