@@ -30,12 +30,11 @@ const getData = async () => {
 };
 
 export default async function Home() {
-  const data = await getData();
-  console.log(data);
+  const testData = await getData();
+  console.log(testData)
 
   const supabase = createServerComponentClient({ cookies });
   const { data: users } = await supabase.from("users").select();
-  console.log(users)
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
