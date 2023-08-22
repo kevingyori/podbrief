@@ -1,4 +1,4 @@
-let openAI = require("./openaiConfig.ts")
+const openAI = require("./openaiConfig.ts")
 
 const generateChatResponse = async () => {
     const chatCompletion = await openAI.chat.completions.create({
@@ -9,3 +9,6 @@ const generateChatResponse = async () => {
 }
 
 generateChatResponse()
+
+// https://github.com/openai/openai-node
+// https://github.com/openai/openai-node/discussions/217
