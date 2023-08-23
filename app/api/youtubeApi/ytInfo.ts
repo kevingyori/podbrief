@@ -1,10 +1,10 @@
 const axios = require("axios");
-const supabaseApi = require("../supabaseConfig.ts")
+const supabaseApi = require("../supabaseConfig.ts");
 require("dotenv").config({ path: require("find-config")(".env") });
 
 async function fetchYouTubeVideoData() {
   const apiKey = process.env.YT_DATA_API_KEY;
-  const videoId = "Ks-_Mh1QhMc";
+  const videoId = "Ks-_Mh1QhMc" ; // _9b7BOJyE9A "dQw4w9WgXcQ" "Ks-_Mh1QhMc"
   const apiUrl = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${videoId}&key=${apiKey}`;
 
   try {
@@ -29,6 +29,25 @@ async function saveVideoInfoToDB(
   url
 ) {
   try {
+    //checking for existing video
+    const { data: existingData, error: existingError } = await supabaseApi
+      .from("podcasts")
+      .select("*")
+      .eq("url", url); //replace with video_id
+
+    if (existingError) {
+      console.error("Supabase API error:", existingError);
+      return;
+    }
+
+    if (existingData && existingData.length > 0) {
+      console.log(
+        "Row with the same video_id already exists. Skipping insertion."
+      );
+      return;
+    }
+
+    //inserting new video to podcasts table
     const { data, error } = await supabaseApi
       .from("podcasts")
       .insert([
@@ -37,20 +56,19 @@ async function saveVideoInfoToDB(
           video_title: videoTitle,
           video_description: videoDescription,
           channel_title: channelTitle,
-          url: url
+          url: url,
         },
       ])
       .select();
-  
+
     if (error) {
-      console.error('Supabase API error:', error);
+      console.error("Supabase API error:", error);
     } else {
-      console.log('Data inserted');
+      console.log("Data inserted");
     }
   } catch (exception) {
-    console.error('An error occurred:', exception);
+    console.error("An error occurred:", exception);
   }
-  
 }
 
 (async () => {
