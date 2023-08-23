@@ -4,11 +4,11 @@
 //   .then(res => console.log(res.data))
 //   .catch(error => console.error('Error:', error.message));
 
-const {OpenAI} = require('openai')
-require('dotenv').config({ path: require('find-config')('.env') })
+const { OpenAI } = require("openai");
+require("dotenv").config({ path: require("find-config")(".env") });
 
 const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY
-})
+  apiKey: process.env.OPENAI_API_KEY,
+});
 
-module.exports = openai
+module.exports = openai;
