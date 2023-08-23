@@ -20,14 +20,9 @@ const generateChatResponse = async () => {
 // https://github.com/openai/openai-node
 // https://github.com/openai/openai-node/discussions/217
 
-// // //save summary to db
-// const { createClient } = require("@supabase/supabase-js");
-
-// const supabaseUrl = "https://qcqfhwyxvoqaqxgawien.supabase.co";
-// const supabaseApiKey = process.env.SUPABASE_KEY;
-
-// // Create a Supabase client instance
-// const supabase = createClient(supabaseUrl, supabaseApiKey);
+//subscribe to podcast table changes in db
+//fetch transcript and other stuff from db to build summarization
+//save summary to db
 
 async function fetchTableData(tableName) {
   try {
