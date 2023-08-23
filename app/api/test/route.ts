@@ -1,7 +1,7 @@
-const { NextResponse } = require("next/server");
-const axios = require('axios');
+// const { NextResponse } = require("next/server");
+// const axios = require('axios');
 
-console.log("hello world");
+// console.log("hello world");
 
 // export async function GET(request) {
 //   const data = {
@@ -12,14 +12,14 @@ console.log("hello world");
 //   return NextResponse.json(data, { status: 200 });
 // }
 
-module.exports.GET = async (request) => {
-  const data = {
-        message: "podcast stuff",
-        timestamp: new Date().toISOString(),
-      };
+// module.exports.GET = async (request) => {
+//   const data = {
+//         message: "podcast stuff",
+//         timestamp: new Date().toISOString(),
+//       };
     
-      return NextResponse.json(data, { status: 200 });
-}
+//       return NextResponse.json(data, { status: 200 });
+// }
 
 // axios.get('https://dummyjson.com/products/1')
 //   .then(res => console.log(res.data))

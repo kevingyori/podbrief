@@ -1,5 +1,5 @@
 const axios = require("axios");
-const supabaseApi = require("../supabaseConfig.ts");
+const supabaseApi = require("../../server/supabaseConfig.ts");
 require("dotenv").config({ path: require("find-config")(".env") });
 
 async function fetchYouTubeVideoData() {

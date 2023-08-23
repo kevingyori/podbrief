@@ -1,5 +1,5 @@
 const openAI = require("./openaiConfig.ts");
-let supabaseAPI = require("../supabaseConfig.ts");
+let supabaseAPI = require("../../server/supabaseConfig.ts");
 
 
 const generateChatResponse = async () => {
