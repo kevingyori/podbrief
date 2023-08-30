@@ -1,4 +1,4 @@
-const fs = require("fs");
+const FS = require("fs");
 const { YoutubeTranscript } = require("youtube-transcript");
 const supabaseDB = require("../../server/supabaseConfig.ts");
 //https://github.com/Kakulukian/youtube-transcript
@@ -42,7 +42,7 @@ const concatenateTranscript = (transcriptArray) => {
 };
 
 const writeTxt = (transcript) => {
-  fs.writeFile("transcript.txt", transcript, (err) => {
+  FS.writeFile("transcript.txt", transcript, (err) => {
     if (err) {
       console.error(err);
     }

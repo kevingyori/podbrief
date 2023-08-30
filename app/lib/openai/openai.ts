@@ -15,7 +15,7 @@ const generateChatResponse = async () => {
   console.log(chatCompletion.choices[0].message);
 };
 
-// generateChatResponse()
+generateChatResponse()
 
 // https://github.com/openai/openai-node
 // https://github.com/openai/openai-node/discussions/217
@@ -24,22 +24,22 @@ const generateChatResponse = async () => {
 //fetch transcript and other stuff from db to build summarization
 //save summary to db
 
-async function fetchTableData(tableName) {
-  try {
-    // Fetch data from the specified table
-    const { data, error } = await supabaseAPI
-      .from(tableName)
-      .select("*")
-      .eq("name", "peter patzer");
+// async function fetchTableData(tableName) {
+//   try {
+//     // Fetch data from the specified table
+//     const { data, error } = await supabaseAPI
+//       .from(tableName)
+//       .select("*")
+//       .eq("name", "peter patzer");
 
-    if (error) {
-      throw error;
-    }
+//     if (error) {
+//       throw error;
+//     }
 
-    console.log("Fetched data:", data);
-  } catch (error) {
-    console.error("Error fetching data:", error.message);
-  }
-}
+//     console.log("Fetched data:", data);
+//   } catch (error) {
+//     console.error("Error fetching data:", error.message);
+//   }
+// }
 
-fetchTableData("users");
+// fetchTableData("users");

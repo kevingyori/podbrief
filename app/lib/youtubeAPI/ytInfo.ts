@@ -4,7 +4,7 @@ require("dotenv").config({ path: require("find-config")(".env") });
 
 async function fetchYouTubeVideoData() {
   const apiKey = process.env.YT_DATA_API_KEY;
-  const videoId = "Ks-_Mh1QhMc" ; // _9b7BOJyE9A "dQw4w9WgXcQ" "Ks-_Mh1QhMc"
+  const videoId = "dQw4w9WgXcQ" ; // _9b7BOJyE9A "dQw4w9WgXcQ" "Ks-_Mh1QhMc"
   const apiUrl = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${videoId}&key=${apiKey}`;
 
   try {
