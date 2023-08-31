@@ -2,10 +2,11 @@ const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
 
-const url = 'https://traffic.megaphone.fm/GLT5025099642.mp3?updated=1511217022';
+// const url = 'https://traffic.megaphone.fm/GLT5025099642.mp3?updated=1511217022';
+const url = "http://open.live.bbc.co.uk/mediaselector/6/redir/version/2.0/mediaset/audio-nondrm-download/proto/http/vpid/p03jn4gx.mp3"
 // const downloadPath = path.join(__dirname, 'downloaded.mp3'); // Change the filename and path as needed
 
-const downloadPath = path.join("../../server/files", 'downloaded.mp3');
+const downloadPath = path.join("../../server/files", 'downloaded.mp4');
 
 axios({
   method: 'get',

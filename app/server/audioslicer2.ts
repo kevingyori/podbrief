@@ -1,8 +1,8 @@
 const MP3Cutter = require('mp3-cutter');
 const fileSys = require('fs');
 
-const audioFilePath = './files/downloaded.mp3';
-const chunkSizeInMB = 5;
+const audioFilePath = './files/downloaded.mp4';
+const chunkSizeInMB = 20;
 
 // Get file size in bytes
 const fileSizeInBytes = fileSys.statSync(audioFilePath).size;
@@ -21,7 +21,7 @@ console.log('File size (MB):', fileSizeInBytes / (1024 * 1024));
 for (let index = 0; index < totalChunks; index++) {
     const start = index * chunkSizeInMB * 1024 * 1024;
     const end = Math.min((index + 1) * chunkSizeInMB * 1024 * 1024, fileSizeInBytes);
-    const outputPath = `./files/slicedAudio/audio-chunk-${index}.mp3`
+    const outputPath = `./files/slicedAudio/audio-chunk-${index}.mp4`
 
     MP3Cutter.cut({
         src: audioFilePath,
