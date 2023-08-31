@@ -6,18 +6,18 @@ const audioChunksFolder = "../../server/files/slicedAudio";
 const outputFilePath = "../../server/files/transcription.txt";
 
 async function getTranscriptionsForAudioChunks() {
-  const audioFiles: string[] = fileSystem.readdirSync(audioChunksFolder).filter(file => file.endsWith(".mp4"));
+  const audioFiles = fileSystem.readdirSync(audioChunksFolder).filter(file => file.endsWith(".mp4"));
 
-  const allTranscriptions: string[] = [];
+  const allTranscriptions= [];
 
   for (const audioFile of audioFiles) {
-    const audioFilePath: string = PATH.join(audioChunksFolder, audioFile);
-    const transcription: string = await transcribeAudio(audioFilePath);
+    const audioFilePath = PATH.join(audioChunksFolder, audioFile);
+    const transcription = await transcribeAudio(audioFilePath);
     allTranscriptions.push(transcription);
     console.log(audioFilePath + " transcribed")
   }
 
-  const concatenatedTranscriptions: string = allTranscriptions.join("\n");
+  const concatenatedTranscriptions = allTranscriptions.join("\n");
   writeTranscriptionToFile(concatenatedTranscriptions);
 }
 
@@ -25,6 +25,7 @@ async function transcribeAudio(audioFilePath){
   const transcription = await whisper.audio.transcriptions.create({
     file: fileSystem.createReadStream(audioFilePath),
     model: "whisper-1",
+    language: "en"
   });
 
   return transcription.text;
