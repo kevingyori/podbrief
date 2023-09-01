@@ -1,8 +1,11 @@
 const MP3Cutter = require('mp3-cutter');
 const fileSys = require('fs');
+const PATH = require('path');
 
 const audioFilePath = './files/downloaded.mp4';
 const chunkSizeInMB = 20;
+const targetDirectory = './files/slicedAudio';
+
 
 // Get file size in bytes
 const fileSizeInBytes = fileSys.statSync(audioFilePath).size;
@@ -16,6 +19,20 @@ const durationInSeconds = (fileSizeInBytes * 8) / (averageBitRate * 1000);
 
 console.log('Duration (seconds):', durationInSeconds);
 console.log('File size (MB):', fileSizeInBytes / (1024 * 1024));
+
+// Function to delete all files in the target directory
+function deleteFilesInDirectory(directory) {
+    fileSys.readdirSync(directory).forEach(file => {
+        const filePath = PATH.join(directory, file);
+        if (fileSys.statSync(filePath).isFile()) {
+            fileSys.unlinkSync(filePath);
+            console.log(`Deleted file: ${filePath}`);
+        }
+    });
+}
+
+// Delete existing files in the target directory
+deleteFilesInDirectory(targetDirectory);
 
 // Split the audio into chunks
 for (let index = 0; index < totalChunks; index++) {

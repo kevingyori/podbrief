@@ -1,21 +1,54 @@
 const openAI = require("./openaiConfig.ts");
 let supabaseAPI = require("../../server/supabaseConfig.ts");
+const fileSystem = require("fs")
 
+const inputFile = "../../server/files/slicedTranscription/chunk-1.txt"
+const summaryPromptFile = "../../server/files/summaryPrompt.txt";
+const outputSummaryFile = "../../server/files/summary.txt";
 
-const generateChatResponse = async () => {
+// Read the summary prompt file
+fileSystem.readFile(summaryPromptFile, 'utf8', (err, summaryPrompt) => {
+  if (err) {
+    console.error(err);
+    return;
+  }
+
+  // Read the transcription file
+  fileSystem.readFile(inputFile, 'utf8', (err, transcription) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+
+    generateChatResponse(summaryPrompt, transcription);
+  });
+});
+
+const generateChatResponse = async (summaryPrompt, transcription) => {
   const chatCompletion = await openAI.chat.completions.create({
-    model: "gpt-3.5-turbo",
+    // model: "gpt-3.5-turbo",
+    model: "gpt-4",
     messages: [
       {
         role: "user",
-        content: `"summarize it for me: It is it well, I saw you when you walked in today. I was like, God damn, you look good. You look good, dude. Like your muscles look good. You look like your vascular. You look fit. And that's. And I'm starting to feel fit, that's what's interesting. I know what they do, and so, like, I think I'm in shape. And then the next thing you know, you think you're in shape and then you start having like Ralphie, I start throwing punches at me."`,
+        content: `${summaryPrompt} ${transcription}`,
+        // content: "whats up"
       },
     ],
   });
-  console.log(chatCompletion.choices[0].message);
+  const summary = chatCompletion.choices[0].message.content;
+
+  //Write the summary to a text file
+  fileSystem.writeFile(outputSummaryFile, summary, 'utf8', (err) => {
+    if (err) {
+      console.error(`Error writing summary to ${outputSummaryFile}:`, err);
+    } else {
+      console.log(`Summary written to ${outputSummaryFile}`);
+    }
+  });
 };
 
-generateChatResponse()
+// generateChatResponse()
 
 // https://github.com/openai/openai-node
 // https://github.com/openai/openai-node/discussions/217
@@ -42,4 +75,4 @@ generateChatResponse()
 //   }
 // }
 
-// fetchTableData("users");
+//  

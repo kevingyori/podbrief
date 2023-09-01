@@ -26,6 +26,7 @@
     "find-config": "^1.0.0",
     "fluent-ffmpeg": "^2.1.2",
     "form-data": "^4.0.0",
+    "gpt-3-encoder": "^1.1.4",
     "mp3-cutter": "^1.0.6",
     "next": "13.4.19",
     "openai": "^4.3.1",
