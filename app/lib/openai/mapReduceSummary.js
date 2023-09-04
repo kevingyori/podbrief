@@ -1,5 +1,4 @@
-//-----------ITT ÁLLÍTJA ÖSSZE A FINAL JSONT -> summaryOverviewokból csináljon egyet, extractelje ki a hostot, guesteket, stb. 
-//random válasszon ki quoteokat és bullet pointokat!!!
+//mapReduce summary
 
 const fs = require("fs");
 const openAI = require("./openaiConfig.ts");
@@ -20,6 +19,7 @@ fs.readFile("../../server/files/summaryChunks.json", 'utf8', async (err, json) =
   const allSummaries = [];
   const allActionableInsights = [];
   const allKeyTakeaways = [];
+  const allQuotes = [];
 
   // Iterate through the data array
   podcastData.data.forEach((item) => {
@@ -34,25 +34,32 @@ fs.readFile("../../server/files/summaryChunks.json", 'utf8', async (err, json) =
     response.keyTakeaways.forEach((takeaway) => {
       allKeyTakeaways.push(`- ${takeaway}`);
     });
+
+    response.memorableQuotes.forEach((quote) => {
+      allQuotes.push(`- ${quote}`);
+    });
   });
 
   // Shuffle the arrays randomly
   shuffleArray(allActionableInsights);
   shuffleArray(allKeyTakeaways);
+  shuffleArray(allQuotes);
 
   // Select the first 7 items from each array
   const selectedActionableInsights = allActionableInsights.slice(0, 7);
   const selectedKeyTakeaways = allKeyTakeaways.slice(0, 7);
+  const selectedQuotes = allQuotes.slice(0, 3);
 
   // Create an object to store the selected summaries
   const selectedSummariesObject = {
     summaryOverview: await generateSummaryOverview(allSummaries.join("")),
     keyTakeaways: selectedKeyTakeaways,
     actionableInsights: selectedActionableInsights,
+    memorableQuotes: selectedQuotes
   };
 
   // Write the selected summaries to the txt file
-  const summaryText = allSummaries.join('\n\n') + allActionableInsights.join('\n\n') + allKeyTakeaways.join('\n\n');
+  const summaryText = allSummaries.join('\n\n') + allActionableInsights.join('\n\n') + allKeyTakeaways.join('\n\n') + allQuotes.join('\n\n');
   fs.writeFile(outputSummaryTextFile, summaryText, 'utf8', (err) => {
     if (err) {
       console.error(`Error writing summary to ${outputSummaryTextFile}:`, err);

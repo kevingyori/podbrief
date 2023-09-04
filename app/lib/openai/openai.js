@@ -102,7 +102,7 @@ const generateChatResponse = async (summaryPrompt, transcription) => {
       "memorableQuotes":{
         "type" : "array", 
         "description": "the memorable quotes",
-        "items": {"type" : "object"}
+        "items": {"type" : "string"}
       }
     }
   }
