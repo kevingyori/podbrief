@@ -1,6 +1,6 @@
 I'm providing you with a podcast transcript  and I require your expertise in extracting the most essential details from it.
 
-Title & Host Information:
+Host Information:
 
 Host(s) & Guest(s) (if any): Extract names and roles. Provide a brief 1-2 sentence bio or description based on context within the transcript.
 

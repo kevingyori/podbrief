@@ -3,7 +3,7 @@ const path = require('path');
 
 const inputTrancription = "./files/transcription.txt";
 const outputDirectory = "./files/slicedTranscription";
-const maxChunkSize = 20000; //~4 chars equal to 1 token. TODO: refactor it, so it splits the text based on token count
+const maxChunkSize = 11000; //~4 chars equal to 1 token. TODO: refactor it, so it splits the text based on token count
 
 // Function to delete all files in the target directory
 function deleteFilesInDirectory(directory) {
