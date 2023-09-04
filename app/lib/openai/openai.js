@@ -1,3 +1,5 @@
+//Calls GPT api 
+
 const openAI = require("./openaiConfig.ts");
 const supabaseAPI = require("../../server/supabaseConfig.ts");
 const fileSystem = require("fs");
@@ -47,9 +49,11 @@ fileSystem.readFile(summaryPromptFile, 'utf8', (err, summaryPrompt) => {
       // Prepare data for JSON output
       responses.forEach((response, index) => {
 
+        console.log(response)
+
         jsonResponseData.push({
           index: index + 1,
-          response: JSON.parse(response)
+          response: JSON.parse(response) //json parse response
         });
 
       });
@@ -100,9 +104,6 @@ const generateChatResponse = async (summaryPrompt, transcription) => {
         "description": "the memorable quotes",
         "items": {"type" : "object"}
       }
-
-      //memorable quotes objects in array
-      //actionable insights
     }
   }
 
@@ -120,15 +121,8 @@ const generateChatResponse = async (summaryPrompt, transcription) => {
 
   const summary = chatCompletion.choices[0].message.function_call.arguments
 
-  // console.log(JSON.parse(summary))
-
   return summary
-
-  // return chatCompletion.choices[0].message.content;
 };
-
-
-// generateChatResponse()
 
 // https://github.com/openai/openai-node
 // https://github.com/openai/openai-node/discussions/217
