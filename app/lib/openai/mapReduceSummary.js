@@ -50,9 +50,11 @@ fs.readFile("../../server/files/summaryChunks.json", 'utf8', async (err, json) =
   const selectedKeyTakeaways = allKeyTakeaways.slice(0, 7);
   const selectedQuotes = allQuotes.slice(0, 3);
 
+  const summaryOverview = await generateSummaryOverview(allSummaries.join(""))
+
   // Create an object to store the selected summaries
   const selectedSummariesObject = {
-    summaryOverview: await generateSummaryOverview(allSummaries.join("")),
+    summaryOverview: summaryOverview,
     keyTakeaways: selectedKeyTakeaways,
     actionableInsights: selectedActionableInsights,
     memorableQuotes: selectedQuotes
@@ -77,6 +79,10 @@ fs.readFile("../../server/files/summaryChunks.json", 'utf8', async (err, json) =
       console.log(`Selected summaries written to ${outputRandomSummariesFile}`);
     }
   });
+
+  //SAVE JSON TO DB!!!
+
+  saveFinalSummaryToDB(selectedSummariesJSON)
 });
 
 // Function to shuffle an array in-place (Fisher-Yates shuffle algorithm)
@@ -94,7 +100,7 @@ const generateSummaryOverview = async (summaries) => {
     messages: [
       {
         role: "user",
-        content: `Detailed Synopsis: Craft a 10-12 sentence summary that encapsulates the main theme, major discussion points, and the general tone of the episode. ${summaries}`,
+        content: `${summaries} Detailed Synopsis: Craft a 10-12 sentence summary that encapsulates the main theme, major discussion points, and the general tone of the episode.`,
       },
     ],
   });

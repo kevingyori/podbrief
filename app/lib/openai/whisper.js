@@ -1,38 +1,45 @@
-const fileSystem = require("fs");
-const PATH = require("path");
+const fs = require("fs");
+const path = require("path");
 const whisper = require("./openaiConfig.ts");
 
 const audioChunksFolder = "../../server/files/slicedAudio";
 const outputFilePath = "../../server/files/transcription.txt";
 
 async function getTranscriptionsForAudioChunks() {
-  const audioFiles = fileSystem.readdirSync(audioChunksFolder).filter(file => file.endsWith(".mp4"));
+  const audioFiles = fs
+    .readdirSync(audioChunksFolder)
+    .filter((file) => file.endsWith(".mp4"));
 
-  const allTranscriptions= [];
+  const transcriptionPromises = audioFiles.map((audioFile) => {
+    const audioFilePath = path.join(audioChunksFolder, audioFile);
+    return transcribeAudio(audioFilePath).then((transcription) => {
+      console.log(audioFilePath + " transcribed");
+      return transcription;
+    });
+  });
 
-  for (const audioFile of audioFiles) {
-    const audioFilePath = PATH.join(audioChunksFolder, audioFile);
-    const transcription = await transcribeAudio(audioFilePath);
-    allTranscriptions.push(transcription);
-    console.log(audioFilePath + " transcribed")
-  }
-
-  const concatenatedTranscriptions = allTranscriptions.join("\n");
-  writeTranscriptionToFile(concatenatedTranscriptions);
+  Promise.all(transcriptionPromises)
+    .then((transcriptions) => {
+      const concatenatedTranscriptions = transcriptions.join("\n");
+      writeTranscriptionToFile(concatenatedTranscriptions);
+    })
+    .catch((error) => {
+      console.error("Error processing transcriptions:", error);
+    });
 }
 
-async function transcribeAudio(audioFilePath){
+async function transcribeAudio(audioFilePath) {
   const transcription = await whisper.audio.transcriptions.create({
-    file: fileSystem.createReadStream(audioFilePath),
+    file: fs.createReadStream(audioFilePath),
     model: "whisper-1",
-    language: "en"
+    language: "en",
   });
 
   return transcription.text;
 }
 
 function writeTranscriptionToFile(transcription) {
-  fileSystem.writeFile(outputFilePath, transcription, (err) => {
+  fs.writeFile(outputFilePath, transcription, (err) => {
     if (err) {
       console.error(err);
     } else {
@@ -42,3 +49,4 @@ function writeTranscriptionToFile(transcription) {
 }
 
 getTranscriptionsForAudioChunks();
+
