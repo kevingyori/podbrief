@@ -12,12 +12,14 @@ const headers = {
   'X-API-KEY': process.env.TADDY_API_KEY
 };
 
-const data = {
-    query: '{ getPodcastEpisode(name:"Should we pay $300 million for this athletic equipment business? - Acquisitions Anonymous 223") { uuid name imageUrl datePublished audioUrl duration episodeType podcastSeries {uuid name} } }'
-}
-
-async function fetchDataAndInsert() {
+async function fetchDataAndInsert(episodeUUID) {
     try {
+
+      //episodeUUID instead of episode name
+      const data = {
+        query: '{ getPodcastEpisode(name:"Should we pay $300 million for this athletic equipment business? - Acquisitions Anonymous 223") { uuid name imageUrl datePublished audioUrl duration episodeType podcastSeries {uuid name} } }'
+      }
+
       const response = await ax.post(taddyURL, data, { headers });
       const podcastData = response.data.data.getPodcastEpisode
   
