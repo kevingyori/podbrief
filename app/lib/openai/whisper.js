@@ -13,15 +13,17 @@ console.log("running whisper js")
     .readdirSync(audioChunksFolder)
     .filter((file) => file.endsWith(".mp4"));
 
-  const transcriptionPromises = audioFiles.map((audioFile) => {
+    const transcriptionPromises = audioFiles.map((audioFile) => {
+
     const audioFilePath = path.join(audioChunksFolder, audioFile);
+
     return transcribeAudio(audioFilePath).then((transcription) => {
       console.log(audioFilePath + " transcribed");
       return transcription;
     });
   });
 
-  Promise.all(transcriptionPromises)
+  return Promise.all(transcriptionPromises)
     .then((transcriptions) => {
       const concatenatedTranscriptions = transcriptions.join("\n");
       writeTranscriptionToFile(concatenatedTranscriptions);
@@ -50,10 +52,6 @@ function writeTranscriptionToFile(transcription) {
     }
   });
 }
-
-getTranscriptionsForAudioChunks()
-
-module.exports = getTranscriptionsForAudioChunks;
 
 // const fs = require("fs");
 // const path = require("path");
@@ -114,3 +112,6 @@ module.exports = getTranscriptionsForAudioChunks;
 //     });
 //   });
 // }
+
+
+module.exports = getTranscriptionsForAudioChunks;

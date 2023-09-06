@@ -9,6 +9,9 @@ const targetDirectory = './files/slicedAudio'; // Update the target directory
 
 function audioSlicer(){
 
+  return new Promise((resolve, reject) =>{
+    try{
+
     // Get the duration of the audio file
     const durationInSeconds = getMP3Duration(audioFilePath);
 
@@ -41,6 +44,13 @@ function audioSlicer(){
 
         console.log(`Chunk ${index} sliced and saved as ${outputPath}`);
     }
+
+    resolve('Slicing completed')
+  }catch(error){
+    reject(error)
+  }
+
+  })
 }
 
 // Function to get the duration of an MP3 file using ffprobe

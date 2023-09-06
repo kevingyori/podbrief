@@ -9,74 +9,97 @@ const uniqid = require("uniqid")
 // const outputSummaryChunksJSONFile = "../../server/files/summaryChunks.json";
 // const transcriptionDirectory = "../../server/files/slicedTranscription/";
 
-function summarizeWithGpt (summaryPromptFilePath, outputSummaryChunksJSONFilePath, transcriptionDirectoryPath ){
-  // Read the summary prompt file
-  fileSystem.readFile(summaryPromptFilePath, 'utf8', (err, summaryPrompt) => {
-    if (err) {
-      console.error(err);
-      return;
-    }
-
-    // Read the list of transcription files in the directory
-    fileSystem.readdir(transcriptionDirectoryPath, async (err, files) => {
+function summarizeWithGpt(
+  summaryPromptFilePath,
+  outputSummaryChunksJSONFilePath,
+  transcriptionDirectoryPath
+) {
+  return new Promise((resolve, reject) => {
+    // Read the summary prompt file
+    fileSystem.readFile(summaryPromptFilePath, "utf8", (err, summaryPrompt) => {
       if (err) {
         console.error(err);
         return;
       }
 
-      // Create an array to store promises for generating responses
-      const responsePromises = [];
-
-      // Create an array to store responses for JSON output
-      const jsonResponseData = [];
-
-      // Iterate over each file in the directory
-      files.forEach((file) => {
-        const filePath = path.join(transcriptionDirectoryPath, file);
-
-        // Read the transcription file
-        const transcription = fileSystem.readFileSync(filePath, 'utf8');
-
-        // Generate a chat response for each transcription
-        const responsePromise = generateChatResponse(summaryPrompt, transcription);
-        responsePromises.push(responsePromise);
-      });
-
-      try {
-        // Wait for all responses to be generated
-        const responses = await Promise.all(responsePromises);
-
-        // Prepare data for JSON output
-        responses.forEach((response, index) => {
-
-          console.log(response)
-
-          jsonResponseData.push({
-            index: index + 1,
-            response: JSON.parse(response) //json parse response
-          });
-
-        });
-
-        const podcastJSON = {
-          id: uniqid(),
-          name: "",
-          date: "",
-          //stb
-          data: jsonResponseData
+      // Read the list of transcription files in the directory
+      fileSystem.readdir(transcriptionDirectoryPath, async (err, files) => {
+        if (err) {
+          console.error(err);
+          return;
         }
 
-        // Write the responses to the summary JSON file
-        fileSystem.writeFile(outputSummaryChunksJSONFilePath, JSON.stringify(podcastJSON, null, 2), 'utf8', (err) => {
-          if (err) {
-            console.error(`Error writing summary to ${outputSummaryChunksJSONFilePath}:`, err);
-          } else {
-            console.log(`Summary written to ${outputSummaryChunksJSONFilePath}`);
-          }
+        // Create an array to store promises for generating responses
+        const responsePromises = [];
+
+        // Create an array to store responses for JSON output
+        const jsonResponseData = [];
+
+        // Iterate over each file in the directory
+        files.forEach((file) => {
+          const filePath = path.join(transcriptionDirectoryPath, file);
+
+          // Read the transcription file
+          const transcription = fileSystem.readFileSync(filePath, "utf8");
+
+          // Generate a chat response for each transcription
+          const responsePromise = generateChatResponse(
+            summaryPrompt,
+            transcription
+          );
+          responsePromises.push(responsePromise);
         });
-      } catch (error) {
-        console.error("Error generating chat responses:", error);
-      }
+
+        try {
+          // Wait for all responses to be generated
+          const responses = await Promise.all(responsePromises);
+
+          // Prepare data for JSON output
+          responses.forEach((response, index) => {
+            console.log(response);
+
+            response = JSON.parse(
+              JSON.stringify(response).replace(/(\r\n|\n|\r)/gm, "")
+            ); //removes whitespace,  maybe prevents unexpected token
+
+            jsonResponseData.push({
+              index: index + 1,
+              response: JSON.parse(response), //json parse response néha dob egy error: unexpected tokent
+            });
+          });
+
+          const podcastJSON = {
+            id: uniqid(),
+            name: "",
+            date: "",
+            //stb
+            data: jsonResponseData,
+          };
+
+          // Write the responses to the summary JSON file
+          fileSystem.writeFile(
+            outputSummaryChunksJSONFilePath,
+            JSON.stringify(podcastJSON, null, 2),
+            "utf8",
+            (err) => {
+              if (err) {
+                console.error(
+                  `Error writing summary to ${outputSummaryChunksJSONFilePath}:`,
+                  err
+                );
+                reject(err);
+              } else {
+                console.log(
+                  `Summary written to ${outputSummaryChunksJSONFilePath}`
+                );
+                resolve(podcastJSON);
+              }
+            }
+          );
+        } catch (error) {
+          console.error("Error generating chat responses:", error);
+        }
+      });
     });
   });
 }

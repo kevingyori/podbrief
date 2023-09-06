@@ -4,7 +4,7 @@ const path = require('path');
 module.exports = {
 
   //gpt
-  summaryPromptFile: path.join(__dirname, './files/summaryPrompt.txt'),
+  summaryPromptFile: path.join(__dirname, './files/staticFiles/summaryPrompt.txt'),
   outputSummaryChunksJSONFile: path.join(__dirname, './files/summaryChunks.json'),
   transcriptionDirectory: path.join(__dirname, './files/slicedTranscription/'),
 

@@ -29,7 +29,6 @@ async function main() {
 
     const episodeUUID =  await result.uuid;
 
-    // Check if audioUrl is defined
     if (result.audioUrl) {
 
       await downloadPodcastAudio(result.audioUrl);
@@ -39,30 +38,27 @@ async function main() {
       console.error("audioUrl is undefined in the result.");
     }
 
-    //slice audio
+    // might have bugs because of promise?
+    // //slice audio
     await audioSlicer();
 
-    //transcript with whisper
-    const resolveTranscription= await getTranscriptionWhisper();
+    // //transcript with whisper
+    const resolveTranscription = await getTranscriptionWhisper();
 
-    //!!!ITT NEM VÁR A GETTRANSCRIPTIONRE!!!!
-    //lehet csak a whisper api a probléme (connection error), csak mert eddig jó volt, no?
-    //de azért megpróbálni biztosabbá tenni, throw error, thrwo promise, stb
-    //async await syntax?
-
-    //slice transcription
+    // //slice transcription
     await sliceTranscription(resolveTranscription);
 
     //gpt summarizes transcription chunks
-    // await summarizeWithGpt(pathConfig.summaryPromptFile, pathConfig.outputSummaryChunksJSONFile, pathConfig.transcriptionDirectory)
+    const resolveChunkSummary = await summarizeWithGpt(pathConfig.summaryPromptFile, pathConfig.outputSummaryChunksJSONFile, pathConfig.transcriptionDirectory)
 
-    //VALSZEG ITT NEM VÁR A mapReduceSummary a summarizeWithGpt-re!!!
 
     // //create final summary
-    // const finalSummary = await mapReduceSummary(pathConfig.outputSummaryTextFile, pathConfig.outputFinalSummaryFile, pathConfig.summaryChunksFile)
+    const finalSummary = await mapReduceSummary(pathConfig.outputSummaryTextFile, pathConfig.outputFinalSummaryFile, pathConfig.summaryChunksFile)
 
     // //save json to db
-    // await saveFinalSummaryToDB(finalSummary, episodeUUID);
+    const resolveSummarySave = await saveFinalSummaryToDB(finalSummary, episodeUUID);
+
+    //check if all files are existing, delete stuff
     
   } catch (error) {
     console.error("Main function error:", error);

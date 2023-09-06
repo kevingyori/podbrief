@@ -9,6 +9,7 @@ require("dotenv").config({ path: require("find-config")(".env") });
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
+  configuration: process.env.OPENAI_ORGANIZATION_ID
 });
 
 module.exports = openai;
