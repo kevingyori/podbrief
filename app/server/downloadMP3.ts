@@ -40,6 +40,4 @@ async function downloadAudio(audioUrl) {
   }
 }
 
-downloadAudio("https://chrt.fm/track/597CEG/www.buzzsprout.com/1964407/13459963-should-we-pay-300-million-for-this-athletic-equipment-business-acquisitions-anonymous-223.mp3")
-
 module.exports = downloadAudio

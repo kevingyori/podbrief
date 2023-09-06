@@ -3,87 +3,117 @@
 const fs = require("fs");
 const openAI = require("./openaiConfig.ts");
 
-const outputSummaryTextFile = "../../server/files/combinedSummary.txt";
-const outputRandomSummariesFile = "../../server/files/finalSummary.json";
+function mapReduceSummary(
+  outputSummaryTextFile,
+  outputFinalSummaryFile,
+  summaryChunksFile
+) {
+  return new Promise((resolve, reject) => {
+    fs.readFile(summaryChunksFile, "utf8", async (err, json) => {
+      if (err) {
+        console.error("Error reading the JSON file:", err);
+        reject(err);
+        return;
+      }
 
-fs.readFile("../../server/files/summaryChunks.json", 'utf8', async (err, json) => {
-  if (err) {
-    console.error('Error reading the JSON file:', err);
-    return;
-  }
+      // Parse the JSON data into a JavaScript object
+      const podcastData = JSON.parse(json);
 
-  // Parse the JSON data into a JavaScript object
-  const podcastData = JSON.parse(json);
+      // Create arrays to store all the summaries
+      const allSummaries = [];
+      const allActionableInsights = [];
+      const allKeyTakeaways = [];
+      const allQuotes = [];
 
-  // Create arrays to store all the summaries
-  const allSummaries = [];
-  const allActionableInsights = [];
-  const allKeyTakeaways = [];
-  const allQuotes = [];
+      // Iterate through the data array
+      podcastData.data.forEach((item) => {
+        const response = item.response;
 
-  // Iterate through the data array
-  podcastData.data.forEach((item) => {
-    const response = item.response;
+        allSummaries.push(response.summaryOverview);
 
-    allSummaries.push(response.summaryOverview);
+        response.actionableInsights.forEach((insight) => {
+          allActionableInsights.push(`- ${insight}`);
+        });
 
-    response.actionableInsights.forEach((insight) => {
-      allActionableInsights.push(`- ${insight}`);
-    });
+        response.keyTakeaways.forEach((takeaway) => {
+          allKeyTakeaways.push(`- ${takeaway}`);
+        });
 
-    response.keyTakeaways.forEach((takeaway) => {
-      allKeyTakeaways.push(`- ${takeaway}`);
-    });
+        response.memorableQuotes.forEach((quote) => {
+          allQuotes.push(`- ${quote}`);
+        });
+      });
 
-    response.memorableQuotes.forEach((quote) => {
-      allQuotes.push(`- ${quote}`);
+      // Shuffle the arrays randomly
+      shuffleArray(allActionableInsights);
+      shuffleArray(allKeyTakeaways);
+      shuffleArray(allQuotes);
+
+      // Select the first 7 items from each array
+      const selectedActionableInsights = allActionableInsights.slice(0, 7);
+      const selectedKeyTakeaways = allKeyTakeaways.slice(0, 7);
+      const selectedQuotes = allQuotes.slice(0, 3);
+
+      const summaryOverview = await generateSummaryOverview(
+        allSummaries.join("")
+      );
+
+      // Create an object to store the selected summaries
+      const selectedSummariesObject = {
+        summaryOverview: summaryOverview,
+        keyTakeaways: selectedKeyTakeaways,
+        actionableInsights: selectedActionableInsights,
+        memorableQuotes: selectedQuotes,
+      };
+
+      // Write the selected summaries to the txt file
+      const summaryText =
+        allSummaries.join("\n\n") +
+        allActionableInsights.join("\n\n") +
+        allKeyTakeaways.join("\n\n") +
+        allQuotes.join("\n\n");
+      fs.writeFile(outputSummaryTextFile, summaryText, "utf8", (err) => {
+        if (err) {
+          console.error(
+            `Error writing summary to ${outputSummaryTextFile}:`,
+            err
+          );
+          reject(err);
+        } else {
+          console.log(`Summary written to ${outputSummaryTextFile}`);
+        }
+      });
+
+      // Write the selected summaries to a new JSON file
+      const selectedSummariesJSON = JSON.stringify(
+        selectedSummariesObject,
+        null,
+        2
+      );
+
+      fs.writeFile(
+        outputFinalSummaryFile,
+        selectedSummariesJSON,
+        "utf8",
+        (err) => {
+          if (err) {
+            console.error(
+              `Error writing selected summaries to ${outputFinalSummaryFile}:`,
+              err
+            );
+            reject(err);
+          } else {
+            console.log(
+              `Selected summaries written to ${outputFinalSummaryFile}`
+            );
+
+            resolve(selectedSummariesJSON);
+          }
+        }
+      );
     });
   });
-
-  // Shuffle the arrays randomly
-  shuffleArray(allActionableInsights);
-  shuffleArray(allKeyTakeaways);
-  shuffleArray(allQuotes);
-
-  // Select the first 7 items from each array
-  const selectedActionableInsights = allActionableInsights.slice(0, 7);
-  const selectedKeyTakeaways = allKeyTakeaways.slice(0, 7);
-  const selectedQuotes = allQuotes.slice(0, 3);
-
-  const summaryOverview = await generateSummaryOverview(allSummaries.join(""))
-
-  // Create an object to store the selected summaries
-  const selectedSummariesObject = {
-    summaryOverview: summaryOverview,
-    keyTakeaways: selectedKeyTakeaways,
-    actionableInsights: selectedActionableInsights,
-    memorableQuotes: selectedQuotes
-  };
-
-  // Write the selected summaries to the txt file
-  const summaryText = allSummaries.join('\n\n') + allActionableInsights.join('\n\n') + allKeyTakeaways.join('\n\n') + allQuotes.join('\n\n');
-  fs.writeFile(outputSummaryTextFile, summaryText, 'utf8', (err) => {
-    if (err) {
-      console.error(`Error writing summary to ${outputSummaryTextFile}:`, err);
-    } else {
-      console.log(`Summary written to ${outputSummaryTextFile}`);
-    }
-  });
-
-  // Write the selected summaries to a new JSON file
-  const selectedSummariesJSON = JSON.stringify(selectedSummariesObject, null, 2);
-  fs.writeFile(outputRandomSummariesFile, selectedSummariesJSON, 'utf8', (err) => {
-    if (err) {
-      console.error(`Error writing selected summaries to ${outputRandomSummariesFile}:`, err);
-    } else {
-      console.log(`Selected summaries written to ${outputRandomSummariesFile}`);
-    }
-  });
-
-  //SAVE JSON TO DB!!!
-
-  saveFinalSummaryToDB(selectedSummariesJSON)
-});
+}
 
 // Function to shuffle an array in-place (Fisher-Yates shuffle algorithm)
 function shuffleArray(array) {
@@ -109,3 +139,5 @@ const generateSummaryOverview = async (summaries) => {
 
   return summary
 };
+
+module.exports = mapReduceSummary

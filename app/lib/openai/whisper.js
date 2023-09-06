@@ -2,10 +2,13 @@ const fs = require("fs");
 const path = require("path");
 const whisper = require("./openaiConfig.ts");
 
-const audioChunksFolder = "../../server/files/slicedAudio";
-const outputFilePath = "../../server/files/transcription.txt";
+const audioChunksFolder = path.join(__dirname, "../../server/files/slicedAudio");
+const outputFilePath = path.join(__dirname, "../../server/files/transcription.txt");
 
 async function getTranscriptionsForAudioChunks() {
+
+console.log("running whisper js")
+
   const audioFiles = fs
     .readdirSync(audioChunksFolder)
     .filter((file) => file.endsWith(".mp4"));
@@ -48,5 +51,4 @@ function writeTranscriptionToFile(transcription) {
   });
 }
 
-getTranscriptionsForAudioChunks();
-
+module.exports = getTranscriptionsForAudioChunks;
