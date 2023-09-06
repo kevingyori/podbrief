@@ -2,7 +2,7 @@ const pathConfig = require("./pathConfig.ts")
 const fetchEpisodeDataAndInsertToDB = require("../lib/podcastAPI/getEpisodeInfo.ts");
 const downloadPodcastAudio = require("./downloadMP3.ts");
 const audioSlicer = require("./audioSlicer");
-const getTranscription = require("../lib/openai/whisper");
+const getTranscriptionWhisper = require("../lib/openai/whisper");
 const sliceTranscription = require("./transcriptionSlicer");
 const summarizeWithGpt = require ("../lib/openai/gpt")
 const mapReduceSummary = require("../lib/openai/mapReduceSummary")
@@ -17,7 +17,8 @@ const saveFinalSummaryToDB = require("./saveFinalSummaryToDB.ts")
 //itt fog lefutni sorban a
 //new podcast episode webhook (noti and uuid save to db) -> realtime sub: podcast api: episode infos to db -> download audio on db change -> slice audio ->
 //transcript with whisper -> slice -> prompt chatgpt for all chunks (summaryChunks.json) -> mapreduce json -> pick bullet points, summary overview with gpt
-//-> write to db, delete unneccessary files
+//-> write to db
+//run a function to check if all files are OK-> delete unneccessary files
 
 //sending newsletter
 
@@ -42,19 +43,26 @@ async function main() {
     await audioSlicer();
 
     //transcript with whisper
-    await getTranscription();
+    const resolveTranscription= await getTranscriptionWhisper();
+
+    //!!!ITT NEM VÁR A GETTRANSCRIPTIONRE!!!!
+    //lehet csak a whisper api a probléme (connection error), csak mert eddig jó volt, no?
+    //de azért megpróbálni biztosabbá tenni, throw error, thrwo promise, stb
+    //async await syntax?
 
     //slice transcription
-    await sliceTranscription();
+    await sliceTranscription(resolveTranscription);
 
     //gpt summarizes transcription chunks
-    await summarizeWithGpt(pathConfig.summaryPromptFile, pathConfig.outputSummaryChunksJSONFile, pathConfig.transcriptionDirectory)
+    // await summarizeWithGpt(pathConfig.summaryPromptFile, pathConfig.outputSummaryChunksJSONFile, pathConfig.transcriptionDirectory)
 
-    //create final summary
-    const finalSummary = await mapReduceSummary(pathConfig.outputSummaryTextFile, pathConfig.outputFinalSummaryFile, pathConfig.summaryChunksFile)
+    //VALSZEG ITT NEM VÁR A mapReduceSummary a summarizeWithGpt-re!!!
 
-    //save json to db
-    await saveFinalSummaryToDB(finalSummary, episodeUUID);
+    // //create final summary
+    // const finalSummary = await mapReduceSummary(pathConfig.outputSummaryTextFile, pathConfig.outputFinalSummaryFile, pathConfig.summaryChunksFile)
+
+    // //save json to db
+    // await saveFinalSummaryToDB(finalSummary, episodeUUID);
     
   } catch (error) {
     console.error("Main function error:", error);
