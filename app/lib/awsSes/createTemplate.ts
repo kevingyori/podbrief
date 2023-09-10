@@ -1,5 +1,5 @@
 const {CreateTemplateCommand } = require("@aws-sdk/client-ses")
-const SESClient = require("./awsSesConfig.ts")
+const aws_ses_client = require("./awsSesConfig.ts")
 
 async function createSESTemplate() {
 
@@ -20,7 +20,7 @@ async function createSESTemplate() {
   const command = new CreateTemplateCommand(templateObject);
 
   try {
-    const response = await SESClient.send(command);
+    const response = await  aws_ses_client.send(command);
     return response;
   } catch (error) {
     console.error("Error creating SES template:", error);
