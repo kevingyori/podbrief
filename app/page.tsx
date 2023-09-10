@@ -11,11 +11,8 @@ const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
 )
 
-
 const getData = async () => {
   try {
-    // ki kell irni a teljes url-t, mert ez a component a szerveren fut
-    // ha a client oldalon futna, akkor a /api/test is eleg lenne
     const response = await fetch("http://localhost:3000/api/test", {
       method: "GET",
       headers: {
@@ -30,6 +27,7 @@ const getData = async () => {
 };
 
 export default async function Home() {
+  
   const testData = await getData();
   console.log(testData)
 

@@ -31,7 +31,7 @@ async function fetchDataAndInsert(episodeUUID) {
             uuid: podcastData.uuid,
             name: podcastData.name,
             image_url: podcastData.imageUrl,
-            date_published: new Date(podcastData.datePublished),
+            date_published: new Date(podcastData.datePublished*1000).toLocaleDateString('en-GB', { timeZone: 'Europe/London' }),
             audio_url: podcastData.audioUrl,
             duration: podcastData.duration,
             channel_id: podcastData.podcastSeries.uuid

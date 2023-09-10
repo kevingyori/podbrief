@@ -1,6 +1,6 @@
 //Calls GPT api 
 
-const openAI = require("./openaiConfig.ts");
+const openAI = require("./openaiConfig.js");
 const fileSystem = require("fs");
 const path = require("path");
 const uniqid = require("uniqid")
