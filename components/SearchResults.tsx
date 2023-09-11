@@ -6,7 +6,7 @@ import {
   selectedPodcastsLengthAtom,
 } from "@/app/lib/store";
 import { useAtom } from "jotai";
-import React from "react";
+import React, { useEffect } from "react";
 import data from "@/data.json";
 import { ScrollArea } from "./ui/scroll-area";
 import {
@@ -18,13 +18,25 @@ import {
 import { Checkbox } from "./ui/checkbox";
 import { Label } from "./ui/label";
 
-const SearchResults = () => {
+function SearchResults() {
   const [searchQuery, setSearchQuery] = useAtom(searchQueryAtom);
   const [searchResults, setSearchResults] = useAtom(searchResultsAtom);
   const [selectedPodcasts, setSelectedPodcasts] = useAtom(selectedPodcastsAtom);
   const [selectedPodcastsLength, setSelectedPodcastsLength] = useAtom(
     selectedPodcastsLengthAtom
   );
+
+  useEffect(() => {
+    // pink console log for debugging, with hour and minute
+    console.log(
+      "%cSearchResults",
+      "color: #ff00ff",
+      new Date().toLocaleTimeString()
+    );
+    console.log("searchResults", searchResults);
+    console.log("selectedPodcasts", selectedPodcasts);
+    console.log("selectedPodcastsLength", selectedPodcastsLength);
+  }, [searchResults, selectedPodcasts, selectedPodcastsLength]);
 
   const updateSelectedPodcasts = (
     selectedPodcasts: { uuid: string; value: boolean }[],
@@ -42,17 +54,23 @@ const SearchResults = () => {
     }
   };
 
-  const handleCheckedChange = (e: boolean, podcast: any) => {
+  const handleCheckedChange = (e: boolean | string, podcast: any) => {
+    // blue console log for debugging, with hour and minute
+    console.log(
+      "%chandleCheckedChange",
+      "color: #00ffff",
+      new Date().toLocaleTimeString()
+    );
     setSelectedPodcasts((prev) => updateSelectedPodcasts(prev, podcast, e));
   };
 
   return (
     <div className="">
-      <div className="text-xl text-white text-center m-4">
+      <div className="text-xl text-white text-center mb-4">
         Select your favorite podcasts ({selectedPodcastsLength}/5)
       </div>
-      <ScrollArea className="h-[calc(100vh-240px)] mb-3">
-        <div className="flex flex-col gap-3 ">
+      <ScrollArea className="h-[calc(100dvh-240px)] mb-2">
+        <div className="flex flex-col gap-2 ">
           {searchResults.map((podcast) => (
             // <div key={podcast.uuid} className="flex flex-row">
             <div key={podcast.uuid}>
@@ -105,6 +123,6 @@ const SearchResults = () => {
       </ScrollArea>
     </div>
   );
-};
+}
 
 export default SearchResults;

@@ -29,16 +29,15 @@ const getData = async () => {
 };
 
 export default async function Home() {
-  
   const testData = await getData();
   console.log(testData);
 
-  const supabase = createServerComponentClient({ cookies });
-  const { data: users } = await supabase.from("users").select();
+  // const supabase = createServerComponentClient({ cookies });
+  // const { data: users } = await supabase.from("users").select();
 
   return (
     <main className="">
-      <section className="flex flex-col min-h-screen p-4 text-white">
+      <section className="flex flex-col min-h-[100dvh] p-4 text-white">
         {/* <ul className="my-auto text-foreground">
         {users?.map((user: any) => (
           <li key={user.id}>{user.name}</li>

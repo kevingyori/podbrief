@@ -10,10 +10,10 @@ module.exports = {
     "./src/**/*.{ts,tsx}",
   ],
   theme: {
-    fontFamily: {
-      serif: ["Plantin MT Pro", "serif"],
-      sans: ["Inter", "sans-serif"],
-    },
+    // fontFamily: {
+    //   serif: ["var(--font-plantin)"],
+    //   sans: ["Inter", "sans-serif"],
+    // },
     screens: {
       xsm: { max: "375px" },
       ...defaultTheme.screens,
@@ -26,6 +26,10 @@ module.exports = {
       },
     },
     extend: {
+      fontFamily: {
+        serif: ["var(--font-plantin)"],
+        sans: ["var(--font-inter)"],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

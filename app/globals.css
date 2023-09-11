@@ -1,9 +1,9 @@
-/* Font imports */
-@import url("https://use.typekit.net/zub1qrg.css");
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Font imports */
+/* @import url("https://use.typekit.net/zub1qrg.css"); */
 
 @layer base {
   :root {

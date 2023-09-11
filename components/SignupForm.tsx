@@ -23,9 +23,9 @@ const formSchema = z.object({
   email: z.string().email(),
 });
 
-const SignupForm = () => {
+function SignupForm() {
   const router = useRouter();
-  router.prefetch("/signup");
+  //   router.prefetch("/signup");
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -77,6 +77,6 @@ const SignupForm = () => {
       </Form>
     </div>
   );
-};
+}
 
 export default SignupForm;
