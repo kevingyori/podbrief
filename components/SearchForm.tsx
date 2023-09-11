@@ -17,6 +17,12 @@ import { Search } from "lucide-react";
 import { useState } from "react";
 import { useAtom } from "jotai";
 import { searchQueryAtom, searchResultsAtom } from "@/app/lib/store";
+import { ArrowRight } from "lucide-react";
+import {
+  selectedPodcastsAtom,
+  selectedPodcastsLengthAtom,
+} from "@/app/lib/store";
+import { useRouter } from "next/navigation";
 
 export const searchFormSchema = z.object({
   searchQuery: z.string(),
@@ -46,6 +52,29 @@ const getData = async ({ searchQuery }: { searchQuery: string }) => {
   }
 };
 
+import React from "react";
+
+export default function SearchButton() {
+  const router = useRouter();
+  const [selectedPodcasts] = useAtom(selectedPodcastsAtom);
+  const handleSubmit = () => {
+    console.log("submitted");
+    router.push("/wow");
+  };
+
+  return (
+    <Button
+      className="w-full h-14 mt-2 text-md bg-white opacity-95"
+      variant="secondary"
+      disabled={selectedPodcasts.length > 0 ? false : true}
+      onClick={handleSubmit}
+    >
+      Continue
+      <ArrowRight className="ml-2" />
+    </Button>
+  );
+}
+
 export const SearchForm = () => {
   const [searchQuery, setSearchQuery] = useAtom(searchQueryAtom);
   const [searchResults, setSearchResults] = useAtom(searchResultsAtom);
@@ -69,31 +98,34 @@ export const SearchForm = () => {
   });
 
   return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="min-w-screen flex items-center space-x-2"
-      >
-        <FormField
-          control={form.control}
-          name="searchQuery"
-          render={({ field }) => (
-            <FormItem className="grow">
-              <FormControl>
-                <Input
-                  placeholder="Search podcast"
-                  {...field}
-                  className="h-14 text-md bg-[#ffffff8d] focus-visible:ring-transparent border-white"
-                />
-              </FormControl>
-              <FormMessage className="text-white" />
-            </FormItem>
-          )}
-        />
-        <Button type="submit" className="text-md h-14">
-          <Search />
-        </Button>
-      </form>
-    </Form>
+    <div>
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="min-w-screen flex items-center space-x-2"
+        >
+          <FormField
+            control={form.control}
+            name="searchQuery"
+            render={({ field }) => (
+              <FormItem className="grow">
+                <FormControl>
+                  <Input
+                    placeholder="Search podcast"
+                    {...field}
+                    className="h-14 text-md bg-[#ffffff8d] focus-visible:ring-transparent border-white"
+                  />
+                </FormControl>
+                <FormMessage className="text-white" />
+              </FormItem>
+            )}
+          />
+          <Button type="submit" className="text-md h-14">
+            <Search />
+          </Button>
+        </form>
+      </Form>
+      <SearchButton />
+    </div>
   );
 };

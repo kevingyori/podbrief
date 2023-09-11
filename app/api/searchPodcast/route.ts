@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { GraphQLClient, gql } from "graphql-request";
-import fs from "fs";
+// import fs from "fs";
 
 // import api key from .env.local
 const TADDY_API_KEY = process.env.TADDY_API_KEY;
@@ -82,7 +82,7 @@ export async function POST(request: Request) {
         filterForLanguages: ["ENGLISH"],
       },
     });
-    fs.writeFileSync("data.json", JSON.stringify(data, null, 2));
+    // fs.writeFileSync("data.json", JSON.stringify(data, null, 2));
     return NextResponse.json(data, { status: 200 });
   } catch (e) {
     console.error("inside GET", e);
