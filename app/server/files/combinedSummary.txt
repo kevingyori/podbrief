@@ -1,93 +1,257 @@
-In this episode, the hosts discuss a potential business deal for a 15-year-old brand in the sports and military protective gear segments. The company has a massive IP portfolio, a 40% repeat customer rate, and is used by professional athletes in various sports. However, the asking price for the business is $300 million, which is considered very high. The hosts explore the idea of buying the business and turning it into an entertaining venture for their podcast.
+In this podcast episode, the hosts interview John, the author of the book 'Exedelic' and a former technical architect at bookshop.org and the founding director of the GitHub Archive program. John shares his experience working on the GitHub Arctic Code Vault and his new role at Metaculous, a platform for predicting the future. The discussion also touches upon the concept of preserving open source software for future generations and the uncanny predictions made by 'The Simpsons.'
 
-This podcast episode discusses the potential sale of a company that specializes in sport and military protection products. The company has a significant portfolio of patents and has gained recognition for its products designed to offer protection from concussions and other injuries. The hosts analyze the valuation of the company and question whether the patents are truly worth the claimed value. They also explore the potential growth in the market for safety products and the defensibility of the patent portfolio.
+In this podcast episode, the hosts discuss various topics such as The Simpsons as predictors of the future, the cultural history of AI doom, and the potential uses of sound waves in different fields. They touch on The Simpsons' ability to make accurate predictions through the law of large numbers and the specificity of the events they portray. They also explore the early origins of AI doom concerns in Mary Shelley's novel Frankenstein. Additionally, they delve into the possibilities of using sound waves for drug delivery and medical imaging, as well as the speculation on AI-enhanced ultrasound imaging for personal use.
 
-The hosts discuss a unique sports safety product company that is seeking a buyer for $300 million. They evaluate the company's patents, market potential, and pricing power. While they agree that the product is valuable in the market, they believe the asking price is too high and that it would be a more realistic investment at a lower multiple. They also discuss the potential of selling to law enforcement and the military. Overall, they express interest in owning the business as an e-commerce venture, but not at the current price.- Consider the potential of marketing through social media platforms.
+In this podcast episode, the hosts discuss various topics including the mysteries of ancient civilizations, the potential evolution of the laws of physics, and the influence of science fiction on technological advancements. They touch on the complexity of constructing ancient structures like the pyramids, the idea that the laws of physics may change over time, and the inspiration that science fiction writers draw from the software world. The conversation explores the intersection of art, science, and technology, highlighting the constant evolution and possibility of discovery.
 
-- Consider the long-term viability and sustainability of a business model that heavily relies on patents as a main source of value.
+In this podcast episode, the hosts discuss the role of software in science fiction literature and its influence on the perception of AI. They explore different science fiction authors who are also software engineers and how their unique perspective shapes their storytelling. The conversation delves into the evolving landscape of technology and its impact on various industries, as well as the need for different perspectives and original takes on AI and its implications for humanity.
 
-- Investigate the market potential for safety products in sports and military protection to determine the growth prospects for a company in this industry.
+In this podcast episode, the host and guest engage in a discussion about the potential dangers and impacts of artificial intelligence (AI) on humanity. They express their differing views on the level of concern regarding AI doom scenarios, with one leaning towards a 30% level of concern and the other emphasizing the potential for a future that is weirder and more unexpected than we can currently comprehend. They also explore the idea of AI overlords and the possibility of symbiotic coexistence with AI. The conversation touches on the historical development of gods and the innate human desire to elevate ourselves to godlike status.
 
-- Evaluate the potential of businesses in niche markets with unique products or IP portfolios.
+In this episode, the hosts discuss the current plateau of AI technology and its limitations. They share their experiences using AI tools for various tasks and highlight the areas where AI excels and falls short. They also discuss the potential dangers of AI and the contrasting opinions within the AI community. The hosts emphasize the importance of understanding the boundaries of AI and managing expectations for its capabilities.
 
-- Consider the challenges of selling to law enforcement and the military, including long sales cycles and insider connections.
+In this episode, the hosts discuss the use of AI language models like ChatGPT in various domains. They talk about leveraging machine-generated code, the limitations and capabilities of ChatGPT, and the value it adds to productivity. They also delve into the potential future applications of AI and the balance between human input and AI assistance.
 
-- Conduct thorough due diligence on a business and its financials before making an acquisition decision.
+The episode features a discussion between the host and guest about the smoothness and predictability of AI-generated music compared to human-created music. They also explore the idea of beautiful imperfection in human creativity and the commitment and discipline required to write a book. They touch on the use of artificial intelligence in the writing process and the potential benefits it can bring.
 
-- Explore creative ways to raise funds for a business venture, such as involving listeners or crowdfunding.
+In this podcast episode, Adam and John discuss the potential of writing a sequel to Adam's recently published book, Exedelic. They explore the concept of continuity and the challenges of expanding a story through multiple sequels. While Adam doesn't have any current plans for a sequel, he mentions that he has included sequel hooks in his writing. The episode also briefly touches on the possibility of an audio version of the book.- Continue to examine the historical development of gods and the role of religion in shaping our perspectives on AI and its potential impact on humanity.
 
-- Be cautious when evaluating patent portfolios and their significance for building a business.
+- Be mindful of the limitations of AI language models like ChatGPT and use them as tools, not as the sole source of information.
 
-- Evaluate the asking price of potential investments and consider the realistic valuation.
+- Stay informed about the latest advancements in technology and how they intersect with various industries to adapt and thrive in a changing landscape.
 
-- Assess the track record and growth trajectory of a company to determine if the valuation aligns with its past performance and potential future growth.
+- Embrace the role of software in our lives and continue to adapt and learn about emerging technologies.
 
-- Seek expert advice and knowledge from professionals in the industry to gain a deeper understanding of the market and the potential value of a company's products.
+- Explore the engineering marvels of ancient civilizations and consider the skills and techniques they utilized.
 
-- Take into account the financial feasibility and potential return on investment when considering high-priced acquisitions.
+- Explore the concept of the law of large numbers in predicting future events and how it can be applied in different contexts.
 
-- Evaluate the market demand for specific safety products, such as concussion prevention, and the potential for mandates or regulations that could increase demand.
+- If you're interested in science fiction and the future of humanity, consider reading 'Exedelic' by John.
 
-- Analyze pricing power and the ability to target specific markets.
+- Explore the predictions made by 'The Simpsons' and ponder on the possibilities of future events.
 
-- Explore opportunities in the e-commerce industry.
+- Take contrasting opinions within the AI community into account when forming your own perspectives on AI's future.
 
-- Consider the entertainment value and potential audience interest when making business decisions.
+- Embrace the beauty of imperfection in your own creative endeavors and allow yourself to think and create in a jagged and unique way.
 
-- Consider the potential competition and ability for competitors to develop similar products when assessing the value of a company's patents.
+- Experiment with AI tools, like chat GPT, to get different perspectives on your writing and gain insights for improvement.
 
-- Focus on niche markets with growth potential.
+- Embrace the potential of AI while acknowledging concerns and being proactive in shaping its impact on society.
 
-- Conduct thorough due diligence on the patent portfolio of a company to understand its defensibility and potential value.- The hosts discuss the defensibility of the patent portfolio and the potential for competitors to develop similar products.
+- Consider using ChatGPT in software development to save time, particularly for repetitive or time-consuming tasks.
 
-- The podcast hosts believe a lower multiple would make the investment more compelling.
+- Get involved in open source projects and contribute to preserving the world's software heritage.
 
-- The hosts discuss the potential entertainment value of buying and running the business for their podcast.
+- Stay updated on scientific discoveries and be open to the idea that our understanding of the laws of physics may evolve.
 
-- They also highlight the importance of due diligence in understanding the patent portfolio and its potential value.
+- Read science fiction novels by authors like Dennis E. Taylor and Greg Egan to gain a deeper understanding of AI and its implications.
 
-- The hosts explore the idea of raising money from listeners to invest in the business.
+- Stay informed about the latest advancements in AI to understand its current state and anticipate future developments.
 
-- The business has a massive IP portfolio and a 40% repeat customer rate.
+- Challenge and push the boundaries of AI language models to explore new artistic and creative territories.
 
-- Pricing power and a clear target market make the business attractive.
+- Explore ways to foster collaborative relationships between humans and AI, aiming for symbiotic coexistence rather than a competition for power.
 
-- The company being discussed specializes in sport and military protection products, with a focus on concussion prevention.
+- Utilize AI assistance in writing by seeking alternative phrases, generating ideas, and overcoming writer's block.
 
-- The hosts consider buying a 15-year-old brand in the sports and military protective gear segments.
+- Consider the smoothness and predictability of AI-generated content when comparing it to human-created content, such as music.
 
-- The product has a niche market and potential for growth.
+- Read Mary Shelley's novel Frankenstein to gain insights into early AI doom concerns and the portrayal of artificial general intelligence.
 
-- The asking price for the business is $300 million.
+- Consider varying perspectives on AI doom scenarios and engage in informed discussions to better understand the potential risks and benefits.
 
-- Selling to law enforcement and the military may be challenging due to long sales cycles and insider connections.
+- Explore the transformative possibilities of AI language models in summarizing, expanding, or generating content.
 
-- Owning the business as an e-commerce venture is more appealing.
+- Continue to monitor and research advancements in AI technology to stay updated on its potential capabilities.
 
-- The company has over 100 patents valued at $322 million, making up a significant part of its valuation.
+- Visit Metaculous.com to participate in making predictions about the future and gain recognition for your accurate predictions.
 
-- The asking price of $300 million for the sports safety product company is considered too high.
+- Evaluate the limitations of AI when considering its application in various domains and tasks.
 
-- The valuation of the company at $300 million is questioned by the hosts, as they debate the potential growth and market demand for its products.- "Do you know it will take me 14 years to get all my money back? Do you know I'll be dead by then?" - Michael
+- Stay updated on advancements in the field of sound technology and its potential applications, such as targeted drug delivery and medical imaging.
 
-- You're buying a set of patents that they've produced through their research, and you're betting that uptake on these types of things is going to grow as more and more, there's more and more mandates for safety, more and more parents are interested in it.
+- Consider the role of software in your own field of work and how it can shape future developments and possibilities.
 
-- You're buying a set of patents that they've produced through their research, and you're betting that uptake on these types of things is going to grow as more and more, there's more and more mandates for safety, more and more parents are interested in it.
+- Ask AI tools for specific information or assistance within their known capabilities.
 
-- This business is in a nice niche. It has this patent portfolio. You have a lot of pricing power and a very clear path to how you get to your target market.
+- Reflect on the innate human desire to elevate ourselves and be mindful of the ethical implications of creating AI that exceeds our own intelligence.
 
-- There is this question of, as you would look at this business, your due diligence would have a heck of a lot of visibility into what the patent portfolio actually looks like.
+- Experiment with AI-generated outlines and initial drafts to kickstart creative projects.
 
-- "We could raise money from the listeners because people want to invest in the Worm Farm." - Michael
+- Engage with the audience by sharing intriguing hooks or premises to generate interest in the book.
 
-- You are not selling athletic equipment. You're in the business of selling peace of mind for Jimmy's mom.
+- Learn more about the potential uses of sound waves in archeology and construction, such as the speculation of sound-related techniques in building the pyramids.
 
-- You're betting there is going to, the only way this, I guess, makes anything close to sense is you're betting that this becomes a huge market that somebody has to have.
+- Identify the tasks where AI tools can be beneficial and leverage them for improved productivity.
 
-- I think this would be a screaming deal for me at a five to six X multiple.
+- When using AI-powered text-to-speech, choose a reliable model like OpenAI's Whisper.
 
-- "I have an inside story on the pizza boat." - Heather
+- Seek out different perspectives and voices when exploring topics like AI to broaden your understanding and avoid echo chambers.
 
-- A lot of gambles here. A lot of them.
+- Continuing a story in multiple sequels can be challenging, but with careful planning, it is feasible to expand the universe and narrative.
 
-- The whole thing is, you know, this is a highly defensible patent portfolio and that is the fundamental bet you'd be making here, right? Like, can you, you know, A, is this going to be a big market in the future? And then B, like, what happens when you try to go defend against competitors using your patent portfolio?
+- Remain curious and open-minded about the world around you, as there are always new possibilities to explore.
+
+- Read science fiction literature to gain insight into potential future advancements and challenges.
+
+- Consider exploring options for creating an audio version of a book, such as using AI-generated voices.
+
+- Recognize the commitment and discipline required to write a book and be prepared to invest the necessary time and effort.
+
+- When writing a sequel, carefully review the first book to ensure consistency and avoid contradicting established events or characterizations.
+
+- Explore the potential benefits of using artificial intelligence in your writing process, such as generating summaries or analyzing your work.
+
+- Engage in conversations and debates surrounding the ethics and impact of AI to contribute to the ongoing dialogue.
+
+- Include sequel hooks in storytelling to create potential for future installments and keep readers engaged.
+
+- Consider the possibilities of AI-enhanced ultrasound imaging for personal health monitoring and early detection of potential issues.- Authors who are also software engineers bring a realistic and nuanced understanding of technology to their storytelling.
+
+- Software plays a significant role in shaping our daily lives and is a crucial aspect of our evolving reality.
+
+- Sound waves have promising applications, such as targeted drug delivery through ultrasound and the potential for AI-enhanced ultrasound imaging for personal use.
+
+- Writing a sequel to a book involves maintaining continuity and avoiding contradictions with the previous installment.
+
+- The Simpsons' accuracy in predicting future events can be attributed to the law of large numbers and the specificity of their portrayals.
+
+- There is a hope for symbiotic coexistence with AI, where humans and AI can work together collaboratively rather than as adversaries.
+
+- AI tools are useful for specific tasks, such as generating FFMPEG commands or optimizing sound processing.
+
+- The current AI technology has reached a plateau and has limitations in certain areas.
+
+- While AI-generated music may be good for background music, it lacks the depth and emotion that humans bring to their creations.
+
+- It's crucial to understand the boundaries of AI and avoid expecting it to perform tasks beyond its capabilities.
+
+- The quality of AI-generated content is often limited to the median level of what it has been trained on.
+
+- The future potential of AI is exciting, but there may also be concerns and trepidation about its impact.
+
+- A healthy balance between grounded reality and abstract digital ideas is crucial for both personal and societal growth.
+
+- The world is constantly evolving, and we must be open to new possibilities and discoveries.
+
+- The development of AI can be seen as a human desire to create gods, as we have always sought to elevate ourselves to higher levels of intelligence and power.
+
+- Humans create in a jagged and unpredictable way, which sets them apart from AI-generated content.
+
+- Ancient Egyptians may have used sound waves in the construction of the pyramids, based on recent studies and speculations.
+
+- The book Exedelic explores the awakening of the world's most powerful AI and its antagonistic relationship with the protagonist.
+
+- John's new book 'Exedelic' is a science fiction novel that explores the future of humanity.
+
+- Metaculous is a platform where individuals can make predictions about various topics and contribute to group wisdom.
+
+- The podcast conversation highlights the fascination and potential of sound technology in various fields.
+
+- Writing a book requires commitment, discipline, and the ability to jump into the unknown with the hope that your subconscious will guide you.
+
+- The progress of AI has seen periods of rapid advancement followed by plateaus, and it is uncertain how long the current plateau will last.
+
+- The laws of physics may evolve and change over time, challenging our current understanding.
+
+- While ChatGPT is powerful, it is important to use it wisely and not solely rely on it for information.
+
+- Human editors and authors can benefit from AI assistance in generating ideas, outlines, and alternative phrases.
+
+- The conversation also touches on the historical development of gods and the potential future role of AI as new gods.
+
+- The intersection of software and science fiction literature offers unique insights into AI and its potential impact on society.
+
+- The level of concern regarding AI doom scenarios varies between individuals, with one person expressing a 30% level of concern and the other emphasizing the uncertainty and potential for unexpected developments.
+
+- AI language models can be used as transformation tools, taking information and summarizing or expanding it.
+
+- The AI community has contrasting opinions on the potential dangers and future developments of AI.
+
+- AI language models like ChatGPT can be used to generate code and save time in software development.
+
+- 'The Simpsons' has made several eerily accurate predictions about the future.
+
+- Managing expectations and being aware of AI's strengths and weaknesses is essential for utilizing it effectively.
+
+- Inspiration for technological advancements can come from science fiction literature.
+
+- Mary Shelley's novel Frankenstein, written in the early 1800s, already explores concerns about artificial general intelligence and AI doom.
+
+- While there is no immediate plan for an audio version of Exedelic, options like AI-powered text-to-speech models can provide an alternative.
+
+- AI language models can help overcome writer's block and provide a starting point for creative projects.
+
+- The GitHub Arctic Code Vault is preserving open source software in a permafrost vault beneath an Arctic mountain for a thousand years.
+
+- The evolving landscape of technology calls for a diverse range of perspectives to navigate its challenges and opportunities.
+
+- Including sequel hooks in a story can provide potential for expanding the narrative in future sequels.
+
+- Science fiction literature can inspire and influence the development of AI by exploring different possibilities and scenarios.
+
+- Artificial intelligence can be a valuable tool in the writing process, but its usefulness may vary depending on the writer's creative process.
+
+- Ancient structures like the pyramids pose engineering challenges that modern technology would struggle to replicate.
+
+- AI-generated music tends to have a smoothness and predictability that is different from the beautiful imperfection in human-created music.- Let me get out the outline and maybe ChatGPT or whatever this GPT world we live in will become is just the get over the hurdle, the unblocker, the writer's block remover essentially.
+
+- Even my own personal use, I've kind of hit that plateau where I'm like, okay, it fits into my workflows here, doesn't fit into it here, and I'm more productive because of it.
+
+- You have to be driven by something to even consider the exercise of writing a book.
+
+- "Science fiction is influential, and it can shape our perception and understanding of technology and AI."
+
+- Don't dismiss it, leverage it but don't lean on it that it's your only source of information. Like you've got to be wise and you've got to direct it like 30% your code is being written by it. But those are still your ideas.
+
+- The current plateau is much nicer than it was prior to being here.
+
+- art imitates life. And so where do the science fiction writers get their ideas?
+
+- If that isn't AI making your life better, I don't know what it.
+
+- Go read that book.
+
+- It is great. Just giving you lists of ideas.
+
+- Managing expectations is key when it comes to utilizing AI effectively.
+
+- Maybe they're quite a bit more advanced than we give credit to. I mean, they were as smart as us, right?
+
+- The progress that we've made in the world of machine learning has been leaps and then plateaus, and you kind of have a new technique, a new thing, a new idea that gets implemented, and then you have just kind of revolutions around that, not revolutions, evolutions around that idea for a while, until a new thing.
+
+- I'm doing this big thing and I don't even know if people are gonna like it for years. What am I doing?
+
+- It's like well better than what I came up with. I do think like by the nature of what they're trained on they're going to take like the median, you know, quality level. So I don't think GPT is ever going to write a particularly good book if it's trained on just all the books that are out there, it'll write an okay one, but you're not going to like push the envelope.
+
+- Consider varying perspectives on AI doom scenarios and engage in informed discussions to better understand the potential risks and benefits.
+
+- The Simpsons' accuracy is impressive due to the law of large numbers and the specificity of their predictions.
+
+- The true nature of God has always existed, thinking like the Roman and the Greek gods and all the terrible stuff they did, but even like the Old Testament biblical god who's constantly smiting somewhere else, and I think that's true, and I also think, like, when we're talking about super AI is the future, we are basically talking about new gods, right, like, ultimately, this is a religious discussion as much as anything else.
+
+- We live in a very strange universe.
+
+- It's sickly good. Yeah, and it writes like 30% of my code too. Like Copilot writes 30% of my code nowadays. And I think non-tech people don't realize that it's a powerful transformation tool. They think it's just a Q&A tool, which is too bad. So I think they'd get a lot of use out of it as a transformation tool.
+
+- I don't need to worry about these people scared of the future. Like what are they so afraid of? Do they think literally these machines are going to construct robots are going to take over Boston Dynamics? And like next thing you know, the company isn't ran by the company more. Now it's ran by some machine that manifests the corporation and pays the taxes and bills the things like the humans are just subjects of this control. Yeah, probably not. Yes, is actually the short answer. That's what's going to happen.
+
+- "It's weird to me that publishing does not really target or serve the enormous audience of people who are super interested in software."
+
+- Mary Shelley's Frankenstein already addressed concerns about artificial general intelligence and AI doom in the early 1800s.
+
+- They're literally designed to take the most common approach and follow that, which is like mediocrity ingrained right?
+
+- There's something magical about beautiful imperfection.
+
+- The GitHub Arctic Code Vault is preserving the world's open source software in a permafrost vault beneath an Arctic mountain for a thousand years.
+
+- "There are 100 million developers out there, and publishing does not really target them as much as it should."
+
+- 'The Simpsons' has accurately predicted future events, suggesting that our future is hilariously weird.
+
+- Metaculous is a platform for predicting the future through group wisdom.
+
+- The world's most powerful AI has awakened to sentience and decided you're its worst enemy.
+
+- The fascination with sound technology and its potential applications in various fields is truly captivating.

@@ -17,11 +17,13 @@ async function fetchDataAndInsert(episodeUUID) {
 
       //episodeUUID instead of episode name
       const data = {
-        query: '{ getPodcastEpisode(name:"Should we pay $300 million for this athletic equipment business? - Acquisitions Anonymous 223") { uuid name imageUrl datePublished audioUrl duration episodeType podcastSeries {uuid name} } }'
+        query: '{ getPodcastEpisode(name:"Doomed to discuss AIs") { uuid name imageUrl datePublished audioUrl duration episodeType podcastSeries {uuid name} } }'
       }
 
       const response = await ax.post(taddyURL, data, { headers });
       const podcastData = response.data.data.getPodcastEpisode
+
+      console.log(podcastData)
   
       // Insert podcast data into Supabase
       const { data: insertData, error } = await supabaseAPI
@@ -31,7 +33,7 @@ async function fetchDataAndInsert(episodeUUID) {
             uuid: podcastData.uuid,
             name: podcastData.name,
             image_url: podcastData.imageUrl,
-            date_published: new Date(podcastData.datePublished*1000).toLocaleDateString('en-GB', { timeZone: 'Europe/London' }),
+            date_published: new Date(podcastData.datePublished*1000), //new Date(podcastData.datePublished*1000).toLocaleDateString('en-GB', { timeZone: 'Europe/London' }),
             audio_url: podcastData.audioUrl,
             duration: podcastData.duration,
             channel_id: podcastData.podcastSeries.uuid

@@ -1,14 +1,15 @@
 const { SendTemplatedEmailCommand } = require("@aws-sdk/client-ses");
 const awsClient = require("./awsSesConfig.ts")
 
-const createSendEmailTemplateCommand = (templateName: string) => {
+// @ts-ignore
+const createSendEmailTemplateCommand = (templateName) => {
     return new SendTemplatedEmailCommand({
       /**
        * Here's an example of how a template would be replaced with user data:
        * Template: <h1>Hello {{contact.firstName}},</h1><p>Don't forget about the party gifts!</p>
-       */
+       //   TemplateData: JSON.stringify({ contact: { firstName: user.firstName } }),
+       **/
       Destination: { ToAddresses: ["n.a.minh1106@gmail.com"] },
-    //   TemplateData: JSON.stringify({ contact: { firstName: user.firstName } }),
       TemplateData: JSON.stringify({name: "Minh", favoriteanimal: "penguins"}),
       Source: "n.a.minh1106@gmail.com,",
       Template: templateName,
@@ -16,10 +17,7 @@ const createSendEmailTemplateCommand = (templateName: string) => {
   };
   
   const sendTemplatedEmail = async () => {
-    const sendTemplatedEmailCommand = createSendEmailTemplateCommand(
-    //   user,
-      "TestTemplate"
-    );
+    const sendTemplatedEmailCommand = createSendEmailTemplateCommand("TestTemplate");
     try {
       console.log("templated email sent")
       return await awsClient.send(sendTemplatedEmailCommand);
@@ -29,4 +27,4 @@ const createSendEmailTemplateCommand = (templateName: string) => {
     }
   };
 
-  sendTemplatedEmail()
+  module.exports = sendTemplatedEmail

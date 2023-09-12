@@ -1,18 +1,15 @@
 //Calls GPT api 
 
-const openAI = require("./openaiConfig.js");
+const openAI = require("./openaiConfig.ts");
 const fileSystem = require("fs");
 const path = require("path");
 const uniqid = require("uniqid")
 
-// const summaryPromptFile = "../../server/files/summaryPrompt.txt";
-// const outputSummaryChunksJSONFile = "../../server/files/summaryChunks.json";
-// const transcriptionDirectory = "../../server/files/slicedTranscription/";
-
 function summarizeWithGpt(
   summaryPromptFilePath,
   outputSummaryChunksJSONFilePath,
-  transcriptionDirectoryPath
+  transcriptionDirectoryPath,
+  retryCount = 0
 ) {
   return new Promise((resolve, reject) => {
     // Read the summary prompt file
@@ -98,6 +95,17 @@ function summarizeWithGpt(
           );
         } catch (error) {
           console.error("Error generating chat responses:", error);
+
+          if (retryCount < 3) {
+            console.log(`Retrying GPT summarization (Attempt ${retryCount + 1})`);
+            summarizeWithGpt(summaryPromptFilePath, outputSummaryChunksJSONFilePath, transcriptionDirectoryPath, retryCount + 1)
+              .then(resolve)
+              .catch(reject);
+          } else {
+            console.error("Max retries reached. Terminating GPT summarization.");
+            reject(error);
+          }
+    
         }
       });
     });
@@ -147,6 +155,9 @@ const generateChatResponse = async (summaryPrompt, transcription) => {
 
   return summary
 };
+
+//for testing
+//summarizeWithGpt("../../server/files/staticFiles/summaryPrompt.txt", "../../server/files/summaryChunks.json", "../../server/files/slicedTranscription/")
 
 module.exports = summarizeWithGpt
 

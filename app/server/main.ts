@@ -8,6 +8,7 @@ const summarizeWithGpt = require ("../lib/openai/gpt")
 const mapReduceSummary = require("../lib/openai/mapReduceSummary")
 const saveFinalSummaryToDB = require("./saveFinalSummaryToDB.ts")
 
+
 //Backend flow
 //user magic link signup -> user infos to db
 //channel subs from user -> channel info from podcast api -> info to db
@@ -21,6 +22,40 @@ const saveFinalSummaryToDB = require("./saveFinalSummaryToDB.ts")
 //run a function to check if all files are OK-> delete unneccessary files
 
 //sending newsletter
+//ez el van szeparálva a fenti summarization készítéstől 
+//pl péntek délután 
+//iterate through all the users
+//check if user has new podcasts to send -->EZ A KOMPLEXEBB RÉSZ -> 
+    //previous péntek date -> take all subscriptions of the user, check all podcast summaries in db after that date
+    //az a legegyszerűbb, ha megkapja az összes podcastot ami a cahnnelhez tartozik, mert akkor varázsolni kell, h melyikekekt kapja meg melyikeket nem, lehet ki se adtak lehet 1 hét alatt 3at
+    //valszeg az a legegyszerűbb ha minden usernek lesz egy columnja h mikor kapta meg az előző emailt, és mindig csak azt csekkolni!
+    
+    //ezeket a podcastokat lekérni, mindegyik podcast 1 json, menjen 1 tömbbe az összes
+    //optimalizálás: azt el lehet kerülni, h pl ha 10en kérték a huberman labset, tízszer lekérje hubermant? (mindegyik emailnél újra és újra), illetve van jobb módszer arra, hogy lecsekkolja, kiknek milyen új podcastot kell adni? vagy azt supabase megoldja könnyen date szűréssel?
+    //so handlebars menjen át ezen a tömbbön, és generáljon mindegyiknek summaryt!
+    //https://docs.aws.amazon.com/ses/latest/dg/send-personalized-email-advanced.html#send-personalized-email-advanced-iterating
+    //aws ses handlebars template:
+    //{{#each podcasts}}
+    //   <h2>{{@key}}</h2>
+    //   <p>random text</p>
+    //   <p>{{this.title}}</p>
+    //   <p>{{this.rating}}</p>
+    // {{/each}}
+    //this is how i should pass in data: 
+    //const data = {
+    //   podcasts: [
+    //     {
+    //       title: "Podcast 1 title",
+    //       rating: 5
+    //     },
+    //     {
+    //       title: "Podcast 2 title",
+    //       rating: 5
+    //     },
+    //     // Add more podcasts as needed
+    //   ]
+    // };
+
 
 async function main() {
   try {
@@ -50,7 +85,6 @@ async function main() {
 
     //gpt summarizes transcription chunks
     const resolveChunkSummary = await summarizeWithGpt(pathConfig.summaryPromptFile, pathConfig.outputSummaryChunksJSONFile, pathConfig.transcriptionDirectory)
-
 
     // //create final summary
     const finalSummary = await mapReduceSummary(pathConfig.outputSummaryTextFile, pathConfig.outputFinalSummaryFile, pathConfig.summaryChunksFile)
