@@ -4,8 +4,8 @@ const aws_ses_client = require("./awsSesConfig.ts");
 async function createSESTemplate() {
   const templateObject = {
     Template: {
-      TemplateName: "fallback4",
-      SubjectPart: "Greetings {{#if userName}}{{userName}}{{else}}Podcaster{{/if}}!",
+      TemplateName: "fallback5",
+      SubjectPart: "Greetings {{#if username}}{{username}}{{else}}Podcaster{{/if}}!",
       HtmlPart: `
       {{#each podcasts}}
       <p>

@@ -24,19 +24,9 @@ async function sendNewsletters() {
 
       if (podcastSummariesOfUser.length < 1) continue //skip users that don't have new episodes
 
-      //3 SANITIZATION: summary jsonokat itt, egyéb infókat a JSON.stringifynál (vagy azt inkább itt összeállítani és egyben lepasszolni mindet summaryvel együtt? és handlebars if-else templateben!!!)
-      //lehet savelni kéne ezeket a végső-végső jsonokat db-be minden usernek h vissza lehessen keresni error keresés, monitoring, minőségellenőrzés szempontjából
-      const sanitizedPodcastSummaries = podcastSummariesOfUser.map(summary => {
-        return {
-          name: summary.name || 'No Title Provided',
-          podcast_created_at: summary.podcast_created_at || 'No Date Provided'
-        };
-      });
+      const finalEmailJson = createFinalJsonAndSanitize(user, podcastSummariesOfUser)
 
-      createFinalJson and sanitize() és majd ezt lepasszolni h ne kelljen prop drillelni!
-      mentse is el egyben
-
-      await sendTempEmail(user.name, sanitizedPodcastSummaries)
+      await sendTempEmail(finalEmailJson)
 
       //egyelőre hagyjuk h mivan ha több mint x... minden feliratkozott channelre megkapsz mindent
       //create array =>  handlebars kiloopolja!!
@@ -91,5 +81,23 @@ const getPodcastsOfChannel = async (channelID, userLatestSendDate) => {
 
   return podcastsOfChannel;
 };
+
+const createFinalJsonAndSanitize = (user, podcastSummaries) => {
+
+  const sanitizedPodcastSummaries = podcastSummaries.map(podcast => {
+    return {
+      name: podcast.name || 'No Title Provided',
+      podcast_created_at: podcast.podcast_created_at || 'No Date Provided'
+    };
+  });
+
+  const finalEmailJson = {
+      username: user.name || "Podcaster",
+      podcasts: sanitizedPodcastSummaries
+  }
+
+  return finalEmailJson
+
+}
 
 sendNewsletters();
