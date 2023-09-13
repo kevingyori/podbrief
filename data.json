@@ -1,66 +1,66 @@
 {
   "searchForTerm": {
-    "searchId": "0faf4521a1074a81554f278bf14316ae05e7f116ccd5cad57d3b60a089510d9e",
+    "searchId": "54867c37ec87a9fe7aea5032825bea67e84f2f8554e21b98282bd494e4712eaa",
     "podcastSeries": [
       {
-        "uuid": "0a16d814-3c15-4f9e-aef8-8585825d97ec",
-        "name": "V&V",
-        "imageUrl": "https://d3t3ozftmdmh3i.cloudfront.net/production/podcast_uploaded/1438371/1438371-1550142750511-fe13d2bf63f93.jpg",
-        "description": "Welcome to the V&V podcast, where amazing things happen. \nCover art photo provided by Tobias van Schneider on Unsplash: https://unsplash.com/@vanschneider"
+        "uuid": "27a7282e-43d3-46c7-aa11-2c967fffaeef",
+        "name": "Huberman Lab",
+        "imageUrl": "https://megaphone.imgix.net/podcasts/042e6144-725e-11ec-a75d-c38f702aecad/image/Huberman-Lab-Podcast-Thumbnail-3000x3000.png?ixlib=rails-4.3.1&max-w=3000&max-h=3000&fit=crop&auto=format,compress",
+        "description": "Huberman Lab discusses neuroscience: how our brain and its connections with the organs of our body control our perceptions, our behaviors, and our health. We also discuss existing and emerging tools for measuring and changing how our nervous system works. Dr. Andrew Huberman is a tenured professor of neurobiology and ophthalmology at Stanford School of Medicine. His laboratory studies neural regeneration, neuroplasticity, and brain states such as stress, focus, fear, and optimal performance. For more than 20 years, Dr. Huberman has consistently published original research findings and review articles in top-level peer-reviewed journals, including Nature, Science, Cell, Neuron, and Current Biology. He is a regular member of several National Institutes of Health review panels and a Fellow of the McKnight Foundation and the Pew Charitable Trusts. Dr. Huberman regularly consults for technology development companies, professional athletic organizations, and various units of U.S. and Canadian Special Operations."
       },
       {
-        "uuid": "f2999f65-a0af-4493-85bc-b51606dccdd4",
-        "name": "V V  podcast",
-        "imageUrl": "https://assets.podomatic.net/ts/43/75/c0/vvmixtapes/1400x1400_3701477.jpg",
-        "description": "a blend of jazz funk afrocuban brazilian   hip hop bruk.. dnb . ...\nsoul sonic grooves"
+        "uuid": "24594dcf-0610-4c80-9fd3-25fee791779f",
+        "name": "The Portal with Terrie Huberman",
+        "imageUrl": "https://deow9bq0xqvbj.cloudfront.net/image-logo/1368716/ThePortalNew.png",
+        "description": "Quantum Spirituality and Personal Development for Spiritual Empaths who have Anxiety"
       },
       {
-        "uuid": "80dbd6c0-f625-46dd-b0cd-781d86e8e6e0",
-        "name": "V vs V",
-        "imageUrl": "https://d3t3ozftmdmh3i.cloudfront.net/production/podcast_uploaded/3845422/3845422-1615211681799-8aa1c489acda9.jpg",
-        "description": "Hey I’m V and none of my friends have a name with a V in it but I’m gonna be versing them in talking about kinda controversial things. I might agree with them idk. But we are gonna be entertaining for sure so give it a listen y’all "
+        "uuid": "de3ff40c-3625-4ed4-9e78-95d2270d6545",
+        "name": "Neuroscience",
+        "imageUrl": "https://storage.buzzsprout.com/variants/ggrqb7igwiss191flk3vjq9vb2br/60854458c4d1acdf4e1c2f79c4137142d85d78e379bdafbd69bd34c85f5819ad.jpg",
+        "description": "andrew huberman,neuroscientist,better sleep,sleep,sleeping,neuroscience,how to sleep better,sleep tips,andrew huberman sleep,andrew huberman sleeping,motivation,motivational speech,motivational video,huberman lab sleep,lex fridman podcast,lex fridman sleep,lex fridman,andrew huberman dream,andrew huberman ultradian cycle,andrew huberman motivation,mindset,mind,brain,science,biology,the secret to better sleep,studies,sleep studies,sleep study,tips,lifestyle"
       },
       {
-        "uuid": "5c42276b-2968-4478-b8d1-1ce0bd830dbf",
-        "name": "Stories By V V",
-        "imageUrl": "https://d3t3ozftmdmh3i.cloudfront.net/production/podcast_uploaded/15245443/15245443-1621270658122-cf2395fa2b25c.jpg",
-        "description": "Stories about life and experiences"
+        "uuid": "cb0f8590-b0a7-4b35-a5d5-cd8503c38c5d",
+        "name": "High Desert Tarot",
+        "imageUrl": "https://d3t3ozftmdmh3i.cloudfront.net/production/podcast_uploaded_nologo/14425954/14425954-1618254375734-4ff50487b9f7.jpg",
+        "description": "We are a couple of bestie witches making a tarot deck from our love of the magic of the High Desert."
       },
       {
-        "uuid": "0e84bf47-0f97-49c0-8644-802b66c4739d",
-        "name": "V&V Productions",
-        "imageUrl": "https://deow9bq0xqvbj.cloudfront.net/image-logo/3534949/image_6483441_gfhhis.jpg",
-        "description": "An actual play 5e Dungeons & Dragons podcast channel, featuring “The DnD Grandma,” a 70-something Woman who loves DnD! If you enjoy our shows, please consider supporting us here: https://www.patreon.com/dndgrandma"
+        "uuid": "057f657e-7d63-4e82-a350-dc8257f717b0",
+        "name": "Two Dot Chronicles",
+        "imageUrl": "https://image.simplecastcdn.com/images/4aefbf1d-c471-43b9-8c8e-10e37415554c/2f0e166d-5677-4645-a6e5-ed5945c7bbd1/3000x3000/2dot-logo.jpg?aid=rss_feed",
+        "description": "Welcome to the Two Dot Chronicles podcast hosted by Bruce Huberman and Myles McIntyre. Our podcast is your one and only solution for all things squash. We will have great panels each episode exploring all of the different facets of the game as well giving up-to-date information on major events and updates. Stay tuned!"
       },
       {
-        "uuid": "2c0b31ab-b265-4e6c-8a44-c300a3a05889",
-        "name": "v",
-        "imageUrl": "https://d3t3ozftmdmh3i.cloudfront.net/production/podcast_uploaded_nologo/1048666/1048666-1626382267932-bc9ac3b8f6ef9.jpg",
-        "description": "v"
+        "uuid": "b799cc23-b4aa-4b72-87a7-7cc21f53f730",
+        "name": "The Knowledge Project with Shane Parrish",
+        "imageUrl": "https://ssl-static.libsyn.com/p/assets/5/9/0/7/590730c5f73a2ccebafc7308ab683e82/knowledge-project-small.png",
+        "description": "Master the best of what other people have already figured out so you can use their lessons in your life to create an unstoppable advantage. \n\nShane Parrish is an entrepreneur and sought-after speaker. His newsletter (https://fs.blog/podcast) offers timeless insights you can use to change your life.  \n\nIn The Knowledge Project, Shane interviews people at the top of their game. Every episode is packed with hard-earned lessons that you can use in your life. Tune in to create an unstoppable advantage. \n\nSit down and learn from the best. Previous guests include Reid Hoffman, Esther Perel, Daniel Kahneman, Tobi Lutke, Marshall Goldsmith, Kunal Shah, Ander Huberman, David Sinclair, Ret. General Stanley McChrystal, Marc Andreessen, Patrick Collison, Robert Cialdini, Walter Isaacson, Chris Bosh, Kat Cole, Adam Grant, Angela Duckworth, Seth Godin, Matt Mullenweg, Lisa Feldman Barrett, Maria Konnikova, Bill Ackman, Annie Duke, Derek Sivers, Jim Collins, Naval Ravikant, and many others. They reveal hard-earned lessons on leadership, decision-making, hiring and firing, productivity, habits, and more. \n\nNew episodes are released every second Tuesday. \n\nLearn more at https://fs.blog/podcast"
       },
       {
-        "uuid": "647a5de6-e709-48a3-9054-6a7c1a899a87",
-        "name": "V",
-        "imageUrl": "https://media.rss.com/vvv312/20210501_013202_a996c248815b97b8ce865aae3b6f8a73.jpg",
-        "description": "Songs"
+        "uuid": "8ae4ca55-c675-4b04-863f-a102edbf174b",
+        "name": "Health Science Podcast",
+        "imageUrl": "https://pbcdn1.podbean.com/imglogo/image-logo/14407840/Health_Science_Podcast_App_Icon_1400x1400_juf42r.jpg",
+        "description": "The Health Science podcast is hosted by Dr. Frank Sabatino. Dr. Sabatino is the past Health Director of the Shangri-La Natural Hygiene Institute, the Regency Health Spa in Hallandale, FL, the Ocean Jade Health Retreat in Lauderdale by the Sea, FL and the Balance for Life Health Retreat in Deerfield Beach, FL,  where he cared for and inspired thousands of people over the past 40+ years on the benefits of a plant-based lifestyle including whole food plant nutrition (without added salt, oil or sugar), health rejuvenation, stress management, therapeutic fasting, and detoxification.\n\nThis podcast is aimed to teach individuals the benefit of eating plant-based."
       },
       {
-        "uuid": "55363739-d179-42b0-9278-93ad1cb4c639",
-        "name": "v",
-        "imageUrl": "https://d3t3ozftmdmh3i.cloudfront.net/production/podcast_uploaded/7719671/7719671-1596104743277-09fa78bb19fc8.jpg",
-        "description": "Board"
+        "uuid": "043e3239-1d61-4960-ba83-a8775ec7c159",
+        "name": "Logical Explanations",
+        "imageUrl": "https://d3t3ozftmdmh3i.cloudfront.net/production/podcast_uploaded/35308458/35308458-1670111558787-fea377e200d16.jpg",
+        "description": "A podcast where two best friends chat about wide-ranging topics using an evidence-based approach to a variety of topics. Think of the podcast like a basic version of the Huberman podcast meets an eclectic storyteller."
       },
       {
-        "uuid": "53cc2de6-2da3-41a1-89d7-3835eb27c8cf",
-        "name": "V ",
-        "imageUrl": "https://d3t3ozftmdmh3i.cloudfront.net/production/podcast_uploaded/3356130/3356130-1588426004843-6068f77fd6a87.jpg",
-        "description": "V talk "
+        "uuid": "5bbe9367-5eda-4ea7-955f-3e5736779a8c",
+        "name": "Modern Wisdom",
+        "imageUrl": "https://megaphone.imgix.net/podcasts/a62f84c0-f8b6-11ed-a4fc-fb9e7841d45b/image/New_2023_Podcast_Artwork.jpg?ixlib=rails-4.3.1&max-w=3000&max-h=3000&fit=crop&auto=format,compress",
+        "description": "Life lessons from the greatest thinkers on the planet with Chris Williamson. Including guests like David Goggins, Dr Jordan Peterson, Sam Harris, Jocko Willink, Dr Andrew Huberman, Dr Julie Smith, Steven Bartlett, Ryan Holiday, James Clear, Robert Greene, Balaji Srinivasan, Steven Pinker, Alex Hormozi, Douglas Murray, Chris Bumstead, James Smith, Dr David Sinclair, Mark Manson and more. Understanding the world is hard. This podcast will help."
       },
       {
-        "uuid": "86d80e79-449c-4130-8f69-f633cc6f7ef0",
-        "name": "V",
-        "imageUrl": "https://d3t3ozftmdmh3i.cloudfront.net/production/podcast_uploaded/440162/440162-1523236548367-5e1992b0a6caf.jpg",
-        "description": "Bhajan"
+        "uuid": "ef567044-8162-4e9b-823a-2fe79dd371ef",
+        "name": "Mamia & Me",
+        "imageUrl": "https://audioboom.com/i/39622228.jpg",
+        "description": "Mamia&Me, hosted by Amy Huberman, is a place for parents to talk about the big crazy adventure that is parenthood. Amy will be chatting to mums and dads and special guests about everything from lockdown parenting to baby brain and surrogacy to home births. The whole parenting kit and kaboodle.\n\n\r@amy_huberman (https://twitter.com/amy_huberman)\nAldi.ie/mamia (http://aldi.ie/mamia)"
       }
     ]
   }

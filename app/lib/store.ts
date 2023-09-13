@@ -18,3 +18,4 @@ export const selectedPodcastsAtom = atom<selectedPodcast[]>([]);
 export const selectedPodcastsLengthAtom = atom(
   (get) => get(selectedPodcastsAtom).length
 );
+export const signUpEmailAtom = atom("");

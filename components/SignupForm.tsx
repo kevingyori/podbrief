@@ -18,16 +18,17 @@ import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { redirect, useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { useAtom } from "jotai";
+import { signUpEmailAtom } from "@/app/lib/store";
 
 const formSchema = z.object({
   email: z.string().email(),
 });
 
 function SignupForm() {
+  const [email, setEmail] = useAtom(signUpEmailAtom);
   const router = useRouter();
-  //   router.prefetch("/signup");
 
-  // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -35,11 +36,8 @@ function SignupForm() {
     },
   });
 
-  // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+    setEmail(values.email);
     router.push("/signup");
   }
 
@@ -61,7 +59,11 @@ function SignupForm() {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Input placeholder="name@probablygmail.com" {...field} />
+                  <Input
+                    placeholder="name@probablygmail.com"
+                    className="h-14 -mb-5 text-md text-black"
+                    {...field}
+                  />
                 </FormControl>
               </FormItem>
             )}
