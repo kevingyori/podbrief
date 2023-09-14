@@ -10,11 +10,11 @@ async function createSESTemplate() {
   
   const templateObject = {
     Template: {
-      TemplateName: "fallback15",
+      TemplateName: "fallback16",
       SubjectPart:
         "Your weekly podcasts, {{#if userEmail}}{{userEmail}}{{else}}Podcaster@gmail.com{{/if}}!",
       HtmlPart: hbsTemplate,
-      TextPart: "",
+      TextPart: "{{TextPart}}",
     },
   };
 

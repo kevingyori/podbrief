@@ -28,11 +28,8 @@ async function sendNewsletters() {
       if (podcastSummariesOfUser.length < 1) continue; //skip users that don't have new episodes
 
       //a podcast name columnt átnevezni TITLE-re! kódban mindenhol kicserélni!
-      //miért quotedba rakja sokszor a szöveget az email lol (lehet csak mert többször küldöm ki ugyanazt és az első emaillel egyezik)
-      //unsubscribe from email! csinálni hozzá paget url-lel, contact formot is kéne pl ha emailben akarnak panaszkodni akkor be legyen linkelve az email id!!!
-      //chatgpt - t kérdezni h nincs e vmi jobb módja a sorban kiküldök 100 emailt dolognak! ha meg egyszerre küldi ki akkor meg vigyázz h pl 1 email/s az amazon rate!
       //!!!!!!végén UPDATE LATEST SEND DATE minden usernek és akkor kövi iterációnál már ezt nézi.!!!!!!! ha elbaszodott akkor is kapjon új dátumot?
-      //text part htmlData fallbacknek is megcsinálni!
+      //NE FELEJTSD EL a fallback Text Partot is maintainelni meg a sanitize podcastot ha kell új property vagy már nem kell régi!
 
       try {
         //try-catch: If an error occurs because of missing summary, it will be caught, logged, BUT the loop will CONTINUE with the next user.
@@ -43,14 +40,14 @@ async function sendNewsletters() {
         //try-catch: If an error occurs with sending the email, it will be caught, logged, BUT the loop will CONTINUE with the next user.
         await sendTempEmail(finalEmailJson);
 
-        await saveSentEmailTextToDB(user.user_id, finalEmailJson, true)
+        await saveSentEmailTextToDB(user.user_id, finalEmailJson, true, "No Error")
 
       } catch (error) {
         console.error(
           `Error occurred while sending email for user ${user.email}:`,
           error
         );
-        await saveSentEmailTextToDB(user.user_id, finalEmailJson, false)
+        await saveSentEmailTextToDB(user.user_id, finalEmailJson, false, error)
       }
     }
 
@@ -149,7 +146,7 @@ const createFinalJsonAndSanitize = (user, podcastSummaries) => {
   return finalEmailJson;
 };
 
-const saveSentEmailTextToDB = async (userID, finalEmailJson, success) => {
+const saveSentEmailTextToDB = async (userID, finalEmailJson, success, errorMessage) => {
 
   const {error } = await supabaseClient
     .from("newsletters")
@@ -159,6 +156,7 @@ const saveSentEmailTextToDB = async (userID, finalEmailJson, success) => {
         content: JSON.stringify(finalEmailJson),
         user_id: userID,
         success: success,
+        error_message: errorMessage
       },
     ])
     .select();

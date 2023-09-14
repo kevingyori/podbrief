@@ -5,7 +5,7 @@ const sendTemplatedEmail = (finalEmailJson) => {
   return new Promise(async (resolve, reject) => {
     try {
       const sendTemplatedEmailCommand = createSendEmailTemplateCommand(
-        "fallback15",
+        "fallback16",
         finalEmailJson
       );
       const awsResponse = await awsClient.send(sendTemplatedEmailCommand);
@@ -50,17 +50,68 @@ const createSendEmailTemplateCommand = (templateName, finalEmailJson) => {
   //   });
   // }
 
+  //for the fallback Text Part
+  const concatenatedInfo = createPodcastsText(finalEmailJson.podcasts)
+  const finalEmailJsonWithTextPart = {...finalEmailJson, TextPart: concatenatedInfo}
+
   return new SendTemplatedEmailCommand({
     Destination: { ToAddresses: ["n.a.minh1106@gmail.com"] },
-    TemplateData: JSON.stringify(finalEmailJson),
+    TemplateData: JSON.stringify(finalEmailJsonWithTextPart),
     Source: "nguyen.anh.minh.stud@gmail.com",
-    Template: templateName,
+    Template: templateName
   });
 };
 
-const send = async () => {
-  await sendTemplatedEmail(mockdata);
-};
+//for the fallback TextPart
+function extractPodcastText(podcast) {
+  const {
+    title,
+    podcast_created_at,
+    audio_url,
+    image_url,
+    date_published,
+    summaryOverview,
+    actionableInsights,
+    keyTakeaways,
+    memorableQuotes
+  } = podcast;
+
+  const actionableInsightsString = actionableInsights.map(item => `- ${item}`).join('\n');
+  const keyTakeawaysString = keyTakeaways.map(item => `- ${item}`).join('\n');
+  const memorableQuotesString = memorableQuotes.map(item => `- ${item}`).join('\n');
+
+  return `
+    Title: ${title}
+    Podcast Created At: ${podcast_created_at}
+    Audio URL: ${audio_url}
+    Image URL: ${image_url}
+    Date Published: ${date_published}
+    Summary Overview: ${summaryOverview}
+
+    Actionable Insights:
+    ${actionableInsightsString}
+
+    Key Takeaways:
+    ${keyTakeawaysString}
+
+    Memorable Quotes:
+    ${memorableQuotesString}
+  `;
+}
+
+function createPodcastsText(podcasts) {
+  const result = podcasts.reduce((accumulator, podcast) => {
+    const podcastInfo = extractPodcastText(podcast);
+    return accumulator + podcastInfo;
+  }, '');
+
+  return result;
+}
+
+
+// const send = async () => {
+//   await sendTemplatedEmail(mockdata);
+// };
 
 // send();
 
