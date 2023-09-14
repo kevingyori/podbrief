@@ -1,5 +1,6 @@
 const supabaseClient = require("./supabaseConfig.ts");
 const sendTempEmail = require("../lib/awsSes/sendTemplatedEmail.ts");
+const uniqid = require("uniqid")
 
 async function sendNewsletters() {
   try {
@@ -10,6 +11,7 @@ async function sendNewsletters() {
     // Loop through users and fetch their subscriptions
     for (const user of users) {
       const podcastSummariesOfUser = [];
+      let finalEmailJson = null
 
       //subscriptions: array of objects
       const subscriptionsOfUser = await getSubsriptionsOfUser(user.user_id);
@@ -25,36 +27,37 @@ async function sendNewsletters() {
 
       if (podcastSummariesOfUser.length < 1) continue; //skip users that don't have new episodes
 
-      //ÉS MAJD MENTSE IS LE DB - be külön táblába végső-végső email STRINGEKET (konkrétan a kész handlebarst) minden usernek! user id-t meg email string id columnokat is csinálni hozzá! h vissza lehessen keresni error keresés, monitoring, minőségellenőrzés szempontjából
-      //ha ez elfailel csak kussban logolja majd aztán folytassa, ne akassza meg a flowt
-      //nincs username lol so itt a kódban kicserélni emailre!
       //a podcast name columnt átnevezni TITLE-re! kódban mindenhol kicserélni!
       //miért quotedba rakja sokszor a szöveget az email lol (lehet csak mert többször küldöm ki ugyanazt és az első emaillel egyezik)
       //unsubscribe from email! csinálni hozzá paget url-lel, contact formot is kéne pl ha emailben akarnak panaszkodni akkor be legyen linkelve az email id!!!
       //chatgpt - t kérdezni h nincs e vmi jobb módja a sorban kiküldök 100 emailt dolognak! ha meg egyszerre küldi ki akkor meg vigyázz h pl 1 email/s az amazon rate!
-      //!!!!!!végén UPDATE LATEST SEND DATE minden usernek és akkor kövi iterációnál már ezt nézi.!!!!!!!
+      //!!!!!!végén UPDATE LATEST SEND DATE minden usernek és akkor kövi iterációnál már ezt nézi.!!!!!!! ha elbaszodott akkor is kapjon új dátumot?
       //text part htmlData fallbacknek is megcsinálni!
 
       try {
         //try-catch: If an error occurs because of missing summary, it will be caught, logged, BUT the loop will CONTINUE with the next user.
-        const finalEmailJson = createFinalJsonAndSanitize(
+        finalEmailJson = createFinalJsonAndSanitize(
           user,
           podcastSummariesOfUser
         );
         //try-catch: If an error occurs with sending the email, it will be caught, logged, BUT the loop will CONTINUE with the next user.
         await sendTempEmail(finalEmailJson);
+
+        await saveSentEmailTextToDB(user.user_id, finalEmailJson, true)
+
       } catch (error) {
         console.error(
           `Error occurred while sending email for user ${user.email}:`,
           error
         );
+        await saveSentEmailTextToDB(user.user_id, finalEmailJson, false)
       }
     }
 
     console.log("Newsletters sent successfully");
   } catch (error) {
     console.error(
-      "Error occurred while retrieving podcasts/sending newslletters:",
+      "Error occurred while retrieving podcasts/sending newsletters:",
       error
     );
   }
@@ -112,8 +115,11 @@ const createFinalJsonAndSanitize = (user, podcastSummaries) => {
     try {
       summary = JSON.parse(podcast.summary);
     } catch (error) {
-      console.error(`Error parsing summary for podcast ${podcast.name} for user ${user.user_id}:`, error);
-      return null
+      console.error(
+        `Error parsing summary for podcast ${podcast.name} for user ${user.user_id}:`,
+        error
+      );
+      return null;
     }
 
     const sanitizedPodcast = {
@@ -122,21 +128,45 @@ const createFinalJsonAndSanitize = (user, podcastSummaries) => {
       audio_url: podcast?.audio_url || "No Audio URL Provided",
       image_url: podcast?.image_url || "No Image URL Provided",
       date_published: podcast?.date_published || "No Publish Date Provided",
-      summaryOverview: summary?.summaryOverview || "No Summary Overview Provided",
-      actionableInsights: summary?.actionableInsights || "No Actionable Insights Provided",
+      summaryOverview:
+        summary?.summaryOverview || "No Summary Overview Provided",
+      actionableInsights:
+        summary?.actionableInsights || "No Actionable Insights Provided",
       keyTakeaways: summary?.keyTakeaways || "No Key Takeaways Provided",
-      memorableQuotes: summary?.memorableQuotes || "No Memorable Quotes Provided",
-    }
+      memorableQuotes:
+        summary?.memorableQuotes || "No Memorable Quotes Provided",
+    };
 
-    return sanitizedPodcast
+    return sanitizedPodcast;
   });
 
   const finalEmailJson = {
     userEmail: user.email,
+    userID: user.user_id,
     podcasts: sanitizedPodcastSummaries,
   };
 
   return finalEmailJson;
 };
 
+const saveSentEmailTextToDB = async (userID, finalEmailJson, success) => {
+
+  const {error } = await supabaseClient
+    .from("newsletters")
+    .insert([
+      {
+        email_id: uniqid(),
+        content: JSON.stringify(finalEmailJson),
+        user_id: userID,
+        success: success,
+      },
+    ])
+    .select();
+
+  if (error) {
+    console.error(error);
+  }
+};
+
 sendNewsletters();
+

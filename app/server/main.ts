@@ -67,11 +67,12 @@ async function main() {
 
     // //save json to db
     const resolveSummarySave = await saveFinalSummaryToDB(finalSummary, episodeUUID);
-
-    //CHECK IF ALL FILES ARE EXISTING -> DELETE ALL -> pathconfig beállítani!
     
   } catch (error) {
     console.error("Main function error:", error);
+ 
+  } finally{
+    //CHECK IF ALL FILES ARE EXISTING -> DELETE ALL -> pathconfig beállítani!
   }
 }
 

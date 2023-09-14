@@ -4,20 +4,19 @@ const awsClient = require("./awsSesConfig.ts");
 const sendTemplatedEmail = (finalEmailJson) => {
   return new Promise(async (resolve, reject) => {
     try {
-
       const sendTemplatedEmailCommand = createSendEmailTemplateCommand(
         "fallback15",
         finalEmailJson
       );
-      const result = await awsClient.send(sendTemplatedEmailCommand);
+      const awsResponse = await awsClient.send(sendTemplatedEmailCommand);
       console.log(`templated email sent for user ${finalEmailJson.userEmail} `);
-      resolve(result);
+      resolve(awsResponse);
     } catch (err) {
-      console.log(
+      console.error(
         `Failed to send template email for user ${finalEmailJson.userEmail}`,
         err
       );
-      reject(err);
+      reject(err) //The loop continues even if an error occurs! (eg email is not verified)
     }
   });
 };
@@ -41,7 +40,7 @@ const mockdata = {
 };
 
 const createSendEmailTemplateCommand = (templateName, finalEmailJson) => {
-  //INTENTIONAL ERROR TEST:
+  //INTENTIONAL ERROR TEST: Delete or Comment out for production
   // if (finalEmailJson.userEmail === "jimmymcgill@gmail.com") {
   //   return new SendTemplatedEmailCommand({
   //     Destination: { ToAddresses: ["nonExisting@gmail.com"] },
