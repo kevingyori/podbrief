@@ -30,31 +30,7 @@ const saveFinalSummaryToDB = require("./saveFinalSummaryToDB.ts")
     //az a legegyszerűbb, ha megkapja az összes podcastot ami a cahnnelhez tartozik, mert akkor varázsolni kell, h melyikekekt kapja meg melyikeket nem, lehet ki se adtak lehet 1 hét alatt 3at
     //valszeg az a legegyszerűbb ha minden usernek lesz egy columnja h mikor kapta meg az előző emailt, és mindig csak azt csekkolni!
     
-    //ezeket a podcastokat lekérni, mindegyik podcast 1 json, menjen 1 tömbbe az összes
-    //optimalizálás: azt el lehet kerülni, h pl ha 10en kérték a huberman labset, tízszer lekérje hubermant? (mindegyik emailnél újra és újra), illetve van jobb módszer arra, hogy lecsekkolja, kiknek milyen új podcastot kell adni? vagy azt supabase megoldja könnyen date szűréssel?
-    //so handlebars menjen át ezen a tömbbön, és generáljon mindegyiknek summaryt!
-    //https://docs.aws.amazon.com/ses/latest/dg/send-personalized-email-advanced.html#send-personalized-email-advanced-iterating
-    //aws ses handlebars template:
-    //{{#each podcasts}}
-    //   <h2>{{@key}}</h2>
-    //   <p>random text</p>
-    //   <p>{{this.title}}</p>
-    //   <p>{{this.rating}}</p>
-    // {{/each}}
-    //this is how i should pass in data: 
-    //const data = {
-    //   podcasts: [
-    //     {
-    //       title: "Podcast 1 title",
-    //       rating: 5
-    //     },
-    //     {
-    //       title: "Podcast 2 title",
-    //       rating: 5
-    //     },
-    //     // Add more podcasts as needed
-    //   ]
-    // };
+    //optimalizálás: azt el lehet kerülni, h pl ha 10en kérték a huberman labset, tízszer lekérje hubermant? minimal caching?
 
 
 async function main() {
@@ -92,7 +68,7 @@ async function main() {
     // //save json to db
     const resolveSummarySave = await saveFinalSummaryToDB(finalSummary, episodeUUID);
 
-    //check if all files are existing, delete stuff -> pathconfig beállítani!
+    //CHECK IF ALL FILES ARE EXISTING -> DELETE ALL -> pathconfig beállítani!
     
   } catch (error) {
     console.error("Main function error:", error);

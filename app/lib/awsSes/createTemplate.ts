@@ -1,19 +1,19 @@
 const { CreateTemplateCommand } = require("@aws-sdk/client-ses");
 const aws_ses_client = require("./awsSesConfig.ts");
+const filesystem = require("fs");
+
+//quoted text: https://stackoverflow.com/questions/5594980/is-there-a-trick-to-prevent-gmails-quoted-text-from-hiding-my-email-footer/41191561
 
 async function createSESTemplate() {
+
+  const hbsTemplate = filesystem.readFileSync('../../server/files/staticFiles/emailTemplate.hbs', 'utf8');
+  
   const templateObject = {
     Template: {
-      TemplateName: "fallback5",
-      SubjectPart: "Greetings {{#if username}}{{username}}{{else}}Podcaster{{/if}}!",
-      HtmlPart: `
-      {{#each podcasts}}
-      <p>
-        <strong>Name:</strong> {{#if name}}{{name}}{{else}}No Name Provided{{/if}},
-        <strong>Date:</strong> {{#if podcast_created_at}}{{podcast_created_at}}{{else}}No Date Provided{{/if}}
-      </p>
-    {{/each}}
-        `,
+      TemplateName: "fallback15",
+      SubjectPart:
+        "Your weekly podcasts, {{#if userEmail}}{{userEmail}}{{else}}Podcaster@gmail.com{{/if}}!",
+      HtmlPart: hbsTemplate,
       TextPart: "",
     },
   };
