@@ -17,7 +17,7 @@ async function fetchDataAndInsert(episodeUUID) {
 
       //episodeUUID instead of episode name
       const data = {
-        query: '{ getPodcastEpisode(name:"Doomed to discuss AIs") { uuid name imageUrl datePublished audioUrl duration episodeType podcastSeries {uuid name} } }'
+        query: '{ getPodcastEpisode(name:"HVAC for fun, profit and not buying yourself a job in Toledo") { uuid name imageUrl datePublished audioUrl duration episodeType podcastSeries {uuid name} } }'
       }
 
       const response = await ax.post(taddyURL, data, { headers });

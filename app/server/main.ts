@@ -7,7 +7,7 @@ const sliceTranscription = require("./transcriptionSlicer");
 const summarizeWithGpt = require ("../lib/openai/gpt")
 const mapReduceSummary = require("../lib/openai/mapReduceSummary")
 const saveFinalSummaryToDB = require("./saveFinalSummaryToDB.ts")
-
+const cleanup = require("./cleanup.ts")
 
 //Backend flow
 //user magic link signup -> user infos to db
@@ -33,7 +33,7 @@ const saveFinalSummaryToDB = require("./saveFinalSummaryToDB.ts")
     //optimalizálás: azt el lehet kerülni, h pl ha 10en kérték a huberman labset, tízszer lekérje hubermant? minimal caching?
 
 
-async function main() {
+async function mainPodcastSummary(episodeUUID) {
   try {
     //fetch episode data after new episode notification from podcast api
     const result = await fetchEpisodeDataAndInsertToDB("episode uuid here");
@@ -60,7 +60,7 @@ async function main() {
     await sliceTranscription(resolveTranscription);
 
     //gpt summarizes transcription chunks
-    const resolveChunkSummary = await summarizeWithGpt(pathConfig.summaryPromptFile, pathConfig.outputSummaryChunksJSONFile, pathConfig.transcriptionDirectory)
+    await summarizeWithGpt(pathConfig.summaryPromptFile, pathConfig.outputSummaryChunksJSONFile, pathConfig.transcriptionDirectory)
 
     // //create final summary
     const finalSummary = await mapReduceSummary(pathConfig.outputSummaryTextFile, pathConfig.outputFinalSummaryFile, pathConfig.summaryChunksFile)
@@ -72,8 +72,9 @@ async function main() {
     console.error("Main function error:", error);
  
   } finally{
-    //CHECK IF ALL FILES ARE EXISTING -> DELETE ALL -> pathconfig beállítani!
+    //delete created files
+    await cleanup()
   }
 }
 
-main();
+mainPodcastSummary();
