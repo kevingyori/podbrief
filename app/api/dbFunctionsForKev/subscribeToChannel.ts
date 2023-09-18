@@ -63,17 +63,33 @@ const subscribeToChannel = async (userID, channelID, channelName) => {
 
     return insertedData;
   } catch (error) {
-    console.error("Error:", error);
+    console.error(error);
   }
 };
 
 //user ids: 5d1085fb-618c-4b47-b50b-82292ee12041 | "82f29294-46f1-490c-85b0-125c1c0d8dd8"
-subscribeToChannel(
-    "638243b9-9c77-4bc0-9094-b32a441d3143",
-    "d1ef1cb0-6828-4efd-b66c-8ba98534c5f2",
-    "We're here to help"
-  );
+// subscribeToChannel(
+//     "638243b9-9c77-4bc0-9094-b32a441d3143",
+//     "d1ef1cb0-6828-4efd-b66c-8ba98534c5f2",
+//     "We're here to help"
+//   );
 
-const unSubscribeFromChannel = async () => {
+const unSubscribeFromChannel = async (userID, channelID) => {
+    try {
+        const { data, error } = await supabase
+          .from('subscriptions')
+          .delete()
+          .eq('user_id', userID)
+          .eq('channel_id', channelID)
+    
+        if (error) {
+          throw error;
+        }
 
-};
+        return data;
+      } catch (error) {
+        console.error(error);
+      }
+}
+
+unSubscribeFromChannel("638243b9-9c77-4bc0-9094-b32a441d3143","d1ef1cb0-6828-4efd-b66c-8ba98534c5f2")
