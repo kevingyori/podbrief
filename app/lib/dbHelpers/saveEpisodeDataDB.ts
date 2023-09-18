@@ -19,10 +19,10 @@ const saveEpisodeDataDB = async (podcastData) => {
     .select();
 
   if (error) {
-    console.error("Error inserting data into Supabase:", error);
+    console.error("Error inserting data into 'podcasts':", error);
     throw error;
   } else {
-    console.log(`Data inserted into Supabase: ${insertData}`);
+    console.log(`Data inserted into 'podcasts': ${insertData}`);
   }
 };
 
