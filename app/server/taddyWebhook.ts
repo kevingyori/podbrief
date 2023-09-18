@@ -8,9 +8,8 @@
 
 const express = require("express");
 require("dotenv").config({ path: require("find-config")(".env") });
-const isChannelSubscribed = require("../lib/dbHelpers/isChannelSubscribed.ts");
-const isPodcastInTable = require("../lib/dbHelpers/isEpisodeInTable.ts");
 const podcastProcessQueue = require("./podcastQueue.ts");
+const processNewPodcastNotification = require("./processNotification.ts");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -28,7 +27,7 @@ const verifyTaddySecret = (req, res, next) => {
   next();
 };
 
-//process QUEUE
+//init process QUEUE
 const podcastQueue = podcastProcessQueue();
 
 app.post("/podbrief/processEpisode", verifyTaddySecret, async (req, res) => {
@@ -38,31 +37,12 @@ app.post("/podbrief/processEpisode", verifyTaddySecret, async (req, res) => {
     try {
       //console.log(podcastData);
 
-      res.status(200).send(`Notification processed successfully for ${podcastData.uuid}`);
+      res
+        .status(200)
+        .send(`Notification processed successfully for ${podcastData.uuid}`);
 
-    //TODO: ezeket KISZERVEZNI h átláthatóbb legyen a kód!!!!
-        // Check if the channel is subscribed
-    //   const isSubscribed = await isChannelSubscribed(
-    //     podcastData.podcastSeries?.uuid
-    //   );
-
-    //   if (!isSubscribed) {
-    //     return; // Exit the function if channel is not subscribed
-    //   }
-
-    //   //check if podcast is already present in 'podcasts' table
-    //   const isPodcastAlreadyInTable = await isPodcastInTable(podcastData.uuid);
-
-    //   if (isPodcastAlreadyInTable) {
-    //     return;
-    //   }
-
-      //   //start the creating of the podcast summary and save everything to DB
-      //   await mainPodcastSummaryProcess(podcastData);
-
-      //ez webhookba
-      podcastQueue.enqueue(podcastData);
-
+      await processNewPodcastNotification(podcastData, podcastQueue);
+      
     } catch (error) {
       console.error(
         `Error processing Podcast (Webhook) for ${podcastData.uuid}:`,
