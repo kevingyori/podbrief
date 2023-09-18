@@ -11,7 +11,6 @@ module.exports = {
   //mapreduce
   outputSummaryTextFile: path.join(__dirname, './files/combinedSummary.txt'), //cleanup
   outputFinalSummaryFile: path.join(__dirname, './files/finalSummary.json'), //cleanup
-  summaryChunksFile: path.join(__dirname, './files/summaryChunks.json'), //cleanup
 
   //for cleanup after saving final summary json to db (excluding the above files)
   slicedAudioDirectory: path.join(__dirname, './files/slicedAudio'), //cleanup

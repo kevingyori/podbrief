@@ -7,7 +7,6 @@ async function cleanupItems() {
       pathConfiguration.outputSummaryChunksJSONFile,
       pathConfiguration.outputSummaryTextFile,
       pathConfiguration.outputFinalSummaryFile,
-      pathConfiguration.summaryChunksFile,
       pathConfiguration.downloadedMP4,
       pathConfiguration.transcriptionTXT,
       pathConfiguration.transcriptionDirectory,
