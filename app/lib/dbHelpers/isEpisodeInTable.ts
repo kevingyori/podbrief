@@ -15,9 +15,9 @@ const isEpisodeInTable = async (episodeID) => {
         const isEpisodeAlreadyPresent = data.length > 0
 
         if(isEpisodeAlreadyPresent){
-            console.log(`Episode ${episodeID} is already present in podcasts table, terminating processing`)
+            console.log(`Episode ${episodeID} is already present in podcasts table, terminating enqueuing`)
         } else {
-            console.log(`Episode ${episodeID} is NOT present in podcasts table, starting processing`)
+            console.log(`Episode ${episodeID} is NOT present in podcasts table, starting enqueuing`)
         }
 
         return isEpisodeAlreadyPresent

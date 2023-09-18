@@ -22,7 +22,7 @@ const saveEpisodeDataDB = async (podcastData) => {
     console.error("Error inserting data into Supabase:", error);
     throw error;
   } else {
-    console.log("Data inserted into Supabase:", insertData);
+    console.log(`Data inserted into Supabase: ${insertData}`);
   }
 };
 

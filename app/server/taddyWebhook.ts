@@ -8,9 +8,9 @@
 
 const express = require("express");
 require("dotenv").config({ path: require("find-config")(".env") });
-const mainPodcastSummaryProcess = require("./main.ts");
 const isChannelSubscribed = require("../lib/dbHelpers/isChannelSubscribed.ts");
 const isPodcastInTable = require("../lib/dbHelpers/isEpisodeInTable.ts");
+const podcastProcessQueue = require("./podcastQueue.ts");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -28,35 +28,40 @@ const verifyTaddySecret = (req, res, next) => {
   next();
 };
 
+//process QUEUE
+const podcastQueue = podcastProcessQueue();
+
 app.post("/podbrief/processEpisode", verifyTaddySecret, async (req, res) => {
   const podcastData = req.body.data;
 
   if (podcastData) {
     try {
-      console.log(podcastData);
+      //console.log(podcastData);
 
-      res
-        .status(200)
-        .send(`Notification processed successfully for ${podcastData.uuid}`);
+      res.status(200).send(`Notification processed successfully for ${podcastData.uuid}`);
 
-      //check if episode is already present in podcasts table (or maybe not needed? supabase sends error anyway?)
+    //TODO: ezeket KISZERVEZNI h átláthatóbb legyen a kód!!!!
+        // Check if the channel is subscribed
+    //   const isSubscribed = await isChannelSubscribed(
+    //     podcastData.podcastSeries?.uuid
+    //   );
 
-      // Check if the channel is subscribed
-      const isSubscribed = await isChannelSubscribed(podcastData.podcastSeries?.uuid);
+    //   if (!isSubscribed) {
+    //     return; // Exit the function if channel is not subscribed
+    //   }
 
-      if (!isSubscribed) {
-        return; // Exit the function if channel is not subscribed
-      }
+    //   //check if podcast is already present in 'podcasts' table
+    //   const isPodcastAlreadyInTable = await isPodcastInTable(podcastData.uuid);
 
-      //check if podcast is already present in 'podcasts' table
-      const isPodcastAlreadyInTable = await isPodcastInTable(podcastData.uuid)
+    //   if (isPodcastAlreadyInTable) {
+    //     return;
+    //   }
 
-      if(isPodcastAlreadyInTable){
-        return
-      }
+      //   //start the creating of the podcast summary and save everything to DB
+      //   await mainPodcastSummaryProcess(podcastData);
 
-      //start the creating of the podcast summary and save everything to DB
-      await mainPodcastSummaryProcess(podcastData);
+      //ez webhookba
+      podcastQueue.enqueue(podcastData);
 
     } catch (error) {
       console.error(

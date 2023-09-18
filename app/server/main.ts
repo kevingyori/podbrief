@@ -70,10 +70,14 @@ async function mainPodcastSummarizer(podcastData) {
 
     // //save json to db
     const resolveSummarySave = await saveFinalSummaryToDB(finalSummary, podcastData.uuid);
+
+    console.log(`Podcast processed:`, podcastData.name);
+
+    return resolveSummarySave //return promise so queue moves on
     
   } catch (error) {
     console.error("Main function error:", error);
-    //REJECTELNI QUEUE MIATT?
+    throw new Error("Error processing podcast. Move on to next podcast")
  
   } finally{
     //delete created files
