@@ -3,7 +3,7 @@ const path = require('path');
 
 const inputTrancription = "./files/transcription.txt";
 const outputDirectory = "./files/slicedTranscription";
-const maxChunkSize = 11000; //~4 chars equal to 1 token. TODO: refactor it, so it splits the text based on token count
+const maxChunkSize = 10500; //~4 chars equal to 1 token. TODO: refactor it, so it splits the text based on token count
 
 function sliceTranscription() {
     return new Promise((resolve, reject) => {
