@@ -9,23 +9,21 @@ const createUserAfterSignup = async (userID, userEmail) => {
         {
           user_id: userID,
           email: userEmail,
-          latest_send_date: new Date()
+          latest_send_date: new Date(),
         },
       ])
       .select();
 
-      if(error) {
-        console.log(error)
-        return
-      }
+    if (error) {
+      console.log(error);
+      return;
+    }
 
     console.log(`User data inserted into 'users'`, data);
-  } catch (error) {
-    
-  }
+  } catch (error) {}
 };
 
-createUserAfterSignup(
-  "f8c88d61-5a0a-4067-92b5-b45ec709d93b",
-  "test@gmail.com"
-);
+// createUserAfterSignup(
+//   "f8c88d61-5a0a-4067-92b5-b45ec709d93b",
+//   "test@gmail.com"
+// );
