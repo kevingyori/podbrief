@@ -1,31 +1,42 @@
 const supabase = require("../../server/supabaseConfig.ts");
+const getPodcastSeriesInfo = require("../../lib/podcastAPI/getPodcastChannelInfo.ts")
 
-const insertChannelToPodcastChannelsTable = async (channelID, channelName) => {
+const insertChannelToPodcastChannelsTable = async (channelID) => {
     try {
       const { data, error } = await supabase
         .from("podcast_channels")
         .select()
         .eq("channel_id", channelID);
-  
+
       if (error) {
         throw new Error(error);
       }
-  
+
       if (data.length > 0) {
         console.log(
           "channel " + channelID + " is already present in 'podcast_channels'. Proceed to subscribeToChannel"
         );
         return
       }
-  
+
+      //fetch podcast channel data from taddy
+      const {name, description, imageUrl, itunesInfo} = await getPodcastSeriesInfo(channelID)
+
+      //insert podcast channel data to db
       const { data: insertedData, error: insertError } = await supabase
         .from("podcast_channels")
-        .insert([{ channel_id: channelID, name: channelName }]);
-  
+        .insert([{
+          channel_id: channelID,
+          name: name,
+          description: description,
+          image_url: imageUrl,
+          publisher_name: itunesInfo.publisherName
+        }]);
+
       if (insertError) {
         throw insertError;
       }
-  
+
       return insertedData;
     } catch (error) {
       console.error(error);
@@ -47,6 +58,9 @@ const insertChannelToPodcastChannelsTable = async (channelID, channelName) => {
         }
 
         if(operation === "remove"){
+          if(subCount === 0){
+            return //prevents subCount going below 0 (more info on this below at unSubscribeFromChannel() )
+          }
           subCount--
         }
 
@@ -62,24 +76,16 @@ const insertChannelToPodcastChannelsTable = async (channelID, channelName) => {
         if (updateError){
           throw updateError
         }
-  
+
     } catch (error) {
       console.error('Error updating subscribers count:', error);
     }
   }
 
-//podcast_channelsbe több infó pl channel url, channel img, stb -> ezt külön le kell kérni miután először insertelte
-    //---> channelName nem kell argumentsbe mert úgyis query id alapján!!!
-
-//unsubscribe db function miután törölt subscriptionsből nézze meg h van e még feliratkozó a csatornára. ha nincs akkor TÖRÖLJE onnan! (feleslegesen generálunk epizódokat)
-//vagy trackelni podcast channelsben h hány feliratkozója van a csatornának? és amikor jön a notification de 0 feliratkozója van akkor return?
-//kérdezni gpt-t h melyik a jobb megoldás, a 2. jobban tetszik nekem
-//populatelni megint db-t
-
-const subscribeToChannel = async (userID, channelID, channelName) => {
+const subscribeToChannel = async (userID, channelID) => {
   try {
     //add channel to podcasts_channels table IF NOT ALREADY PRESENT
-    await insertChannelToPodcastChannelsTable(channelID, channelName);
+    await insertChannelToPodcastChannelsTable(channelID);
 
     // Check if the subscription already exists
     const { data, error } = await supabase
@@ -114,12 +120,6 @@ const subscribeToChannel = async (userID, channelID, channelName) => {
   }
 };
 
-subscribeToChannel(
-    "82f29294-46f1-490c-85b0-125c1c0d8dd8",
-    "06cbcb9e-dbf1-43c7-ad6a-ec4263255f2c",
-    "Climate Pod"
-);
-
 const unSubscribeFromChannel = async (userID, channelID) => {
     try {
         const { data, error } = await supabase
@@ -127,19 +127,27 @@ const unSubscribeFromChannel = async (userID, channelID) => {
           .delete()
           .eq('user_id', userID)
           .eq('channel_id', channelID)
-    
+
         if (error) {
           throw error;
-        }
-
-        if(data.length > 0){
+        } else {
+          //if there was no subscription to be deleted, supabase will not return an error (or anything) so the subscribers_count can go below 0
+          //todo: something like this: if data.length > 0 ... de mivel supabase nem ad vissza nem is lehet checkelni ekkora szart
           await updateSubscribersCount(channelID, "remove")
         }
 
-        return data;
+        return data //null, supabase doesn't return by default
       } catch (error) {
         console.error(error);
       }
 }
 
-// unSubscribeFromChannel("82f29294-46f1-490c-85b0-125c1c0d8dd8","06cbcb9e-dbf1-43c7-ad6a-ec4263255f2c")
+// subscribeToChannel(
+//   "638243b9-9c77-4bc0-9094-b32a441d3143",
+//   "49cc55e1-4258-43a0-adf3-a0a71aa62c49"
+// );
+
+// unSubscribeFromChannel(
+//  "638243b9-9c77-4bc0-9094-b32a441d3143",
+//  "49cc55e1-4258-43a0-adf3-a0a71aa62c49"
+// )
