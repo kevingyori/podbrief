@@ -1,8 +1,7 @@
 //https://taddy.org/developers/podcast-api/webhooks
 //https://github.com/taddyorg/example-project
-//mock webhook setup - yarn leszedni
 
-//TESZTELNI egymás után 3 podcast notificationt!!! 1 nagyon hosszú, 1 közepes, 1 NAGYON rövid ebben a sorrendben, hogy teszteljem a multiple notification processinget!
+//TESZTELNI egymás után 3 podcast notificationt!!! 1 hosszú 2.5+ órás!, 1 közepes, 1 NAGYON rövid ebben a sorrendben, hogy teszteljem a multiple notification processinget!
 //ngrok api endpoint for testing purposes from live taddy ha lokálban teszteltem
 //majd kicserélni rendes domainre a taddy dashboardon
 
@@ -42,7 +41,7 @@ app.post("/podbrief/processEpisode", verifyTaddySecret, async (req, res) => {
         .send(`Notification processed successfully for ${podcastData.uuid}`);
 
       await processNewPodcastNotification(podcastData, podcastQueue);
-      
+
     } catch (error) {
       console.error(
         `Error processing Podcast (Webhook) for ${podcastData.uuid}:`,
