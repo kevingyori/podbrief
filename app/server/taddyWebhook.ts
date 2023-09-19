@@ -5,6 +5,9 @@
 //ngrok api endpoint for testing purposes from live taddy ha lokálban teszteltem
 //majd kicserélni rendes domainre a taddy dashboardon
 
+//tesztelni majd még h mivan ha elhasal a newsletter mert pl rossz email v mert bouncolt (verifyolni egy emailt aztán törölni az emailt és úgy küldeni rá, miközben a többi usernek a rendes emailre)
+//nem newsletter hanem úgy az egész app: UNSUBSCRIBE FROM PODBRIEF: törölni db-ből mindenhol, tokenjét invalidatelni!
+
 const express = require("express");
 require("dotenv").config({ path: require("find-config")(".env") });
 const podcastProcessQueue = require("./podcastQueue.ts");
