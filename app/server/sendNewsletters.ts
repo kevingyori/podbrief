@@ -27,16 +27,9 @@ async function sendNewsletters() {
 
       if (podcastSummariesOfUser.length < 1) continue; //skip users that don't have new episodes
 
-      //a podcast name columnt átnevezni TITLE-re! kódban mindenhol kicserélni!
-      //!!!!!!végén UPDATE LATEST SEND DATE minden usernek és akkor kövi iterációnál már ezt nézi.!!!!!!! ha elbaszodott akkor is kapjon új dátumot?
-      //NE FELEJTSD EL a fallback Text Partot is maintainelni meg a sanitize podcastot ha kell új property vagy már nem kell régi!
-
       try {
         //try-catch: If an error occurs because of missing summary, it will be caught, logged, BUT the loop will CONTINUE with the next user.
-        finalEmailJson = createFinalJsonAndSanitize(
-          user,
-          podcastSummariesOfUser
-        );
+        finalEmailJson = createFinalJsonAndSanitize(user, podcastSummariesOfUser);
         //try-catch: If an error occurs with sending the email, it will be caught, logged, BUT the loop will CONTINUE with the next user.
         await sendTempEmail(finalEmailJson);
 
@@ -48,6 +41,10 @@ async function sendNewsletters() {
           error
         );
         await saveSentEmailTextToDB(user.user_id, finalEmailJson, false, error)
+      } finally{
+          await updateUserLatestSendDate(user.user_id)
+        //!!!!!!végén UPDATE LATEST SEND DATE minden usernek és akkor kövi iterációnál már ezt nézi.!!!!!!! ha elbaszodott akkor is kapjon új dátumot?
+          //NE FELEJTSD EL a fallback Text Partot is maintainelni meg a sanitize podcastot ha kell új property vagy már nem kell régi!
       }
     }
 
@@ -165,6 +162,25 @@ const saveSentEmailTextToDB = async (userID, finalEmailJson, success, errorMessa
     console.error(error);
   }
 };
+
+const updateUserLatestSendDate = async (userID) => {
+  try {
+      
+    const { data, error } = await supabaseClient
+      .from("users")
+      .update({ latest_send_date: new Date() })
+      .eq("user_id", userID)
+      .select();
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  } catch (error) {
+    console.error(`An error occurred while updat: updating latest_send_date for user: ${userID}`, error);
+  }
+}
 
 sendNewsletters();
 

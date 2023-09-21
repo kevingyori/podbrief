@@ -26,4 +26,7 @@ export const createUserAfterSignup = async (
   } catch (error) {}
 };
 
-// createUserAfterSignup("f8c88d61-5a0a-4067-92b5-b45ec709d93b", "test@gmail.com");
+// createUserAfterSignup(
+//   "f8c88d61-5a0a-4067-92b5-b45ec709d93b",
+//   "test@gmail.com"
+// );
