@@ -1,36 +1,41 @@
 const supabase = require("../../server/supabaseConfig.ts");
 
-const insertChannelToPodcastChannelsTable = async (channelID, channelName) => {
-    try {
-      const { data, error } = await supabase
-        .from("podcast_channels")
-        .select()
-        .eq("channel_id", channelID);
-  
-      if (error) {
-        throw new Error(error);
-      }
-  
-      if (data.length > 0) {
-        console.log(
-          "channel " + channelID + " is already present in 'podcast_channels'. Proceed to subscribeToChannel"
-        );
-        return
-      }
-  
-      const { data: insertedData, error: insertError } = await supabase
-        .from("podcast_channels")
-        .insert([{ channel_id: channelID, name: channelName }]);
-  
-      if (insertError) {
-        throw insertError;
-      }
-  
-      return insertedData;
-    } catch (error) {
-      console.error(error);
+const insertChannelToPodcastChannelsTable = async (
+  channelID: string,
+  channelName: string
+) => {
+  try {
+    const { data, error } = await supabase
+      .from("podcast_channels")
+      .select()
+      .eq("channel_id", channelID);
+
+    if (error) {
+      throw new Error(error);
     }
-  };
+
+    if (data.length > 0) {
+      console.log(
+        "channel " +
+          channelID +
+          " is already present in 'podcast_channels'. Proceed to subscribeToChannel"
+      );
+      return;
+    }
+
+    const { data: insertedData, error: insertError } = await supabase
+      .from("podcast_channels")
+      .insert([{ channel_id: channelID, name: channelName }]);
+
+    if (insertError) {
+      throw insertError;
+    }
+
+    return insertedData;
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 const subscribeToChannel = async (userID, channelID, channelName) => {
   try {
@@ -75,21 +80,24 @@ const subscribeToChannel = async (userID, channelID, channelName) => {
 //   );
 
 const unSubscribeFromChannel = async (userID, channelID) => {
-    try {
-        const { data, error } = await supabase
-          .from('subscriptions')
-          .delete()
-          .eq('user_id', userID)
-          .eq('channel_id', channelID)
-    
-        if (error) {
-          throw error;
-        }
+  try {
+    const { data, error } = await supabase
+      .from("subscriptions")
+      .delete()
+      .eq("user_id", userID)
+      .eq("channel_id", channelID);
 
-        return data;
-      } catch (error) {
-        console.error(error);
-      }
-}
+    if (error) {
+      throw error;
+    }
 
-unSubscribeFromChannel("638243b9-9c77-4bc0-9094-b32a441d3143","d1ef1cb0-6828-4efd-b66c-8ba98534c5f2")
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+unSubscribeFromChannel(
+  "638243b9-9c77-4bc0-9094-b32a441d3143",
+  "d1ef1cb0-6828-4efd-b66c-8ba98534c5f2"
+);

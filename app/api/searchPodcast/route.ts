@@ -73,6 +73,7 @@ const SEARCH_FOR_TERM_QUERY = gql`
 
 export async function POST(request: Request) {
   const body = await request.json();
+  console.log("body", body);
   try {
     const data = await taddyGraphqlRequest({
       query: SEARCH_FOR_TERM_QUERY,

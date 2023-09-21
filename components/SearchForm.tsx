@@ -3,41 +3,28 @@ import { Input } from "@/components/ui/input";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
-import { Search } from "lucide-react";
-import { useState } from "react";
+import { Loader, Search } from "lucide-react";
 import { useAtom } from "jotai";
 import { searchQueryAtom, searchResultsAtom } from "@/app/lib/store";
 import { ArrowRight } from "lucide-react";
-import {
-  selectedPodcastsAtom,
-  selectedPodcastsLengthAtom,
-} from "@/app/lib/store";
+import { selectedPodcastsAtom } from "@/app/lib/store";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export const searchFormSchema = z.object({
   searchQuery: z.string(),
-  // .min(4, {
-  //   message: "Podcast name must be at least 4 characters long",
-  // })
-  // .max(50, {
-  //   message: "Podcast name must be at most 50 characters long",
-  // }),
 });
 
 const getData = async ({ searchQuery }: { searchQuery: string }) => {
   try {
-    // ki kell irni a teljes url-t, mert ez a component a szerveren fut
-    // ha a client oldalon futna, akkor a /api/test is eleg lenne
     const response = await fetch("http://localhost:3000/api/searchPodcast", {
       method: "POST",
       headers: {
@@ -52,14 +39,11 @@ const getData = async ({ searchQuery }: { searchQuery: string }) => {
   }
 };
 
-import React from "react";
-
-export default function SearchButton() {
+export default function ContinueButton() {
   const router = useRouter();
   const [selectedPodcasts] = useAtom(selectedPodcastsAtom);
   const handleSubmit = () => {
-    console.log("submitted");
-    router.push("/wow");
+    router.push("/signup/2");
   };
 
   return (
@@ -78,15 +62,20 @@ export default function SearchButton() {
 export const SearchForm = () => {
   const [searchQuery, setSearchQuery] = useAtom(searchQueryAtom);
   const [searchResults, setSearchResults] = useAtom(searchResultsAtom);
+  const [loading, setLoading] = useState(false);
 
   function onSubmit(values: z.infer<typeof searchFormSchema>) {
+    setLoading(true);
+    console.log("set loading to true");
     getData({ searchQuery: values.searchQuery })
       .then((data) => {
         console.log(data);
         setSearchResults(data.searchForTerm.podcastSeries);
+        setLoading(false);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
+        setLoading(false);
       });
   }
 
@@ -121,11 +110,11 @@ export const SearchForm = () => {
             )}
           />
           <Button type="submit" className="text-md h-14">
-            <Search />
+            {loading ? <Loader className="animate-spin" /> : <Search />}
           </Button>
         </form>
       </Form>
-      <SearchButton />
+      <ContinueButton />
     </div>
   );
 };

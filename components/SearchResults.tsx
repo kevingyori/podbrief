@@ -1,5 +1,6 @@
 "use client";
 import {
+  Podcast,
   searchQueryAtom,
   searchResultsAtom,
   selectedPodcastsAtom,
@@ -17,6 +18,7 @@ import {
 } from "@/components/ui/card";
 import { Checkbox } from "./ui/checkbox";
 import { Label } from "./ui/label";
+import { SearchForm } from "./SearchForm";
 
 function SearchResults() {
   const [searchQuery, setSearchQuery] = useAtom(searchQueryAtom);
@@ -39,37 +41,81 @@ function SearchResults() {
   }, [searchResults, selectedPodcasts, selectedPodcastsLength]);
 
   const updateSelectedPodcasts = (
-    selectedPodcasts: { uuid: string; value: boolean }[],
+    selectedPodcasts: Podcast[],
     podcast: any,
-    value: boolean
+    value: boolean | string
   ) => {
     const uuid = podcast.uuid;
-    if (selectedPodcasts.length === 5 && value) {
-      return selectedPodcasts;
+    if (selectedPodcasts.length === 3 && value) {
+      // setSelectedPodcasts(selectedPodcasts);
+      return;
     }
     if (value) {
-      return [...selectedPodcasts, { uuid: uuid, value: value }];
+      setSelectedPodcasts([...selectedPodcasts, podcast]);
+      return;
     } else {
-      return selectedPodcasts.filter((item) => item.uuid !== uuid);
+      setSelectedPodcasts(
+        selectedPodcasts.filter((item) => item?.uuid !== uuid)
+      );
+      return;
     }
   };
 
-  const handleCheckedChange = (e: boolean | string, podcast: any) => {
+  const handleCheckedChange = (e: boolean | string, podcast: Podcast) => {
     // blue console log for debugging, with hour and minute
     console.log(
       "%chandleCheckedChange",
       "color: #00ffff",
       new Date().toLocaleTimeString()
     );
-    setSelectedPodcasts((prev) => updateSelectedPodcasts(prev, podcast, e));
+    updateSelectedPodcasts(selectedPodcasts, podcast, e);
+    // setSelectedPodcasts((prev) => updateSelectedPodcasts(prev, podcast, e));
+  };
+
+  const removeClickedPodcast = (podcast: Podcast) => {
+    // green console log for debugging, with hour and minute
+    console.log(
+      "%cremoveClickedPodcast",
+      "color: #00ff00",
+      new Date().toLocaleTimeString()
+    );
+    setSelectedPodcasts(
+      selectedPodcasts.filter((item) => item?.uuid !== podcast.uuid)
+    );
   };
 
   return (
-    <div className="">
+    <div className="flex flex-col max-h-full">
       <div className="text-xl text-white text-center mb-4">
-        Select your favorite podcasts ({selectedPodcastsLength}/5)
+        Select your favorite podcasts ({selectedPodcastsLength}/3)
       </div>
-      <ScrollArea className="h-[calc(100dvh-240px)] mb-2">
+      <div className="flex flex-row justify-center mb-2 gap-5">
+        {selectedPodcasts.map((podcast) => (
+          <div
+            key={podcast?.uuid}
+            onClick={() => removeClickedPodcast(podcast)}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={podcast?.imageUrl}
+              alt={podcast?.name}
+              className="w-20 h-20 rounded-md bg-[#A7BABA]"
+              loading="lazy"
+              onError={(e) => {
+                // console.error("error loading image", e);
+                const target = e.target as HTMLImageElement;
+                target.src = "/placeholder.png";
+              }}
+              // onLoad={(e) => {
+              //   console.log("image loaded", e);
+              // }}
+            />
+          </div>
+        ))}
+      </div>
+
+      {/* <ScrollArea className="h-[calc(100dvh-240px)] mb-2"> */}
+      <ScrollArea className="mb-2">
         <div className="flex flex-col gap-2 ">
           {searchResults.map((podcast) => (
             // <div key={podcast.uuid} className="flex flex-row">
@@ -79,15 +125,15 @@ function SearchResults() {
                 className="hidden peer group"
                 onCheckedChange={(e) => handleCheckedChange(e, podcast)}
                 checked={selectedPodcasts.some(
-                  (item) => item.uuid === podcast.uuid
+                  (item) => item?.uuid === podcast.uuid
                 )}
               />
               <Label
                 htmlFor={podcast.uuid}
-                className="border-[3px] border-white peer-data-[state=checked]:border-yellow-600 peer-data-[state=checked]:bg-gray-100 inline-block rounded-lg bg-white"
+                className="border-[3px] border-white peer-data-[state=checked]:border-gray-900 peer-data-[state=checked]:bg-gray-100 inline-block rounded-lg bg-white min-w-full"
               >
                 <Card
-                  key={podcast.uuid}
+                  // key={podcast.uuid}
                   className=" max-w-[calc(100vw-1.5rem)] bg-[#ffffff00] overflow-hidden"
                 >
                   <CardHeader className="flex-row p-3 gap-2 items-center py-2 bg-opacity-0 ">
@@ -99,10 +145,13 @@ function SearchResults() {
                         className="w-20 h-20 rounded-md bg-[#A7BABA]"
                         loading="lazy"
                         onError={(e) => {
+                          // console.error("error loading image", e);
                           const target = e.target as HTMLImageElement;
-                          target.onerror = null;
                           target.src = "/placeholder.png";
                         }}
+                        // onLoad={(e) => {
+                        //   console.log("image loaded", e);
+                        // }}
                       />
                     </div>
                     <div className="flex-col">
@@ -121,6 +170,8 @@ function SearchResults() {
           ))}
         </div>
       </ScrollArea>
+
+      <SearchForm />
     </div>
   );
 }

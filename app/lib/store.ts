@@ -1,21 +1,35 @@
-import { get } from "http";
 import { atom } from "jotai";
 import data from "@/data.json";
+import { atomWithStorage, createJSONStorage } from "jotai/utils";
+
+const storage = createJSONStorage(() => sessionStorage);
 
 const podcastSeries = data.searchForTerm.podcastSeries;
 
-type selectedPodcast =
+export type Podcast =
   | {
       uuid: string;
       value: boolean;
+      name: string;
+      description: string;
+      imageUrl: string;
     }
   | null
   | undefined;
 
 export const searchQueryAtom = atom("");
 export const searchResultsAtom = atom(podcastSeries);
-export const selectedPodcastsAtom = atom<selectedPodcast[]>([]);
-export const selectedPodcastsLengthAtom = atom(
-  (get) => get(selectedPodcastsAtom).length
+export const selectedPodcastsAtom = atomWithStorage<Podcast[]>(
+  "selectedPodcasts",
+  [],
+  storage
 );
-export const signUpEmailAtom = atom("");
+export const selectedPodcastsLengthAtom = atom(
+  (get) => get(selectedPodcastsAtom)?.length
+);
+
+export const signUpEmailAtom = atomWithStorage<string>(
+  "signupEmail",
+  "",
+  storage
+);

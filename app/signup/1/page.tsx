@@ -1,9 +1,9 @@
-import SearchPage from "@/components/SearchPage";
+import Search from "@/components/Search";
 
 const Page = () => {
   return (
     <div className="px-2">
-      <SearchPage />
+      <Search />
     </div>
   );
 };
