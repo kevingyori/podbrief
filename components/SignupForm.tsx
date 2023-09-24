@@ -77,7 +77,10 @@ function SignupForm() {
           </Button>
         </form>
       </Form>
-      <Link className="md:max-w-sm w-full text-center  mt-2" href="/dashboard">
+      <Link
+        className="md:max-w-sm w-full text-center mt-2 text-lg"
+        href="/dashboard"
+      >
         Sign in
       </Link>
     </div>
