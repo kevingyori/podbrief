@@ -58,7 +58,7 @@ export default function RootLayout({
       </head>
       <body>
         <Image
-          className="-z-10"
+          className="-z-10 pointer-events-none"
           src={gradient}
           alt="Gradient background"
           placeholder="blur"

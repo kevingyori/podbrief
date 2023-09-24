@@ -85,7 +85,7 @@ function SearchResults() {
   };
 
   return (
-    <div className="flex flex-col max-h-full">
+    <div className="flex flex-col max-h-full md:max-w-xl md:mx-auto gap-2">
       <div className="text-xl text-white text-center mb-4">
         Select your favorite podcasts ({selectedPodcastsLength}/3)
       </div>
@@ -115,7 +115,7 @@ function SearchResults() {
       </div>
 
       {/* <ScrollArea className="h-[calc(100dvh-240px)] mb-2"> */}
-      <ScrollArea className="mb-2">
+      <ScrollArea className="">
         <div className="flex flex-col gap-2 ">
           {searchResults.map((podcast) => (
             // <div key={podcast.uuid} className="flex flex-row">
@@ -130,13 +130,13 @@ function SearchResults() {
               />
               <Label
                 htmlFor={podcast.uuid}
-                className="border-[3px] border-white peer-data-[state=checked]:border-gray-900 peer-data-[state=checked]:bg-gray-100 inline-block rounded-lg bg-white min-w-full"
+                className="border-[3px] border-white peer-data-[state=checked]:border-gray-900 peer-data-[state=checked]:bg-gray-100 inline-block rounded-lg bg-white min-w-full cursor-pointer"
               >
                 <Card
                   // key={podcast.uuid}
-                  className=" max-w-[calc(100vw-1.5rem)] bg-[#ffffff00] overflow-hidden"
+                  className="  bg-[#ffffff00]"
                 >
-                  <CardHeader className="flex-row p-3 gap-2 items-center py-2 bg-opacity-0 ">
+                  <CardHeader className="flex flex-row p-2 gap-2 items-center bg-opacity-0 ">
                     <div className="min-w-[80px] rounded-md">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
@@ -154,13 +154,15 @@ function SearchResults() {
                         // }}
                       />
                     </div>
-                    <div className="flex-col">
-                      <CardTitle className="text-lg overflow-hidden whitespace-nowrap">
-                        {podcast.name}
-                      </CardTitle>
-                      <CardDescription className="h-[3.75rem] overflow-hidden hyphens-auto text-ellipsis">
-                        {podcast.description}
-                      </CardDescription>
+                    <div className="shrink">
+                      <div className="grid">
+                        <CardTitle className="text-lg shrink overflow-hidden whitespace-nowrap ">
+                          {podcast.name}
+                        </CardTitle>
+                        <CardDescription className="h-[3.75rem] shrink overflow-hidden hyphens-auto text-ellipsis">
+                          {podcast.description}
+                        </CardDescription>
+                      </div>
                     </div>
                   </CardHeader>
                   {/* <CardContent>wow</CardContent> */}

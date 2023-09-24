@@ -50,7 +50,7 @@ function EditOrSub() {
   return (
     <div>
       <Provider>
-        <div className=" p-2">
+        <div className="">
           <h2 className="text-white text-xl font-semibold mb-3 mt-2 ">
             Your podcasts
           </h2>
