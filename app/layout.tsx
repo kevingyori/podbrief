@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
-import gradient from "@/public/gradient.png";
+import gradient from "@/public/Gradient.png";
 import { Provider } from "jotai";
 import localFont from "next/font/local";
 import Footer from "@/components/Footer";
