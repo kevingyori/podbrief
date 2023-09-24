@@ -35,6 +35,11 @@ async function sendNewsletters() {
 
         await saveSentEmailTextToDB(user.user_id, finalEmailJson, true, "No Error")
 
+        //priginally it was in finally block
+        //edge case: podcast is being processed, and there is no summary yet. When sending newsletters, user won't get the email because of missing summary error. 
+        //calling updateUserLatestSendDate here will make sure that in the next iteration os newsletters sending, user will get previous week's summaries
+        await updateUserLatestSendDate(user.user_id)
+
       } catch (error) {
         console.error(
           `Error occurred while sending email for user ${user.email}:`,
@@ -42,8 +47,6 @@ async function sendNewsletters() {
         );
         await saveSentEmailTextToDB(user.user_id, finalEmailJson, false, error)
       } finally{
-          await updateUserLatestSendDate(user.user_id)
-        //!!!!!!végén UPDATE LATEST SEND DATE minden usernek és akkor kövi iterációnál már ezt nézi.!!!!!!! ha elbaszodott akkor is kapjon új dátumot?
           //NE FELEJTSD EL a fallback Text Partot is maintainelni meg a sanitize podcastot ha kell új property vagy már nem kell régi!
       }
     }

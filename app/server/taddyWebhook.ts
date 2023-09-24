@@ -1,9 +1,7 @@
 //https://taddy.org/developers/podcast-api/webhooks
 //https://github.com/taddyorg/example-project
 
-//TESZTELNI egymás után 3 podcast notificationt!!! 1 hosszú 2.5+ órás!, 1 közepes, 1 NAGYON rövid ebben a sorrendben, hogy teszteljem a multiple notification processinget!
 //ngrok api endpoint for testing purposes from live taddy ha lokálban teszteltem
-//majd kicserélni rendes domainre a taddy dashboardon
 
 //tesztelni majd még h mivan ha elhasal a newsletter mert pl rossz email v mert bouncolt (verifyolni egy emailt aztán törölni az emailt és úgy küldeni rá, miközben a többi usernek a rendes emailre)
 //nem newsletter hanem úgy az egész app: UNSUBSCRIBE FROM PODBRIEF: törölni db-ből mindenhol, tokenjét invalidatelni!
