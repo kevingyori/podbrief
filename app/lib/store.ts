@@ -33,3 +33,10 @@ export const signUpEmailAtom = atomWithStorage<string>(
   "",
   storage
 );
+export const userIdAtom = atomWithStorage<string>("userId", "", storage);
+
+export const subscribedPodcastsAtom = atomWithStorage<Podcast[]>(
+  "selectedPodcasts",
+  [],
+  storage
+);

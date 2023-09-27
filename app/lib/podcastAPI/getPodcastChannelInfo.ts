@@ -1,19 +1,18 @@
-require("dotenv").config({ path: require("find-config")(".env") });
-const ax = require('axios');
+// require("dotenv").config({ path: require("find-config")(".env") });
+import ax from "axios";
 
-const taddyURL = 'https://api.taddy.org';
+const taddyURL = "https://api.taddy.org";
 
 const headers = {
-  'Content-Type': 'application/json',
-  'X-USER-ID': process.env.TADDY_USER_ID,
-  'X-API-KEY': process.env.TADDY_API_KEY
+  "Content-Type": "application/json",
+  "X-USER-ID": process.env.TADDY_USER_ID,
+  "X-API-KEY": process.env.TADDY_API_KEY,
 };
 
-async function getPodcastChannelInfo(channelID) {
-    try {
-
-      const data = {
-        query: `{
+async function getPodcastChannelInfo(channelID: string) {
+  try {
+    const data = {
+      query: `{
           getPodcastSeries(uuid:"${channelID}"){
             uuid
             name
@@ -24,18 +23,16 @@ async function getPodcastChannelInfo(channelID) {
               publisherName
             }
           }
-        }`
-      }
+        }`,
+    };
 
-      const response = await ax.post(taddyURL, data, { headers });
-      const podcastChannelData = response.data.data.getPodcastSeries
+    const response = await ax.post(taddyURL, data, { headers });
+    const podcastChannelData = response.data.data.getPodcastSeries;
 
-      return podcastChannelData
-
-    } catch (error) {
-      console.error('Error fetching podcastChannelData from Taddy:', error);
-    }
-
+    return podcastChannelData;
+  } catch (error) {
+    console.error("Error fetching podcastChannelData from Taddy:", error);
   }
+}
 
-module.exports = getPodcastChannelInfo
+export { getPodcastChannelInfo };

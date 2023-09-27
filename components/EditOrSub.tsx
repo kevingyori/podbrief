@@ -1,38 +1,59 @@
 "use client";
-import { selectedPodcastsAtom, signUpEmailAtom } from "@/app/lib/store";
+import {
+  selectedPodcastsAtom,
+  signUpEmailAtom,
+  subscribedPodcastsAtom,
+} from "@/app/lib/store";
 import { Provider, useAtom } from "jotai";
 import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Card, CardDescription, CardHeader, CardTitle } from "./ui/card";
-import { Edit, Edit2, Edit3, Loader, PartyPopper } from "lucide-react";
+import { Edit, Loader, MailX, PartyPopper } from "lucide-react";
 import { useEffect, useState } from "react";
-import { set } from "react-hook-form";
+import supabase from "@/lib/supabase";
 
-function EditOrSub() {
+function EditOrSub({ type }: { type: "sub" | "unsub" }) {
   const router = useRouter();
   const [email, setEmail] = useAtom(signUpEmailAtom);
-  const [selectedPodcasts, setSelectedPodcasts] = useAtom(selectedPodcastsAtom);
+  // const [selectedPodcasts, setSelectedPodcasts] = useAtom(
+  //   type === "sub" ? selectedPodcastsAtom : subscribedPodcastsAtom
+  // );
+  const [selectedPodcasts, setSelectedPodcasts] = useAtom(
+    subscribedPodcastsAtom
+  );
   const [loading, setLoading] = useState(false);
 
-  const handleSubscribe = () => {
+  const handleUnsubscribe = () => {
+    console.log("unsubscribe");
+  };
+
+  const handleSubscribe = async () => {
     setLoading(true);
-    const podcastIds = selectedPodcasts.map((podcast) => podcast?.uuid);
-    console.log("podcastIds", podcastIds);
-    fetch("/api/subscribe", {
+    // const podcastIds = selectedPodcasts.map((podcast) => podcast?.uuid);
+    // console.log("podcastIds", podcastIds);
+    fetch("/api/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email,
-        podcasts: podcastIds,
+        email: email,
+        // podcasts: podcastIds,
       }),
     })
       .then((res) => {
+        if (!res.ok) {
+          res.json().then((data) => {
+            console.error(data);
+          });
+        }
         if (res.ok) {
-          setSelectedPodcasts([]);
-          setEmail("");
+          // setSelectedPodcasts([]);
+          // setEmail("");
+          // res.json().then((data) => {
+          //   console.log(data);
+          // });
           router.push("/signup/3");
         }
       })
@@ -40,20 +61,23 @@ function EditOrSub() {
         console.error(err);
       })
       .finally(() => {
-        console.log("finally");
         setLoading(false);
       });
   };
 
+  useEffect(() => {
+    console.log("selected", selectedPodcasts);
+  }, [selectedPodcasts]);
+
   // console.log("email", email);
   // console.log("selectedPodcasts", selectedPodcasts);
   return (
-    <div>
-      <Provider>
-        <div className="">
-          <h2 className="text-white text-xl font-semibold mb-3 mt-2 ">
-            Your podcasts
-          </h2>
+    <Provider>
+      <div className="flex flex-col h-[calc(100vh-3rem)] px-2 w-screen justify-between">
+        {/* Podcast list */}
+        <div className="flex flex-col gap-3 mt-10">
+          <h2 className="text-white text-xl font-semibold">Your podcasts</h2>
+
           <div className="flex gap-2 flex-col ">
             {selectedPodcasts.map((podcast) => {
               return (
@@ -81,13 +105,15 @@ function EditOrSub() {
                           // }}
                         />
                       </div>
-                      <div className="flex-col">
-                        <CardTitle className="text-lg overflow-hidden whitespace-nowrap">
-                          {podcast?.name}
-                        </CardTitle>
-                        <CardDescription className="h-[3.75rem] overflow-hidden pr-5 hyphens-auto text-ellipsis">
-                          {podcast?.description}
-                        </CardDescription>
+                      <div className="shrink">
+                        <div className="grid">
+                          <CardTitle className="text-lg shrink overflow-hidden whitespace-nowrap ">
+                            {podcast?.name}
+                          </CardTitle>
+                          <CardDescription className="h-[3.75rem] shrink overflow-hidden hyphens-auto text-ellipsis">
+                            {podcast?.description}
+                          </CardDescription>
+                        </div>
                       </div>
                     </CardHeader>
                     {/* <CardContent>wow</CardContent> */}
@@ -97,9 +123,13 @@ function EditOrSub() {
               );
             })}
           </div>
+        </div>
+
+        {/* Edit and subscription section */}
+        <div>
           <Link href="/signup/1">
             <Button
-              className="w-full h-14 mt-2 text-md bg-white opacity-95"
+              className="w-full h-14 mt-2 text-md bg-[#ffffffd0]  opacity-95"
               variant="secondary"
               disabled={selectedPodcasts.length > 0 ? false : true}
             >
@@ -107,22 +137,27 @@ function EditOrSub() {
               <Edit className="ml-2" />
             </Button>
           </Link>
+          {type === "unsub" && (
+            <Button onClick={() => supabase.auth.signOut()}>Sign out</Button>
+          )}
           <Button
             className="w-full h-14 mt-2 text-md bg-white opacity-95"
             variant="secondary"
             disabled={selectedPodcasts.length > 0 ? false : true}
-            onClick={handleSubscribe}
+            onClick={type === "sub" ? handleSubscribe : handleUnsubscribe}
           >
-            Subscribe
+            {type === "sub" ? "Subscribe" : "Unsubscribe"}
             {loading ? (
               <Loader className="animate-spin ml-2" />
-            ) : (
+            ) : type === "sub" ? (
               <PartyPopper className="ml-2" />
+            ) : (
+              <MailX className="ml-2" />
             )}
           </Button>
         </div>
-      </Provider>
-    </div>
+      </div>
+    </Provider>
   );
 }
 

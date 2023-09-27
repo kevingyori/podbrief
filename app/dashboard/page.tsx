@@ -6,6 +6,8 @@ import { Edit, Loader, Mail, Search, UnlockIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import supabase from "@/lib/supabase";
 import EditOrSub from "@/components/EditOrSub";
+import { OTPForm } from "@/components/OTPForm";
+import { subscribedPodcastsAtom } from "../lib/store";
 
 async function signInWithEmail(email: string) {
   //   const email;
@@ -35,6 +37,25 @@ async function verifyOtp(email: string, token: string) {
   }
 }
 
+const fetchSubscription = async (userId: string) => {
+  try {
+    const response = await fetch("/api/getSubscriptions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId: userId,
+      }),
+    });
+    const data = await response.json();
+    console.log("data", data);
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 function Page() {
   const [session, setSession] = useState(null);
   const [email, setEmail] = useState("");
@@ -42,6 +63,9 @@ function Page() {
   const [emailData, setEmailData] = useState(null);
   const [emailLoading, setEmailLoading] = useState(false);
   const [otpLoading, setOtpLoading] = useState(false);
+  const [subscribedPodcasts, setSubscribedPodcasts] = useState(
+    subscribedPodcastsAtom
+  );
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -52,10 +76,19 @@ function Page() {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
+      if (session) {
+        fetchSubscription(session.user.id).then((data) => {
+          setSubscribedPodcasts(data);
+        });
+      }
     });
 
     return () => subscription.unsubscribe();
   }, []);
+
+  useEffect(() => {
+    console.log("subscribedPodcasts", subscribedPodcasts);
+  }, [subscribedPodcasts]);
 
   const handleEmail = async (email: string) => {
     setEmailLoading(true);
@@ -79,27 +112,28 @@ function Page() {
     return (
       <div className="mt-[50%] md:mt-[30%] flex justify-center items-center">
         {emailData ? (
-          <div>
-            <Input
-              placeholder="123456"
-              value={token}
-              onChange={(e) => setToken(e.target.value)}
-              className="w-64 h-14 mb-2 text-md text-black bg-[#ffffff8d] focus-visible:ring-gray-400 border-white"
-            />
-            <Button
-              className="w-full h-14 mt-2 text-md bg-white opacity-95"
-              variant="secondary"
-              onClick={() => handleOtp(email, token)}
-            >
-              Verify OTP
-              {emailLoading ? (
-                <Loader className="animate-spin ml-2" />
-              ) : (
-                <UnlockIcon className="ml-2" />
-              )}
-            </Button>
-          </div>
+          <OTPForm />
         ) : (
+          // <div>
+          //   <Input
+          //     placeholder="123456"
+          //     value={token}
+          //     onChange={(e) => setToken(e.target.value)}
+          //     className="w-64 h-14 mb-2 text-md text-black bg-[#ffffff8d] focus-visible:ring-gray-400 border-white"
+          //   />
+          //   <Button
+          //     className="w-full h-14 mt-2 text-md bg-white opacity-95"
+          //     variant="secondary"
+          //     onClick={() => handleOtp(email, token)}
+          //   >
+          //     Verify OTP
+          //     {emailLoading ? (
+          //       <Loader className="animate-spin ml-2" />
+          //     ) : (
+          //       <UnlockIcon className="ml-2" />
+          //     )}
+          //   </Button>
+          // </div>
           <div>
             <Input
               placeholder="your@email.com"
@@ -125,11 +159,8 @@ function Page() {
     );
   } else {
     return (
-      <div className="md:mx-auto md:max-w-xl px-2">
-        <EditOrSub />
-        <div className="mt-3">
-          <Button onClick={() => supabase.auth.signOut()}>Sign out</Button>
-        </div>
+      <div className="md:mx-auto md:max-w-xl">
+        <EditOrSub type="unsub" />
       </div>
     );
   }
