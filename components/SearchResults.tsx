@@ -110,6 +110,7 @@ function SearchResults() {
                 transition={{ type: "spring" }}
                 key={podcast?.uuid}
                 onClick={() => removeClickedPodcast(podcast)}
+                className="cursor-pointer"
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img

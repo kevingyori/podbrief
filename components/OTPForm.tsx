@@ -88,7 +88,7 @@ export function OTPForm({ onVerified = () => {} }: { onVerified?: any }) {
         {/* <Button onClick={() => onSubmit(otp)}>Log otp</Button> */}
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="flex-row flex gap-3"
+          className="flex-col flex gap-3"
         >
           <FormField
             control={form.control}

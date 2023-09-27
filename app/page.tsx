@@ -35,7 +35,7 @@ export default async function Home() {
 
   return (
     <main className="">
-      <div className="md:max-w-7xl mx-auto md:mt-[10%]">
+      <div className="md:max-w-4xl mx-auto md:mt-[10%]">
         <section className="flex flex-col h-[100vh] p-4 text-white">
           {/* <ul className="my-auto text-foreground">
         {users?.map((user: any) => (

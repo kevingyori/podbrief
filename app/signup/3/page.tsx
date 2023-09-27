@@ -47,10 +47,17 @@ function Page() {
   const [selectedPodcasts, setSelectedPodcasts] = useAtom(selectedPodcastsAtom);
 
   const onVerified = (userData: any) => {
-    const podcastIds = selectedPodcasts.map((podcast) => podcast?.uuid);
-    createUser(email, userData.user.id);
-    createSubscription(userData.user.id, podcastIds as string[]);
-    setIsVerified(true);
+    try {
+      const podcastIds = selectedPodcasts.map((podcast) => podcast?.uuid);
+      createUser(email, userData.user.id);
+      createSubscription(userData.user.id, podcastIds as string[]);
+      setIsVerified(true);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setSelectedPodcasts([]);
+      setEmail("");
+    }
   };
 
   return (
@@ -61,17 +68,17 @@ function Page() {
             <h1 className="text-xl">Yay! You have subbed!</h1>
             <h2>Next steps</h2>
             <h3>Manage subscription</h3>
-            {/* <Link href="/dashboard"> */}
-            <Button
-              onClick={() => {
-                supabase.auth.getUser().then((result: any) => {
-                  console.log("result", result);
-                });
-              }}
-            >
-              Go to my dashboard
-            </Button>
-            {/* </Link> */}
+            <Link href="/dashboard">
+              <Button
+              // onClick={() => {
+              //   supabase.auth.getUser().then((result: any) => {
+              //     console.log("result", result);
+              //   });
+              // }}
+              >
+                Go to my dashboard
+              </Button>
+            </Link>
           </>
         ) : (
           <>
