@@ -1,4 +1,4 @@
-const supabase = require("../../server/supabaseConfig.ts");
+import { supabase } from "../../api/supabase";
 
 //should be used only after signup
 export const createUserAfterSignup = async (
@@ -23,10 +23,12 @@ export const createUserAfterSignup = async (
     }
 
     console.log(`User data inserted into 'users'`, data);
-  } catch (error) {}
+  } catch (error) {
+    throw error;
+  }
 };
 
-// createUserAfterSignup(
-//   "f8c88d61-5a0a-4067-92b5-b45ec709d93b",
-//   "test@gmail.com"
-// );
+createUserAfterSignup(
+  "a6f21689-00f8-4fc1-aa50-2d958dcd40ed",
+  "gyorijonatan@gmail.com"
+);

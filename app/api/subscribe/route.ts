@@ -1,34 +1,21 @@
-import { createUserAfterSignup } from "@/app/lib/dbFunctionsForKev/createUserAfterSignup";
-import { createClient } from "@supabase/supabase-js";
+import { supabase } from "../supabase";
 import { NextResponse } from "next/server";
-
-const supabaseUrl = "https://qcqfhwyxvoqaqxgawien.supabase.co";
-const supabaseApiKey = process.env.SUPABASE_KEY as string;
-
-const supabase = createClient(supabaseUrl, supabaseApiKey, {
-  auth: {
-    persistSession: false,
-  },
-});
+import { subscribeToChannel } from "@/app/lib/dbFunctionsForKev/subscribeToChannel";
 
 export async function POST(request: Request) {
   const body = await request.json();
   console.log("body", body);
+  const { podcasts } = body;
   try {
-    // create a new user in database
-
-    const { data, error } = await supabase.auth.signInWithOtp({
-      email: body.email,
-    });
-    console.log("data", data);
-
-    // create a new subscriber in database
-
-    createUserAfterSignup(data?.user?.id, body.email);
-
-    // send a welcome email to the subscriber
-
     // create podcast in database
+    podcasts.forEach(async (podcast: any) => {
+      await subscribeToChannel(body.userId, podcast);
+    });
+    // await subscribeToChannel(
+    //   "a6f21689-00f8-4fc1-aa50-2d958dcd40ed",
+    //   "49cc55e1-4258-43a0-adf3-a0a71aa62c49"
+    // );
+    console.log("successful subscribe");
     return NextResponse.json("yay", { status: 200 });
   } catch (error) {
     console.log(error);

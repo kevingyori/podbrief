@@ -1,7 +1,8 @@
-const supabase = require("../../server/supabaseConfig.ts");
-const getPodcastSeriesInfo = require("../../lib/podcastAPI/getPodcastChannelInfo.ts");
+import { supabase } from "../../api/supabase";
+// const getPodcastSeriesInfo = require("../../lib/podcastAPI/getPodcastChannelInfo.ts");
+import { getPodcastChannelInfo } from "../podcastAPI/getPodcastChannelInfo";
 
-const insertChannelToPodcastChannelsTable = async (channelID) => {
+const insertChannelToPodcastChannelsTable = async (channelID: string) => {
   try {
     const { data, error } = await supabase
       .from("podcast_channels")
@@ -9,7 +10,7 @@ const insertChannelToPodcastChannelsTable = async (channelID) => {
       .eq("channel_id", channelID);
 
     if (error) {
-      throw new Error(error);
+      throw error;
     }
 
     if (data.length > 0) {
@@ -23,7 +24,7 @@ const insertChannelToPodcastChannelsTable = async (channelID) => {
 
     //fetch podcast channel data from taddy
     const { name, description, imageUrl, itunesInfo } =
-      await getPodcastSeriesInfo(channelID);
+      await getPodcastChannelInfo(channelID);
 
     //insert podcast channel data to db
     const { data: insertedData, error: insertError } = await supabase
@@ -98,7 +99,7 @@ const subscribeToChannel = async (userID, channelID) => {
       .eq("user_id", userID);
 
     if (error) {
-      throw new Error(error);
+      throw error;
     }
 
     if (data.length > 0) {
@@ -117,9 +118,10 @@ const subscribeToChannel = async (userID, channelID) => {
       throw insertError;
     }
 
+    console.log("insertedData", insertedData);
     return insertedData;
   } catch (error) {
-    console.error(error);
+    throw error;
   }
 };
 
@@ -146,11 +148,13 @@ const unSubscribeFromChannel = async (userID, channelID) => {
 };
 
 // subscribeToChannel(
-//   "638243b9-9c77-4bc0-9094-b32a441d3143",
+//   "a6f21689-00f8-4fc1-aa50-2d958dcd40ed",
 //   "49cc55e1-4258-43a0-adf3-a0a71aa62c49"
 // );
 
 // unSubscribeFromChannel(
-//  "638243b9-9c77-4bc0-9094-b32a441d3143",
-//  "49cc55e1-4258-43a0-adf3-a0a71aa62c49"
-// )
+//   "a6f21689-00f8-4fc1-aa50-2d958dcd40ed",
+//   "49cc55e1-4258-43a0-adf3-a0a71aa62c49"
+// );
+
+export { subscribeToChannel, unSubscribeFromChannel };

@@ -2,8 +2,8 @@ import EditOrSub from "@/components/EditOrSub";
 
 function Page() {
   return (
-    <div className="md:mx-auto md:max-w-xl px-2">
-      <EditOrSub />
+    <div className="md:mx-auto md:max-w-xl">
+      <EditOrSub type="sub" />
     </div>
   );
 }
