@@ -10,10 +10,6 @@ module.exports = {
     "./src/**/*.{ts,tsx}",
   ],
   theme: {
-    // fontFamily: {
-    //   serif: ["var(--font-plantin)"],
-    //   sans: ["Inter", "sans-serif"],
-    // },
     screens: {
       xsm: { max: "375px" },
       ...defaultTheme.screens,
@@ -28,9 +24,10 @@ module.exports = {
     extend: {
       fontFamily: {
         serif: ["var(--font-plantin)"],
-        sans: ["var(--font-inter)"],
+        sans: ["var(--font-poppins)"],
       },
       colors: {
+        gold: '#F0BF6E',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

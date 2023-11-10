@@ -4,16 +4,16 @@ import { atomWithStorage, createJSONStorage } from "jotai/utils";
 
 const storage = createJSONStorage(() => sessionStorage);
 
-const podcastSeries = data.searchForTerm.podcastSeries;
+const podcastSeries = data.searchForTerm.podcastSeries as Podcast[];
 
 export type Podcast =
   | {
-      uuid: string;
-      value: boolean;
-      name: string;
-      description: string;
-      imageUrl: string;
-    }
+    uuid: string;
+    value: boolean;
+    name: string;
+    description: string;
+    imageUrl: string;
+  }
   | null
   | undefined;
 

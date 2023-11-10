@@ -1,24 +1,26 @@
-function Footer() {
-  const thisYear = new Date().getFullYear();
-  return (
-    <div>
-      <footer className="flex flex-col items-center bg-neutral-100 text-center dark:bg-neutral-600 lg:text-left">
-        <div className="container p-6 md:max-w-2xl">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <a href="/contact" className="mb-5 md:mb-0 text-center pt-4">
-              Contact us
-            </a>
-            <div className="w-full bg-neutral-200 p-4 text-center text-neutral-700 dark:bg-neutral-700 dark:text-neutral-200 rounded-md">
-              © {thisYear} by{" "}
-              <a className="text-neutral-800 dark:text-neutral-400" href="/">
-                PodBrief
-              </a>
-            </div>
-          </div>
-        </div>
-      </footer>
-    </div>
-  );
-}
+import Link from "next/link"
 
-export default Footer;
+export default function Component() {
+  return (
+    <footer className="w-full py-8 px-4 md:px-6">
+      <div className="container flex flex-col md:flex-row justify-between items-center text-[#eceffd]">
+        <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4">
+          <Link className="text-sm font-medium underline hover:text-white text-center" href="#">
+            Terms & Conditions
+          </Link>
+          <Link className="text-sm font-medium underline hover:text-white text-center" href="#">
+            Privacy Policy
+          </Link>
+        </div>
+        <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4 mt-4 md:mt-0">
+          <Link className="text-sm font-medium underline hover:text-white text-center" href="#">
+            About Us
+          </Link>
+          <Link className="text-sm font-medium underline hover:text-white text-center" href="#">
+            Contact Us
+          </Link>
+        </div>
+      </div>
+    </footer>
+  )
+}

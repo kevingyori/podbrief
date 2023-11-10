@@ -41,3 +41,7 @@ next-env.d.ts
 # Editor-based HTTP Client requests
 /httpRequests/
 /.idea/
+/.vscode/
+
+# react-email
+/.react-email/

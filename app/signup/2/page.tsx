@@ -1,10 +1,14 @@
+'use client';
 import EditOrSub from "@/components/EditOrSub";
+import { Provider } from "jotai";
 
 function Page() {
   return (
-    <div className="md:mx-auto md:max-w-xl">
-      <EditOrSub type="sub" />
-    </div>
+    <Provider>
+      <div className="md:mx-auto md:max-w-xl">
+        <EditOrSub type="sub" />
+      </div>
+    </Provider>
   );
 }
 

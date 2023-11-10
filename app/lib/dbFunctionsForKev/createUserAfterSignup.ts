@@ -28,7 +28,7 @@ export const createUserAfterSignup = async (
   }
 };
 
-createUserAfterSignup(
-  "a6f21689-00f8-4fc1-aa50-2d958dcd40ed",
-  "gyorijonatan@gmail.com"
-);
+// createUserAfterSignup(
+//   "a6f21689-00f8-4fc1-aa50-2d958dcd40ed",
+//   "gyorijonatan@gmail.com"
+// );
