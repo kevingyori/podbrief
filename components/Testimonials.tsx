@@ -24,7 +24,7 @@ export default function Component() {
                 width="80"
               />
               <blockquote className="text-center text-sm md:text-base lg:text-sm xl:text-base my-2">
-                "{testimonial.quote}"
+                {testimonial.quote}
               </blockquote>
               <div className="flex flex-col items-center">
                 <p className="font-medium">{testimonial.name}</p>
