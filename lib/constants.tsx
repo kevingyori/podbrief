@@ -1,34 +1,40 @@
 type Testimonial = {
   quote: string,
   name: string,
-  title: string
+  title: string,
+  imgUrl: string,
 }
 
 const TESTIMONIALS: Testimonial[] = [
   {
     quote: "As a startup founder, I hardly have time for long podcasts. My Personal Podcaster has been a game-changer. It's like having my own curator!",
     name: "Alex",
-    title: "Startup Founder"
+    title: "Startup Founder",
+    imgUrl: 'alex.jpg'
   },
   {
     quote: "Every week, I look forward to my tailored summaries. It's perfect for my commute to university.",
     name: "Sara",
-    title: "Grad Student"
+    title: "Grad Student",
+    imgUrl: 'sara.jpg'
   },
   {
     quote: "I can finally keep up with my favorite podcasts without feeling overwhelmed. This is pure gold for busy professionals.",
     name: "Michael",
-    title: "Marketing Manager"
+    title: "Marketing Manager",
+    imgUrl: 'mika.jpg'
   },
   {
     quote: "I always felt left out when my friends discussed the latest podcast episodes. Not anymore!",
     name: "Priya",
-    title: "Aspiring Entrepreneur"
+    title: "Aspiring Entrepreneur",
+    imgUrl: 'pam.jpg'
   },
   {
     quote: "Being informed has never been this efficient. A 3-minute read replaces an hour-long episode? Sign me up!",
     name: "David",
-    title: "Financial Analyst"
+    title: "Financial Analyst",
+    imgUrl: 'david.jpg'
   },
 ]
 

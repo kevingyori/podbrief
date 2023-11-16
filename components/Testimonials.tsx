@@ -16,7 +16,7 @@ export default function Component() {
                 alt="Testimonial 1"
                 className="rounded-full object-cover"
                 height="80"
-                src="/Gradient.png"
+                src={`/testimonials/${testimonial.imgUrl}`}
                 style={{
                   aspectRatio: "80/80",
                   objectFit: "cover",
