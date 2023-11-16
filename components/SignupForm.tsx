@@ -1,6 +1,5 @@
 "use client";
 import { Button } from "./ui/button";
-import Link from "next/link";
 import { useEffect } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -9,16 +8,12 @@ import * as z from "zod";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
-  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
-import { redirect, useRouter } from "next/navigation";
-// import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { useAtom } from "jotai";
 import { signUpEmailAtom } from "@/app/lib/store";
 
@@ -72,7 +67,7 @@ function SignupForm() {
             )}
           />
           <Button
-            className="text-lg text-black font-medium py-7 w-full bg-gold hover:bg-yellow-700"
+            className="text-lg text-black font-medium py-7 w-full bg-gold hover:bg-goldDark"
             variant="secondary"
             type="submit"
           >
