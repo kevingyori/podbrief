@@ -27,23 +27,22 @@ const FormSchema = z.object({
 });
 
 async function verifyOtp(email: string, token: string) {
-  console.log("email", email, "token", token);
-  try {
-    const { data: otpData, error: otpError } = await supabase.auth.verifyOtp({
-      email: email,
-      token: token,
-      type: "email",
-    });
-    // console.log("otpData", otpData);
-
+  console.log("email:", email, "token:", token);
+  const { data: otpData, error: otpError } = await supabase.auth.verifyOtp({
+    email: email,
+    token: token,
+    type: "email",
+  });
+  // console.log("otpData", otpData);
+  if (otpError) {
+    throw otpError;
+  }
+  if (otpData) {
     return otpData;
-  } catch (error) {
-    console.log("otpError", error);
-    throw error;
   }
 }
 
-export function OTPForm({ onVerified = () => {} }: { onVerified?: any }) {
+export function OTPForm({ onVerified = () => { } }: { onVerified?: any }) {
   const [email, setEmail] = useAtom(signUpEmailAtom);
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -69,7 +68,7 @@ export function OTPForm({ onVerified = () => {} }: { onVerified?: any }) {
         onVerified(data);
       })
       .catch((err) => {
-        throw err;
+        console.error(err);
       })
       .finally(() => {
         setLoading(false);
@@ -84,7 +83,7 @@ export function OTPForm({ onVerified = () => {} }: { onVerified?: any }) {
 
   return (
     <Form {...form}>
-      <div className="flex flex-row gap-2 text-black">
+      <div className="flex flex-row gap-2">
         {/* <Button onClick={() => onSubmit(otp)}>Log otp</Button> */}
         <form
           onSubmit={form.handleSubmit(onSubmit)}

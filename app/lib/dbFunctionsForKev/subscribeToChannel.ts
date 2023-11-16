@@ -16,8 +16,8 @@ const insertChannelToPodcastChannelsTable = async (channelID: string) => {
     if (data.length > 0) {
       console.log(
         "channel " +
-          channelID +
-          " is already present in 'podcast_channels'. Proceed to subscribeToChannel"
+        channelID +
+        " is already present in 'podcast_channels'. Proceed to subscribeToChannel"
       );
       return;
     }

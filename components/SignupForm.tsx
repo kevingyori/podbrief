@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "./ui/button";
-import Link from "next/link";
+import { useEffect } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -8,16 +8,12 @@ import * as z from "zod";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
-  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
-import { redirect, useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { useAtom } from "jotai";
 import { signUpEmailAtom } from "@/app/lib/store";
 
@@ -38,6 +34,8 @@ function SignupForm() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     setEmail(values.email);
+
+    console.log("values", values);
     router.push("/signup/1");
   }
 
@@ -47,11 +45,11 @@ function SignupForm() {
   }, []);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col md:h-32 mx-2 md:mx-0">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-8 md:max-w-sm mt-32"
+          className="space-y-8 md:max-w-sm"
         >
           <FormField
             control={form.control}
@@ -61,7 +59,7 @@ function SignupForm() {
                 <FormControl>
                   <Input
                     placeholder="name@probablygmail.com"
-                    className="h-14 -mb-5 text-md text-black bg-[#ffffff8d] focus-visible:ring-gray-400 border-white"
+                    className="h-14 -mb-5 text-md "
                     {...field}
                   />
                 </FormControl>
@@ -69,20 +67,14 @@ function SignupForm() {
             )}
           />
           <Button
-            className=" text-lg py-7 bg-white w-full"
+            className="text-lg text-black font-medium py-7 w-full bg-gold hover:bg-goldDark"
             variant="secondary"
             type="submit"
           >
-            Get your briefing now
+            Subscribe for Free
           </Button>
         </form>
       </Form>
-      <Link
-        className="md:max-w-sm w-full text-center mt-2 text-lg"
-        href="/dashboard"
-      >
-        Sign in
-      </Link>
     </div>
   );
 }
