@@ -17,15 +17,12 @@ export type Podcast =
   | null
   | undefined;
 
-export const searchQueryAtom = atom("");
+export const searchQueryAtom = atom("Huberman Lab");
 export const searchResultsAtom = atom(podcastSeries);
 export const selectedPodcastsAtom = atomWithStorage<Podcast[]>(
   "selectedPodcasts",
   [],
   storage
-);
-export const selectedPodcastsLengthAtom = atom(
-  (get) => get(selectedPodcastsAtom)?.length
 );
 
 export const signUpEmailAtom = atomWithStorage<string>(

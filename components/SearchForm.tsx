@@ -9,35 +9,20 @@ import {
 } from "@/components/ui/form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { set, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Loader, Search } from "lucide-react";
 import { useAtom } from "jotai";
-import { searchQueryAtom, searchResultsAtom } from "@/app/lib/store";
+import { searchQueryAtom } from "@/app/lib/store";
 import { ArrowRight } from "lucide-react";
 import { selectedPodcastsAtom } from "@/app/lib/store";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
+import { fetchPodcasts } from "@/app/lib/data/search";
 
 export const searchFormSchema = z.object({
   searchQuery: z.string(),
 });
-
-const getData = async ({ searchQuery }: { searchQuery: string }) => {
-  try {
-    const response = await fetch("http://localhost:3000/api/searchPodcast", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ searchQuery: searchQuery }),
-    });
-    const jsonData = await response.json();
-    return jsonData;
-  } catch (error) {
-    console.error("Error fetching data:", error);
-  }
-};
 
 export default function ContinueButton() {
   const router = useRouter();
@@ -61,22 +46,19 @@ export default function ContinueButton() {
 
 export const SearchForm = () => {
   const [searchQuery, setSearchQuery] = useAtom(searchQueryAtom);
-  const [searchResults, setSearchResults] = useAtom(searchResultsAtom);
-  const [loading, setLoading] = useState(false);
+
+  const { isSuccess, refetch } = useQuery({
+    queryKey: ['searchResults', searchQuery],
+    queryFn: () => fetchPodcasts(searchQuery),
+    refetchOnWindowFocus: false,
+    // refetchOnMount: false,
+    refetchOnReconnect: false,
+  })
 
   function onSubmit(values: z.infer<typeof searchFormSchema>) {
-    setLoading(true);
-    console.log("set loading to true");
-    getData({ searchQuery: values.searchQuery })
-      .then((data) => {
-        console.log(data);
-        setSearchResults(data.searchForTerm.podcastSeries);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-        setLoading(false);
-      });
+    refetch();
+    setSearchQuery(values.searchQuery);
+    console.log("searchQuery", searchQuery);
   }
 
   const form = useForm<z.infer<typeof searchFormSchema>>({
@@ -87,7 +69,7 @@ export const SearchForm = () => {
   });
 
   return (
-    <div>
+    <div >
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -109,8 +91,8 @@ export const SearchForm = () => {
               </FormItem>
             )}
           />
-          <Button type="submit" className="text-md h-14">
-            {loading ? <Loader className="animate-spin" /> : <Search />}
+          <Button type="submit" className="text-md h-14 bg-gold hover:bg-goldDark text-black">
+            {isSuccess ? <Search /> : <Loader className="animate-spin" />}
           </Button>
         </form>
       </Form>

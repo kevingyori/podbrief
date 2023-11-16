@@ -5,7 +5,6 @@ import CtaSection from "@/components/CtaSection";
 import HeaderCta from "@/components/HeaderCta";
 
 export default async function Home() {
-    
 
   return (
     <main className="">

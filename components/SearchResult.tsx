@@ -1,40 +1,38 @@
-import { Podcast } from "@/app/lib/store";
+import { Podcast, selectedPodcastsAtom } from "@/app/lib/store";
 import { Card, CardDescription, CardHeader, CardTitle } from "./ui/card"
 import { Checkbox } from "./ui/checkbox"
 import { Label } from "./ui/label"
-import { memo } from "react";
 import { PodcastImage } from "./PodcastImage";
-
-type HandleCheckedChange = (e: boolean | string, podcast: Podcast) => void;
+import { useAtom } from "jotai";
+import { updateSelectedPodcasts } from "@/lib/utils";
 
 type SearchResultProps = {
   podcast: Podcast
-  selectedPodcasts: Podcast[]
-  handleCheckedChange: HandleCheckedChange
 }
 
-function SearchResult({ podcast, selectedPodcasts, handleCheckedChange }: SearchResultProps) {
+export function SearchResult({ podcast }: SearchResultProps) {
+  const [selectedPodcasts, setSelectedPodcasts] = useAtom(selectedPodcastsAtom);
   if (podcast) {
     return (
-      <div key={podcast.uuid}>
+      <div>
         <Checkbox
           id={podcast.uuid}
           className="hidden peer group"
-          onCheckedChange={(e) => handleCheckedChange(e, podcast)}
+          onCheckedChange={(e) => updateSelectedPodcasts(e, podcast, selectedPodcasts, setSelectedPodcasts)}
           checked={selectedPodcasts.some(
             (item) => item?.uuid === podcast.uuid
           )}
         />
         <Label
           htmlFor={podcast.uuid}
-          className="border-[3px] border-white peer-data-[state=checked]:border-gold peer-data-[state=checked]:bg-gray-100 inline-block rounded-lg bg-white min-w-full cursor-pointer"
+          className="border-[3px] border-white peer-data-[state=checked]:border-goldDark peer-data-[state=checked]:bg-gray-100 inline-block rounded-lg bg-white min-w-full cursor-pointer"
         >
           <Card
             className="bg-[#ffffff00]"
           >
             <CardHeader className="flex flex-row p-2 gap-2 items-center bg-opacity-0 ">
-              <div className="min-w-[80px] rounded-md">
-                <PodcastImage src={podcast.imageUrl} alt={podcast.name} />
+              <div className="min-w-[80px] w-20 h-20 rounded-md">
+                <PodcastImage src={podcast.imageUrl} alt={podcast.name} animationDuration={0} uuid={podcast.uuid} />
               </div>
               <div className="shrink">
                 <div className="grid">
@@ -52,8 +50,6 @@ function SearchResult({ podcast, selectedPodcasts, handleCheckedChange }: Search
       </div>
     )
   } else {
-    return <div></div>
+    return null
   }
 }
-
-export default memo(SearchResult)

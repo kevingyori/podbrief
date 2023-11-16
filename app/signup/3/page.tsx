@@ -2,7 +2,6 @@
 import { selectedPodcastsAtom, signUpEmailAtom } from "@/app/lib/store";
 import { OTPForm } from "@/components/OTPForm";
 import { Button } from "@/components/ui/button";
-import supabase from "@/lib/supabase";
 import { Provider, useAtom } from "jotai";
 import Link from "next/link";
 import { useState } from "react";
@@ -66,16 +65,10 @@ function Page() {
         {isVerified ? (
           <>
             <h1 className="text-xl">Yay! You have subbed!</h1>
-            <h2>Next steps</h2>
-            <h3>Manage subscription</h3>
+            {/* <h2>Next steps</h2> */}
+            {/* <h3>Manage subscription</h3> */}
             <Link href="/dashboard">
-              <Button
-              // onClick={() => {
-              //   supabase.auth.getUser().then((result: any) => {
-              //     console.log("result", result);
-              //   });
-              // }}
-              >
+              <Button>
                 Go to my dashboard
               </Button>
             </Link>

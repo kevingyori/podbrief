@@ -1,8 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-// import { createClient } from "@supabase/supabase-js";
-import { Edit, Loader, Mail, Search, UnlockIcon } from "lucide-react";
+import { Loader, Mail } from "lucide-react";
 import { useEffect, useState } from "react";
 import supabase from "@/lib/supabase";
 import EditOrSub from "@/components/EditOrSub";
@@ -10,8 +9,6 @@ import { OTPForm } from "@/components/OTPForm";
 import { subscribedPodcastsAtom } from "../lib/store";
 
 async function signInWithEmail(email: string) {
-  //   const email;
-
   const { data, error } = await supabase.auth.signInWithOtp({
     email: email,
     options: {
@@ -23,19 +20,20 @@ async function signInWithEmail(email: string) {
   return [data, error];
 }
 
-async function verifyOtp(email: string, token: string) {
-  console.log("email", email, "token", token);
-  try {
-    const { data: otpData, error: otpError } = await supabase.auth.verifyOtp({
-      email: email,
-      token: token,
-      type: "email",
-    });
-    console.log("otpData", otpData);
-  } catch (error) {
-    console.log("otpError", error);
-  }
-}
+// async function verifyOtp(email: string, token: string) {
+//   console.log("email", email, "token", token);
+//   try {
+//     const { data: otpData, error: otpError } = await supabase.auth.verifyOtp({
+//       email: email,
+//       token: token,
+//       type: "email",
+//     });
+//     console.log("otpData", otpData);
+//   } catch (error) {
+//     console.log("otpError", error);
+//   }
+// }
+
 
 const fetchSubscription = async (userId: string) => {
   try {
@@ -60,7 +58,7 @@ function Page() {
   const [session, setSession] = useState(null);
   const [email, setEmail] = useState("");
   const [token, setToken] = useState("");
-  const [emailData, setEmailData] = useState(null);
+  const [loginEmail, setLoginEmail] = useState(null);
   const [emailLoading, setEmailLoading] = useState(false);
   const [otpLoading, setOtpLoading] = useState(false);
   const [subscribedPodcasts, setSubscribedPodcasts] = useState(
@@ -86,9 +84,9 @@ function Page() {
     return () => subscription.unsubscribe();
   }, []);
 
-  useEffect(() => {
-    console.log("subscribedPodcasts", subscribedPodcasts);
-  }, [subscribedPodcasts]);
+  // useEffect(() => {
+  //   console.log("subscribedPodcasts", subscribedPodcasts);
+  // }, [subscribedPodcasts]);
 
   const handleEmail = async (email: string) => {
     setEmailLoading(true);
@@ -96,44 +94,22 @@ function Page() {
     if (error) {
       console.error(error);
     } else {
-      console.log("data", data);
-      setEmailData(data);
+      console.log("email data", data);
+      setLoginEmail(data);
     }
     setEmailLoading(false);
   };
 
-  const handleOtp = async (email: string, token: string) => {
-    setOtpLoading(true);
-    await verifyOtp(email, token);
-    setOtpLoading(false);
-  };
+  // const handleOtp = async (email: string, token: string) => {
+  //   setOtpLoading(true);
+  //   await verifyOtp(email, token);
+  //   setOtpLoading(false);
+  // };
 
   if (!session) {
     return (
       <div className="mt-[50%] md:mt-[30%] flex justify-center items-center">
-        {emailData ? (
-          <OTPForm />
-        ) : (
-          // <div>
-          //   <Input
-          //     placeholder="123456"
-          //     value={token}
-          //     onChange={(e) => setToken(e.target.value)}
-          //     className="w-64 h-14 mb-2 text-md text-black bg-[#ffffff8d] focus-visible:ring-gray-400 border-white"
-          //   />
-          //   <Button
-          //     className="w-full h-14 mt-2 text-md bg-white opacity-95"
-          //     variant="secondary"
-          //     onClick={() => handleOtp(email, token)}
-          //   >
-          //     Verify OTP
-          //     {emailLoading ? (
-          //       <Loader className="animate-spin ml-2" />
-          //     ) : (
-          //       <UnlockIcon className="ml-2" />
-          //     )}
-          //   </Button>
-          // </div>
+        {!loginEmail ? (
           <div>
             <Input
               placeholder="your@email.com"
@@ -154,13 +130,15 @@ function Page() {
               )}
             </Button>
           </div>
+        ) : (
+          <OTPForm />
         )}
       </div>
     );
   } else {
     return (
       <div className="md:mx-auto md:max-w-xl">
-        <EditOrSub type="unsub" />
+        <EditOrSub type="unsub" podcasts={subscribedPodcasts} setPodcasts={setSubscribedPodcasts} />
       </div>
     );
   }
