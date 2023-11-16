@@ -1,5 +1,6 @@
 import { TESTIMONIALS } from "@/lib/constants"
 import SectionHeader from "./SectionHeader"
+import Image from "next/image"
 
 export default function Component() {
   return (
@@ -12,7 +13,7 @@ export default function Component() {
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-5 md:gap-8 lg:gap-10 mt-20 h-max">
           {TESTIMONIALS.map((testimonial, i) => (
             <div className="flex flex-col items-center justify-between" key={i}>
-              <img
+              <Image
                 alt="Testimonial 1"
                 className="rounded-full object-cover"
                 height="80"
