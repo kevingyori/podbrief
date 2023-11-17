@@ -163,7 +163,7 @@ export default function EditOrSub({ type, podcasts }: { type: "sub" | "unsub", p
                 className="w-full h-14 mt-2 text-md bg-[#ffffffd0]  opacity-95"
                 variant="secondary"
                 onClick={() => supabase.auth.signOut()}
-                disabled={podcasts.length > 0 ? false : true}
+              // disabled={podcasts.length > 0 ? false : true}
               >
                 Sign out
                 <LogOut className="ml-2" />

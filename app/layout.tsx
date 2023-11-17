@@ -25,6 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${poppins.variable}`}>
       <head>
+        <link rel="icon" href="/favicon.png" />
       </head>
       <body className="bg-background text-white">
         <Providers>
