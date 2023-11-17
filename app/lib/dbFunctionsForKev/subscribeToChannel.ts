@@ -1,5 +1,4 @@
 import { supabase } from "../../api/supabase";
-// const getPodcastSeriesInfo = require("../../lib/podcastAPI/getPodcastChannelInfo.ts");
 import { getPodcastChannelInfo } from "../podcastAPI/getPodcastChannelInfo";
 
 const insertChannelToPodcastChannelsTable = async (channelID: string) => {
