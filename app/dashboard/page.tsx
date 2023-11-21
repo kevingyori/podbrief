@@ -110,7 +110,7 @@ function Page() {
 
   if (!session) {
     return (
-      <div className="mt-[50%] md:mt-[30%] flex justify-center items-center overflow-hidden">
+      <div className="mt-[50%] md:mt-[30%] flex justify-center items-center overflow-hidden h-[100dvh]">
         {!loginEmail ? (
           <div>
             <Input
@@ -139,7 +139,7 @@ function Page() {
     );
   } else {
     return (
-      <div className="md:mx-auto md:max-w-xl overflow-hidden">
+      <div className="md:mx-auto md:max-w-xl overflow-hidden h-[100dvh]">
         <SignupDashboard type="dashboard" podcasts={subscribedPodcasts} setPodcasts={setSubscribedPodcasts} />
       </div>
     );

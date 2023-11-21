@@ -6,7 +6,7 @@ import { Provider, useAtom } from "jotai";
 function Container() {
   const [selectedPodcasts, setSelectedPodcasts] = useAtom(selectedPodcastsAtom);
   return (
-    <div className="md:mx-auto md:max-w-xl overflow-hidden">
+    <div className="md:mx-auto md:max-w-xl overflow-hidden w-[100dvh]">
       <SignupDashboard type="signup" podcasts={selectedPodcasts} setPodcasts={setSelectedPodcasts} />
     </div>
   )
