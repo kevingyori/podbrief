@@ -9,7 +9,7 @@ function Expectations() {
           <div className="space-y-4" key={i}>
             <div>
               <h3 className="text-2xl font-medium tracking-tighter">{summary.title}</h3>
-              <p className="text-zinc-500 dark:text-zinc-400">{summary.episode}</p>
+              <p className="text-muted-foreground">{summary.episode}</p>
             </div>
             <p>{summary.summary}</p>
           </div>

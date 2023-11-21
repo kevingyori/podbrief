@@ -4,9 +4,9 @@ import { Input } from "@/components/ui/input";
 import { Loader, Mail } from "lucide-react";
 import { useEffect, useState } from "react";
 import supabase from "@/lib/supabase";
-import EditOrSub from "@/components/EditOrSub";
 import { OTPForm } from "@/components/OTPForm";
-import { subscribedPodcastsAtom } from "../lib/store";
+import { Podcast, subscribedPodcastsAtom } from "../lib/store";
+import { SignupDashboard } from "@/components/SignupDashboard";
 
 async function signInWithEmail(email: string) {
   const { data, error } = await supabase.auth.signInWithOtp({
@@ -69,7 +69,9 @@ function Page() {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
     });
+  }, []);
 
+  useEffect(() => {
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
@@ -108,14 +110,14 @@ function Page() {
 
   if (!session) {
     return (
-      <div className="mt-[50%] md:mt-[30%] flex justify-center items-center">
+      <div className="mt-[50%] md:mt-[30%] flex justify-center items-center overflow-hidden">
         {!loginEmail ? (
           <div>
             <Input
               placeholder="your@email.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-64 h-14 mb-2 text-md text-black bg-[#ffffff8d] focus-visible:ring-gray-400 border-white"
+              className="w-64 h-14 mb-2 text-md focus-visible:ring-gray-400 border-white"
             />
             <Button
               className="w-full h-14 mt-2 text-md bg-white opacity-95"
@@ -137,8 +139,8 @@ function Page() {
     );
   } else {
     return (
-      <div className="md:mx-auto md:max-w-xl">
-        <EditOrSub type="unsub" podcasts={subscribedPodcasts} setPodcasts={setSubscribedPodcasts} />
+      <div className="md:mx-auto md:max-w-xl overflow-hidden">
+        <SignupDashboard type="dashboard" podcasts={subscribedPodcasts} setPodcasts={setSubscribedPodcasts} />
       </div>
     );
   }

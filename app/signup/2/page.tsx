@@ -1,13 +1,13 @@
 'use client';
 import { selectedPodcastsAtom } from "@/app/lib/store";
-import EditOrSub from "@/components/EditOrSub";
+import { SignupDashboard } from "@/components/SignupDashboard";
 import { Provider, useAtom } from "jotai";
 
 function Container() {
   const [selectedPodcasts, setSelectedPodcasts] = useAtom(selectedPodcastsAtom);
   return (
-    <div className="md:mx-auto md:max-w-xl">
-      <EditOrSub type="sub" podcasts={selectedPodcasts} setPodcasts={setSelectedPodcasts} />
+    <div className="md:mx-auto md:max-w-xl overflow-hidden">
+      <SignupDashboard type="signup" podcasts={selectedPodcasts} setPodcasts={setSelectedPodcasts} />
     </div>
   )
 }

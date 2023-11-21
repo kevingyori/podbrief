@@ -11,7 +11,6 @@ export default function Home() {
   return (
     <main className="">
       <div className="md:max-w-7xl mx-auto md:pt-10">
-
         <Reveal>
           <HeaderCta />
         </Reveal>

@@ -5,7 +5,6 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormMessage,
 } from "@/components/ui/form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -17,14 +16,15 @@ import { searchQueryAtom } from "@/app/lib/store";
 import { ArrowRight } from "lucide-react";
 import { selectedPodcastsAtom } from "@/app/lib/store";
 import { useRouter } from "next/navigation";
-import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { fetchPodcasts } from "@/app/lib/data/search";
+import { lazy } from "react";
 
 export const searchFormSchema = z.object({
   searchQuery: z.string(),
 });
 
-export default function ContinueButton() {
+export function ContinueButton() {
   const router = useRouter();
   const [selectedPodcasts] = useAtom(selectedPodcastsAtom);
   const handleSubmit = () => {
@@ -44,14 +44,13 @@ export default function ContinueButton() {
   );
 }
 
-export const SearchForm = () => {
+export const PodcastSearch = () => {
   const [searchQuery, setSearchQuery] = useAtom(searchQueryAtom);
 
   const { isSuccess, refetch } = useQuery({
     queryKey: ['searchResults', searchQuery],
     queryFn: () => fetchPodcasts(searchQuery),
     refetchOnWindowFocus: false,
-    // refetchOnMount: false,
     refetchOnReconnect: false,
   })
 
@@ -84,10 +83,9 @@ export const SearchForm = () => {
                   <Input
                     placeholder="Search podcast"
                     {...field}
-                    className="h-14 text-md bg-[#ffffff8d] focus-visible:ring-transparent border-white"
+                    className="h-14 text-md text-white focus-visible:ring-transparent border-white"
                   />
                 </FormControl>
-                <FormMessage className="text-white" />
               </FormItem>
             )}
           />
@@ -100,3 +98,5 @@ export const SearchForm = () => {
     </div>
   );
 };
+
+export default PodcastSearch;

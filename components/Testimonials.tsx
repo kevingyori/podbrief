@@ -29,7 +29,7 @@ export default function Component() {
               </blockquote>
               <div className="flex flex-col items-center">
                 <p className="font-medium">{testimonial.name}</p>
-                <p className="text-sm text-zinc-500 dark:text-zinc-400">{testimonial.title}</p>
+                <p className="text-sm text-muted-foreground">{testimonial.title}</p>
               </div>
             </div>
           ))}

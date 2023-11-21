@@ -59,7 +59,7 @@ function SignupForm() {
                 <FormControl>
                   <Input
                     placeholder="name@probablygmail.com"
-                    className="h-14 -mb-5 text-md "
+                    className="h-14 -mb-5 text-md"
                     {...field}
                   />
                 </FormControl>

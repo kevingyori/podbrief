@@ -1,12 +1,17 @@
 'use client';
-import Search from "@/components/Search";
+import SearchResults from "@/components/SearchResults";
 import { Provider } from "jotai";
 
 const Page = () => {
   return (
     <Provider>
-      <div className="px-2">
-        <Search />
+      <div
+        className="flex flex-col px-2 overflow-hidden"
+        style={{
+          height: "calc(100dvh - 3rem)",
+        }}
+      >
+        <SearchResults />
       </div>
     </Provider>
   );

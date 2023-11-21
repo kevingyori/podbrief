@@ -1,5 +1,5 @@
 import { Variants, motion, useInView } from "framer-motion"
-import { useEffect, useRef } from "react"
+import { useRef } from "react"
 
 // const container: Variants = {
 //   initial: { opacity: 1 },
@@ -25,12 +25,12 @@ const item: Variants = {
   }
 }
 
-function Reveal({ children }: { children: React.ReactNode }) {
+function Reveal({ children, className }: { children: React.ReactNode, className?: string }) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true })
 
   return (
-    <motion.div ref={ref} variants={item} initial='initial' animate={isInView ? 'animate' : 'initial'} >
+    <motion.div className={className} ref={ref} variants={item} initial='initial' animate={isInView ? 'animate' : 'initial'} >
       {/* <motion.div variants={item} > */}
       {children}
       {/* </motion.div> */}
