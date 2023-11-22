@@ -1,10 +1,12 @@
 'use client'
-import Footer from "@/components/Footer";
 import Testimonials from "@/components/Testimonials";
 import Expectations from "@/components/Expectations";
-import CtaSection from "@/components/CtaSection";
 import HeaderCta from "@/components/HeaderCta";
 import Reveal from "@/components/Reveal";
+import dynamic from "next/dynamic";
+
+const LazyCtaSection = dynamic(() => import("@/components/CtaSection"))
+const LazyFooter = dynamic(() => import("@/components/Footer"))
 
 export default function Home() {
 
@@ -21,10 +23,10 @@ export default function Home() {
           <Testimonials />
         </Reveal>
         <Reveal>
-          <CtaSection />
+          <LazyCtaSection />
         </Reveal>
       </div>
-      <Footer />
+      <LazyFooter />
     </main>
   );
 }

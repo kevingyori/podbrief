@@ -6,35 +6,14 @@ import {
 } from "@/app/lib/store";
 import { useAtom } from "jotai";
 import { ScrollArea } from "./ui/scroll-area";
-// import { PodcastSearch } from "./SearchForm";
 import { motion, AnimatePresence } from "framer-motion";
 import { SearchResult } from "./SearchResult";
-import { PodcastImage } from "./PodcastImage";
 import { useQuery } from "@tanstack/react-query";
 import { fetchPodcasts } from "@/app/lib/data/search";
-import { removeClickedPodcast } from "@/lib/utils";
-import Reveal from "./Reveal";
-import { lazy } from "react";
+import dynamic from "next/dynamic";
 
-const LazyPodcastSearch = lazy(() => import("./SearchForm"));
-
-function SelectedPodcast({ podcast, selectedPodcasts, setSelectedPodcasts }:
-  { podcast: Podcast, selectedPodcasts: Podcast[], setSelectedPodcasts: any }) {
-  return (
-    <motion.div
-      layout
-      initial={{ height: 0, opacity: 0 }}
-      animate={{ height: '5rem', opacity: 1 }}
-      exit={{ height: 0, opacity: 0 }}
-      transition={{ type: "smooth" }}
-      key={podcast?.uuid}
-      onClick={() => podcast && removeClickedPodcast(podcast.uuid, selectedPodcasts, setSelectedPodcasts)}
-      className="cursor-pointer"
-    >
-      <PodcastImage src={podcast?.imageUrl} alt={podcast?.name} uuid={podcast?.uuid} animationDuration={1} />
-    </motion.div>
-  )
-}
+const LazyPodcastSearch = dynamic(() => import("./SearchForm"));
+const LazySelectedPodcast = dynamic(() => import("./SelectedPodcast"));
 
 function SearchResults() {
   const [searchQuery] = useAtom(searchQueryAtom);
@@ -62,7 +41,7 @@ function SearchResults() {
       >
         <AnimatePresence mode="popLayout">
           {selectedPodcasts.map((podcast) => (
-            <SelectedPodcast key={podcast?.uuid} podcast={podcast} selectedPodcasts={selectedPodcasts} setSelectedPodcasts={setSelectedPodcasts} />
+            <LazySelectedPodcast key={podcast?.uuid} podcast={podcast} selectedPodcasts={selectedPodcasts} setSelectedPodcasts={setSelectedPodcasts} />
           ))}
         </AnimatePresence>
       </div>

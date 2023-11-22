@@ -1,6 +1,9 @@
-import SignupForm from "@/components/SignupForm";
+// import SignupForm from "@/components/SignupForm";
 import Image from "next/image";
 import hero from "@/public/iphone-with-podcasts.png";
+import dynamic from "next/dynamic";
+
+const LazySignupForm = dynamic(() => import("@/components/SignupForm"))
 
 function HeaderCta() {
   return (
@@ -12,7 +15,7 @@ function HeaderCta() {
         <h2 className="text-center mt-5 px-4 md:px-0 text-md leading-snug xsm:text-lg md:text-left md:max-w-xl mb-10">
           Never miss the wisdom of your favorite podcasts, summarized for your convenience.
         </h2>
-        <SignupForm />
+        <LazySignupForm />
       </div>
       <div className="flex justify-center w-full mt-10 md:mt-0 mx-2 md:mx-0">
         <div>
